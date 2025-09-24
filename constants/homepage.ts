@@ -3,6 +3,17 @@ export interface FaqItem {
   a: string;
 }
 
+export type StatItem = { heading: string; content: string };
+
+export interface TestimonialCardPropsType {
+  quote: string;
+  isActive?: boolean;
+  bottomMode: "author" | "stats";
+  authorName?: string;
+  authorMeta?: string;
+  stats?: StatItem[];
+}
+
 export const QUESTION_CLASS =
   "font-romanica font-normal text-[20px] leading-[1] tracking-[0] uppercase";
 
@@ -52,6 +63,80 @@ export const TESTIMONIALS: TestimonialItem[] = [
     author: "Noah W., Engaged Trader",
     variant: "dark",
   },
+];
+
+import toolCardImage from "@/public/assets/tool-card-1.svg";
+import toolCardImage2 from "@/public/assets/tool-card-2.svg";
+import toolCardImage3 from "@/public/assets/tool-card-3.svg";
+import metaTrader from "@/public/assets/meta-trade-icon.svg";
+import cTrader from "@/public/assets/cTrade-icon.svg";
+import traderIcon from "@/public/assets/trader-icon.svg";
+
+export type ToolCardConfig = {
+  title: string;
+  description: string;
+  icon: any;
+  image: any;
+  blobClass: string;
+  imageWrapperClass: string;
+};
+
+export const TOOLS_CARDS: ToolCardConfig[] = [
+  {
+    title: "SCALING PROGRAM",
+    description:
+      "Chart like a pro, automate your strategies, and trade with precision.",
+    icon: metaTrader,
+    image: toolCardImage,
+    blobClass:
+      "bg-gradient-to-t from-purple rounded-full to-blue h-[400px] -rotate-135 w-[100px] blur-[150px] -top-[250px] right-0 absolute",
+    imageWrapperClass:
+      "w-[80%] translate-x-[30%] translate-y-[17%] mt-[-50px] sm:mt-[-20px] lg:mt-[-50px]",
+  },
+  {
+    title: "CTRADER",
+    description: "Speedy execution and slick layouts for traders who move fast.",
+    icon: cTrader,
+    image: toolCardImage2,
+    blobClass:
+      "bg-gradient-to-t from-purple rounded-full to-blue h-[400px] -rotate-135 w-[100px] blur-[150px] -top-[200px] left-0 absolute",
+    imageWrapperClass:
+      "w-[80%] translate-x-[30%] translate-y-[17%] mt-[-50px] sm:mt-[-20px] lg:mt-[-50px]",
+  },
+  {
+    title: "MATCH TRADER",
+    description: "Clean, intuitive, and perfect for any skill level.",
+    icon: traderIcon,
+    image: toolCardImage3,
+    blobClass:
+      "bg-gradient-to-t from-purple rounded-full to-blue h-[400px] -rotate-135 w-[100px] blur-[150px] -top-[300px] left-[-100px] absolute",
+    imageWrapperClass:
+      "w-[80%] translate-x-[30%] translate-y-[17%] mt-[-60px] sm:mt-[-20px] lg:mt-[-50px]",
+  },
+];
+
+// Titan Trader cards
+import marbleHand from "@/public/assets/marble-hand.svg";
+import marbleClock from "@/public/assets/marble-clock.svg";
+import marbleCoin from "@/public/assets/marble-coin.svg";
+import marbleStairs from "@/public/assets/marble-stairs.svg";
+import marbleBlocks from "@/public/assets/marble-blocks.svg";
+
+export type TitanCardConfig = { title: string; img: any };
+
+export const TITAN_LEFT_CARDS: TitanCardConfig[] = [
+  { title: "NO TIME LIMITS", img: marbleClock },
+  { title: "COMPETITIVE PRICING", img: marbleCoin },
+];
+
+export const TITAN_MIDDLE_CARD: TitanCardConfig = {
+  title: "",
+  img: marbleHand,
+};
+
+export const TITAN_RIGHT_CARDS: TitanCardConfig[] = [
+  { title: "SCALING PROGRAM", img: marbleStairs },
+  { title: "REAL-TIME FEEDBACK", img: marbleBlocks },
 ];
 
 

@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <GlobalSection />
       <FundedSection />
+      <GlobalSection />
       <MasterOlympusSection />
       <MasterChallengeSection />
       <MarketShieldSection />

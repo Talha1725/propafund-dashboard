@@ -6,11 +6,11 @@ import Image from "next/image";
 import trustPilotLogo from "@/public/assets/trustpilot.svg";
 import trustAdvisorLogo from "@/public/assets/trust-advisor.svg";
 import savingTradersLogo from "@/public/assets/saving-traders.svg";
-import { TESTIMONIALS, QUESTION_CLASS } from "@/constants/homepage";
-import Frame from "../common/frame";
+import { TESTIMONIALS } from "@/constants/homepage";
 import * as React from "react";
 import Glow from "../common/glow";
 import { Button } from "../ui/button";
+import TestimonialCard from "../common/testimonial-card";
 
 
 export default function TestimonialSection() {
@@ -59,23 +59,13 @@ export default function TestimonialSection() {
               }`}
             >
               <div className="relative w-full">
-                {isActive ? (
-                  <Frame variants="white">
-                    <div className="p-8 text-center  gradient-primary text-white">
-                      <p className={QUESTION_CLASS || "font-romanica uppercase font-regular text-[22px] md:text-2xl leading-snug"}>
-                        {quote}
-                      </p>
-                      <p className="mt-6 text-[16px] creato-display font-regular text-white/90">{author}</p>
-                    </div>
-                  </Frame>
-                ) : (
-                  <div className="relative h-full p-8 text-center text-white/90 shadow-lg" style={{ background: "linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%)" }}>
-                    <p className={QUESTION_CLASS || "font-romanica uppercase text-xl md:text-2xl leading-snug"}>
-                      {quote}
-                    </p>
-                    <p className="mt-6 text-sm text-white/50">{author}</p>
-                  </div>
-                )}
+                <TestimonialCard
+                  quote={quote}
+                  isActive={isActive}
+                  bottomMode="author"
+                  authorName={author}
+                  authorMeta="25K Account"
+                />
               </div>
             </div>
           );})}

@@ -6,7 +6,7 @@ import BrandsMarquee from "./brands-marquee";
 
 export default function GlobalSection() {
   return (
-    <div className="font-creato-display py-30">
+    <div className="font-creato-display">
       <Container>
         <SectionHeader
           title="Seen On Global Platforms"

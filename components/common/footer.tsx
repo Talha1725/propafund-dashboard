@@ -5,30 +5,26 @@ import Logo from "@/public/assets/propafund-logo.svg";
 import { Youtube, Instagram, Twitter, MessageCircle } from "lucide-react";
 import { Button } from "../ui/button";
 import Glow from "./glow";
+import { FOOTER_QUICKLINKS, FOOTER_LEGAL, FOOTER_SOCIALS, type FooterSocial } from "@/constants/footer";
 
 export default function Footer() {
   const headingClass = "font-romanica font-normal text-[22px] leading-[1] uppercase";
   const itemClass = "text-white/70 font-creato-display font-normal text-[16px] leading-[1]";
 
-  const quicklinks = [
-    { label: "Evaluation", href: "#" },
-    { label: "Pricing", href: "#" },
-    { label: "Testimonials", href: "#" },
-    { label: "FAQs", href: "#" },
+  const quicklinks = FOOTER_QUICKLINKS;
+  const legal = FOOTER_LEGAL;
+  const sections = [
+    { title: "Quicklinks", items: quicklinks },
+    { title: "Legal", items: legal },
   ];
+  const socials = FOOTER_SOCIALS;
 
-  const legal = [
-    { label: "Terms & Conditions", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Legal Disclosure", href: "#" },
-  ];
-
-  const socials = [
-    { label: "YouTube", href: "#", Icon: Youtube },
-    { label: "Instagram", href: "#", Icon: Instagram },
-    { label: "Discord", href: "#", Icon: MessageCircle },
-    { label: "Twitter", href: "#", Icon: Twitter },
-  ];
+  const iconMap: Record<FooterSocial["icon"], React.ComponentType<{ width?: number; height?: number; className?: string }>> = {
+    youtube: Youtube,
+    instagram: Instagram,
+    discord: MessageCircle,
+    twitter: Twitter,
+  };
   return (
     <footer className="relative overflow-hidden border-t border-white/10 pt-16 pb-10 font-creato-display">
       <div className="pointer-events-none absolute -top-50 inset-0 z-0 flex items-start justify-center">
@@ -58,32 +54,25 @@ export default function Footer() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-[90px]">
-            <div className="flex flex-col gap-[10px]">
-              <h4 className={headingClass}>Quicklinks</h4>
-              <ul className="flex flex-col gap-[10px] text-left sm:text-left">
-                {quicklinks.map((item) => (
-                  <li key={item.label}>
-                    <Link href={item.href} className={itemClass}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="flex flex-col gap-[10px]">
-              <h4 className={headingClass}>Legal</h4>
-              <ul className="flex flex-col gap-[10px] text-left sm:text-left">
-                {legal.map((item) => (
-                  <li key={item.label}>
-                    <Link href={item.href} className={itemClass}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {sections.map(({ title, items }) => (
+              <div key={title} className="flex flex-col gap-[10px]">
+                <h4 className={headingClass}>{title}</h4>
+                <ul className="flex flex-col gap-[10px] text-left sm:text-left">
+                  {items.map((item) => (
+                    <li key={item.label}>
+                      <Link href={item.href} className={itemClass}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
 
             <div className="flex flex-col gap-[10px]">
               <h4 className={headingClass}>Socials</h4>
               <div className="flex items-center gap-[14px]">
-                {socials.map(({ label, href, Icon }) => (
+                {socials.map(({ label, href, icon }) => {
+                  const Icon = iconMap[icon];
+                  return (
                   <Link
                     key={label}
                     href={href}
@@ -92,7 +81,7 @@ export default function Footer() {
                   >
                     <Icon className="text-white/70" width={21} height={21} />
                   </Link>
-                ))}
+                );})}
               </div>
             </div>
           </div>
