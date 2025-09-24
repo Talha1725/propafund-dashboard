@@ -39,15 +39,17 @@ function Button({
   variant,
   size,
   asChild = false,
+  frameVariant,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    frameVariant?: "white" | "gradient" | "none";
   }) {
   const Comp = asChild ? Slot : "button";
 
   return (
-    <Frame variants={variant === "secondary" ? "gradient" : "white"} className="transition-all duration-300 hover:opacity-80">
+    <Frame variants={frameVariant ?? (variant === "secondary" ? "gradient" : "white")} className="transition-all duration-300 hover:opacity-80">
       {variant === "secondary" && <div className="gradient-text sm:text-[18px] text-[16px] font-medium absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap cursor-pointer">{props.children}</div>}
       <Comp
         data-slot="button"

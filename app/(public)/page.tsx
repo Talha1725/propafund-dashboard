@@ -12,6 +12,8 @@ import TestimonialSection from "@/components/home-page/testimonial-section";
 import TitanTraderSection from "@/components/home-page/titan-trader";
 import ToolsCardsSection from "@/components/home-page/tools-cards";
 import TradeCardsSection from "@/components/home-page/trade-cards";
+import hammer from "@/public/assets/marble-hammer.svg";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -31,6 +33,7 @@ export default function Home() {
       <PlanSelectionSection />  
       <OracleSection />
       <SupportAssistanceSection />  
+      <Image src={hammer} alt="hammer" className="w-full h-full object-cover" />
     </>
   );
 }

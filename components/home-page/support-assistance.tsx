@@ -3,40 +3,11 @@
 
 import Container from "../common/container";
 import SectionHeader from "../common/section-header";
-import Image from "next/image";
-import Glow from "../common/glow";
-import { TOOLS_CARDS, type ToolCardConfig } from "@/constants/homepage";
 import { Button } from "../ui/button";
-
-function ToolCard({
-  title,
-  description,
-  icon,
-  image,
-  blobClass,
-  imageWrapperClass,
-}: ToolCardConfig) {
-  return (
-    <div className="overflow-hidden border border-[#FFFFFF1A] relative w-full !p-0 flex-col flex justify-between" style={{ background: "linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%)" }}>
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-start justify-center">
-        <Glow width={800} height={500} opacity={0.25} />
-      </div>
-      <div className={blobClass}></div>
-      <div className="p-4 relative z-10">
-        <h1 className="md:text-[22px] font-lay-grotesk text-white z-50">{title}</h1>
-        <p className="h-[50px] font-lay-grotesk text-white/50 mt-1 z-50 md:text-[16px] text-[16px] lg:w-[90%]">
-          {description}
-        </p>
-      </div>
-      <div className="w-[39px] absolute bottom-[10px] left-[10px] z-10">
-        <Image src={icon} alt="tool-icon" width={100} height={100} className="w-full z-50 relative" />
-      </div>
-      <div className={`${imageWrapperClass} relative z-10`}>
-        <Image src={image} alt="intro-card-image" width={100} height={100} className="w-full z-50 relative" />
-      </div>
-    </div>
-  );
-}
+import ToolCards from "../common/tool-cards";
+import marbleMail from "@/public/assets/marble-mail.svg";
+import marbleSend from "@/public/assets/marble-send.svg";
+import marbleClipboard from "@/public/assets/marble-clipboard.svg";
 
 export default function SupportAssistanceSection() {
   return (
@@ -44,13 +15,29 @@ export default function SupportAssistanceSection() {
       <Container>
       <SectionHeader
           title="Support & Assistance"
-          text="At PropaFund, we’re committed to guiding you every step of the way.Select the support option that works best for you."
+          text="At PropaFund, we're committed to guiding you every step of the way. Select the support option that works best for you."
         />
-        <div className="w-full grid md:grid-cols-3 gap-10 relative mt-5 sm:mt-15">
-          {TOOLS_CARDS.map((card) => (
-            <ToolCard key={card.title} {...card} />
-          ))}
-        </div>
+        <ToolCards
+          title1="EMAIL SUPPORT"
+          title2="TELEGRAM SUPPORT"
+          title3="WEB SUPPORT TICKET"
+          content1="Reach out to us at support@propafund.com for detailed queries and assistance."
+          content2="Join our community chat on Telegram for real-time assistance"
+          content3="Submit a support ticket through our portal for tracked and prioritized resolutions."
+          image1={marbleMail}
+          image2={marbleSend}
+          image3={marbleClipboard}
+          iconType="button"
+          iconPosition="below-text"
+          buttonText1="Email Us"
+          buttonText2="Join Telegram"
+          buttonText3="Contact Us"
+          imageWrapperClasses={[
+            "w-[264px] h-fit ml-auto mr-0",
+            "w-[250px] h-fit ml-auto mr-0",
+            "w-[181px] h-fit ml-auto mr-0"
+          ]}
+        />
         <div className="flex justify-center mt-10">
           <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded Now</Button>
         </div>
