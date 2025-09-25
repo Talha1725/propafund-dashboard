@@ -4,60 +4,11 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { useState, useEffect, useRef, useCallback, memo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Container from "./container";
 import { NAVBAR_ROUTES } from "@/constants/routes";
 
-const NavLink = memo(({ href, label, isActive, onClick }: {
-  href: string;
-  label: string;
-  isActive: boolean;
-  onClick?: () => void;
-}) => (
-  <li>
-    <Link
-      href={href}
-      onClick={onClick}
-      className={`hover:text-blue transition-all duration-300 ${
-        isActive ? "text-blue" : ""
-      }`}
-    >
-      {label}
-    </Link>
-  </li>
-));
-
-const MobileNavLink = memo(({ href, label, isActive, onClick }: {
-  href: string;
-  label: string;
-  isActive: boolean;
-  onClick: () => void;
-}) => (
-  <li>
-    <Link
-      href={href}
-      onClick={onClick}
-      className={`block text-lg hover:text-blue transition-all duration-300 ${
-        isActive ? "text-blue" : "text-white"
-      }`}
-    >
-      {label}
-    </Link>
-  </li>
-));
-
-const HamburgerButton = memo(({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
-  <button
-    className="flex flex-col justify-center items-center w-8 h-8 space-y-1.5"
-    onClick={onClick}
-    aria-label="Toggle menu"
-  >
-    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
-    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? "opacity-0" : ""}`} />
-    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-  </button>
-));
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,7 +17,6 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
-  const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), []);
   const isActiveLink = useCallback((href: string) => pathname === href, [pathname]);
 
   useEffect(() => {
@@ -130,17 +80,17 @@ export default function Navbar() {
             className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
               isMenuOpen ? "rotate-45 translate-y-2" : ""
             }`}
-          ></span>
+          />
           <span
             className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
               isMenuOpen ? "opacity-0" : ""
             }`}
-          ></span>
+          />
           <span
             className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
               isMenuOpen ? "-rotate-45 -translate-y-2" : ""
             }`}
-          ></span>
+          />
         </button>
       </div>
 
