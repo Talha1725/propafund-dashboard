@@ -18,7 +18,6 @@ export default function RootLayout({
         className={`${creatoDisplay.variable} ${romanica.variable} bg-black text-white antialiased`}
       >
         {children}
-        {/* <Footer /> */}
       </body>
     </html>
   );

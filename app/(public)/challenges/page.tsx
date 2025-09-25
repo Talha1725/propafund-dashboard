@@ -15,7 +15,7 @@ export default function ChallengesPage() {
         image={bgMarble}
         titleLine1="Choose Your"
         titleLine2="Path to Glory"
-        subtitle="Choose your challenge level and start your journey to becoming a funded trader."
+        subtitle="Select your account size. Prove your discipline. Claim your funding."
         showButton={false}
         isHomepage={false}
       />
