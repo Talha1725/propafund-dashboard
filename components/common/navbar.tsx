@@ -4,9 +4,60 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { usePathname } from "next/navigation";
 import Container from "./container";
+import { NAVBAR_ROUTES } from "@/constants/routes";
+
+const NavLink = memo(({ href, label, isActive, onClick }: {
+  href: string;
+  label: string;
+  isActive: boolean;
+  onClick?: () => void;
+}) => (
+  <li>
+    <Link
+      href={href}
+      onClick={onClick}
+      className={`hover:text-blue transition-all duration-300 ${
+        isActive ? "text-blue" : ""
+      }`}
+    >
+      {label}
+    </Link>
+  </li>
+));
+
+const MobileNavLink = memo(({ href, label, isActive, onClick }: {
+  href: string;
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}) => (
+  <li>
+    <Link
+      href={href}
+      onClick={onClick}
+      className={`block text-lg hover:text-blue transition-all duration-300 ${
+        isActive ? "text-blue" : "text-white"
+      }`}
+    >
+      {label}
+    </Link>
+  </li>
+));
+
+const HamburgerButton = memo(({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
+  <button
+    className="flex flex-col justify-center items-center w-8 h-8 space-y-1.5"
+    onClick={onClick}
+    aria-label="Toggle menu"
+  >
+    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
+    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? "opacity-0" : ""}`} />
+    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+  </button>
+));
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,33 +65,23 @@ export default function Navbar() {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
-  // Close menu when clicking outside
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+  const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), []);
+  const isActiveLink = useCallback((href: string) => pathname === href, [pathname]);
+
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
       if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        hamburgerRef.current &&
-        !hamburgerRef.current.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false);
-      }
-    }
+        menuRef.current?.contains(target) ||
+        hamburgerRef.current?.contains(target)
+      ) return;
+      setIsMenuOpen(false);
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Close menu when clicking on a link
-  const handleLinkClick = () => {
-    setIsMenuOpen(false);
-  };
-
-  const isActiveLink = (href: string) => {
-    return pathname === href;
-  };
 
   return (
     <Container>
@@ -55,66 +96,30 @@ export default function Navbar() {
         />
       </div>
 
-      {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-8">
-        <div>
-          <ul className="flex gap-8">
-            <li>
+        <ul className="flex gap-8">
+          {NAVBAR_ROUTES.map(({ href, label }) => (
+            <li key={href}>
               <Link
-                href="/home"
+                href={href}
                 className={`hover:text-blue transition-all duration-300 ${
-                  isActiveLink("/home") ? "text-blue" : ""
+                  isActiveLink(href) ? "text-blue" : ""
                 }`}
               >
-                Home
+                {label}
               </Link>
             </li>
-            <li>
-              <Link
-                href="/challenges"
-                className={`hover:text-blue transition-all duration-300 ${
-                  isActiveLink("/challenges") ? "text-blue" : ""
-                }`}
-              >
-                Challenges
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/faq"
-                className={`hover:text-blue transition-all duration-300 ${
-                  isActiveLink("/faq") ? "text-blue" : ""
-                }`}
-              >
-                FAQ
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/support"
-                className={`hover:text-blue transition-all duration-300 ${
-                  isActiveLink("/support") ? "text-blue" : ""
-                }`}
-              >
-                Support
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <Button>
-            <Link href="/challenges">Get Funded Now</Link>
-          </Button>
-        </div>
+          ))}
+        </ul>
+        <Button>
+          <Link href="/challenges">Get Funded Now</Link>
+        </Button>
       </div>
 
-      {/* Mobile Hamburger Button */}
       <div className="md:hidden flex items-center gap-4">
-        <div>
-          <Button>
-            <Link href="/challenges">Get Funded Now</Link>
-          </Button>
-        </div>
+        <Button>
+          <Link href="/challenges">Get Funded Now</Link>
+        </Button>
         <button
           ref={hamburgerRef}
           className="flex flex-col justify-center items-center w-8 h-8 space-y-1.5"
@@ -139,63 +144,28 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu Sidebar */}
       <div
         ref={menuRef}
         className={`md:hidden fixed top-0 left-0 h-full w-80 max-w-[80vw] z-50 bg-black/95 backdrop-blur-sm transition-all duration-300 ease-in-out transform ${
-          isMenuOpen
-            ? "translate-x-0"
-            : "-translate-x-full"
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
-          {/* Navigation links */}
           <div className="flex-1 py-6 px-6">
             <ul className="flex flex-col gap-6">
-              <li>
-                <Link
-                  href="/home"
-                  onClick={handleLinkClick}
-                  className={`block text-lg hover:text-blue transition-all duration-300 ${
-                    isActiveLink("/home") ? "text-blue" : "text-white"
-                  }`}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/challenges"
-                  onClick={handleLinkClick}
-                  className={`block text-lg hover:text-blue transition-all duration-300 ${
-                    isActiveLink("/challenges") ? "text-blue" : "text-white"
-                  }`}
-                >
-                  Challenges
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/faq"
-                  onClick={handleLinkClick}
-                  className={`block text-lg hover:text-blue transition-all duration-300 ${
-                    isActiveLink("/faq") ? "text-blue" : "text-white"
-                  }`}
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/support"
-                  onClick={handleLinkClick}
-                  className={`block text-lg hover:text-blue transition-all duration-300 ${
-                    isActiveLink("/support") ? "text-blue" : "text-white"
-                  }`}
-                >
-                  Support
-                </Link>
-              </li>
+              {NAVBAR_ROUTES.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    onClick={closeMenu}
+                    className={`block text-lg hover:text-blue transition-all duration-300 ${
+                      isActiveLink(href) ? "text-blue" : "text-white"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

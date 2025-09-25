@@ -17,7 +17,7 @@ export default function HeroSection({
   isHomepage = true
 }: HeroSectionProps) {
   return (
-    <div className="relative overflow-hidden h-[60vh] lg:h-full font-creato-display">
+    <div className="relative border border-t-transparent border-r-transparent border-l-transparent border-b-[#FFFFFF38] overflow-hidden h-[60vh] lg:h-full font-creato-display">
       <Image src={image} alt="hero" className="w-full h-full object-cover" />
       <div className="absolute top-0 left-0 w-full h-full">
         <Container>

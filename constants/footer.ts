@@ -1,17 +1,7 @@
 export type FooterLink = { label: string; href: string };
 
-export const FOOTER_QUICKLINKS: FooterLink[] = [
-  { label: "Evaluation", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "Testimonials", href: "#" },
-  { label: "FAQs", href: "#" },
-];
-
-export const FOOTER_LEGAL: FooterLink[] = [
-  { label: "Terms & Conditions", href: "#" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Legal Disclosure", href: "#" },
-];
+// Re-export from routes for backward compatibility
+export { FOOTER_QUICKLINKS, FOOTER_LEGAL } from "./routes";
 
 export type SocialKey = "youtube" | "instagram" | "discord" | "twitter";
 export type FooterSocial = { label: string; href: string; icon: SocialKey };
