@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Frame from "../common/frame";
 import { REWARD_ICON_SIZE } from "@/constants/homepage";
 import r1 from "@/public/assets/reward-1.svg";
@@ -43,7 +43,7 @@ export default function RewardsMarquee() {
   );
 }
 
-function Banner({ icon, alt }: { icon: any; alt: string }) {
+function Banner({ icon, alt }: { icon: StaticImageData; alt: string }) {
   return (
     <Frame variants="white" topBottomThicknessPx={2.57} sideThicknessPx={2.57} edgeStretchPercent={100}>
       <div className="relative w-[72px] h-[70px] sm:w-[81.43px] sm:h-[79px] p-[2px] sm:p-[2.14px]">

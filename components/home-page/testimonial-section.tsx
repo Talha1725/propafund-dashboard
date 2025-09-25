@@ -72,7 +72,7 @@ export default function TestimonialSection() {
         </div>
         <div className="gradient-border-top-white">
             <div className="p-5 sm:grid grid-cols-3 gap-2 sm:gap-0">
-              {logos.map(({ src, alt }, i) => (
+              {logos.map(({ src, alt }) => (
                 <Image
                   key={alt}
                   src={src}

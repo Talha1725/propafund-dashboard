@@ -3,10 +3,9 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import Frame from "./frame";
-import PriceBar from "./price-bar";
 import { FramedTableProps } from "@/types/common";
 
-export default function FramedTable({ headers, rows, caption, className = "" }: FramedTableProps) {
+export default function FramedTable({ headers, rows, className = "" }: FramedTableProps) {
   return (
     <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full", className)}>
       <div className="relative w-full p-2" style={{ background: "#ffffff" }}>

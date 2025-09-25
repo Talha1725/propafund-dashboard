@@ -1,5 +1,3 @@
-import Container from "@/components/common/container";
-import Navbar from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
 
 export default function PublicLayout({
@@ -9,9 +7,6 @@ export default function PublicLayout({
 }) {
   return (
     <div>
-      <Container>
-        <Navbar />
-      </Container>
       {children}
       <Footer />
     </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { creatoDisplay, romanica } from "@/lib/fonts";
 import "./globals.css";
-import Footer from "@/components/common/footer";
 
 export const metadata: Metadata = {
   title: "Propafund",
@@ -19,7 +18,6 @@ export default function RootLayout({
         className={`${creatoDisplay.variable} ${romanica.variable} bg-black text-white antialiased`}
       >
         {children}
-        <Footer />
       </body>
     </html>
   );

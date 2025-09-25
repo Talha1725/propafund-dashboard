@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import masterChallenge from "@/public/assets/dashbaord.svg";
-import sword from "@/public/assets/sword.svg";
 import Container from "../common/container";
 import SectionHeader from "../common/section-header";
 import Frame from "../common/frame";
 import { Button } from "../ui/button";
-import FramedTable from "../common/framed-table";
 import Glow from "../common/glow";
 
 export default function MasterChallengeSection() {
