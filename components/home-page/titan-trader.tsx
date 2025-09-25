@@ -4,6 +4,7 @@ import Container from "../common/container";
 import SectionHeader from "../common/section-header";
 import Image from "next/image";
 import { useState } from "react";
+import Glow from "../common/glow";
 import {
   TITAN_LEFT_CARDS,
   TITAN_MIDDLE_CARD,
@@ -17,7 +18,7 @@ function TitanTile({ title, img, tall = false }: TitanCard & { tall?: boolean })
   const [hover, setHover] = useState(false);
   const content = (
     <div
-      className={`${tall ? "w-full h-[656px]" : "w-full h-[313px]"} relative`}
+      className={`${tall ? "w-full h-[480px] md:h-[656px]" : "w-full h-[220px] md:h-[313px]"} relative`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -47,23 +48,28 @@ export default function TitanTraderSection() {
   return (
     <div className="font-creato-display py-30">
       <Container>
-        <SectionHeader
-          title="WHERE TRADERS BECOME TITANS"
-          text="Real traders, real wins—see how PropaFund turns ambition into action."
-        />
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-[30px] items-stretch">
-          <div className="flex flex-col gap-[30px] w-full">
-            {TITAN_LEFT_CARDS.map((c) => (
-              <TitanTile key={c.title} title={c.title} img={c.img} />
-            ))}
+        <div className="relative">
+          <SectionHeader
+            title="Trade Like a TitaN"
+            text="Powerful tools and a battle-tested system."
+          />
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-[30px] items-stretch">
+            <div className="flex flex-col gap-[30px] w-full">
+              {TITAN_LEFT_CARDS.map((c) => (
+                <TitanTile key={c.title} title={c.title} img={c.img} />
+              ))}
+            </div>
+            <div className="flex justify-center w-full">
+              <TitanTile title={TITAN_MIDDLE_CARD.title} img={TITAN_MIDDLE_CARD.img} tall />
+            </div>
+            <div className="flex flex-col gap-[30px] w-full">
+              {TITAN_RIGHT_CARDS.map((c) => (
+                <TitanTile key={c.title} title={c.title} img={c.img} />
+              ))}
+            </div>
           </div>
-          <div className="flex justify-center w-full">
-            <TitanTile title={TITAN_MIDDLE_CARD.title} img={TITAN_MIDDLE_CARD.img} tall />
-          </div>
-          <div className="flex flex-col gap-[30px] w-full">
-            {TITAN_RIGHT_CARDS.map((c) => (
-              <TitanTile key={c.title} title={c.title} img={c.img} />
-            ))}
+          <div className="pointer-events-none absolute inset-x-0 bottom-5 flex justify-center -z-10">
+            <Glow width={2000} height={1200} opacity={0.55} shape="farthest-side" blur={100} zIndex={-10} />
           </div>
         </div>
       </Container>

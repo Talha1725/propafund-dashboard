@@ -31,7 +31,7 @@ function Card({
 
   return (
     <div 
-      className="overflow-hidden border border-[#FFFFFF1A] relative w-full !p-0 flex-col flex justify-between transition-all duration-300 ease-in-out"
+      className="border border-[#FFFFFF1A] relative w-full !p-0 flex-col flex justify-between transition-all duration-300 ease-in-out"
       style={{ background: hover ? "linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)" : "linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%)" }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -96,9 +96,10 @@ export default function ToolCards({
   buttonText1 = "Contact", buttonText2 = "Contact", buttonText3 = "Contact",
   blobClasses = ["", "", ""],
   imageWrapperClasses = ["", "", ""],
+  className = "",
 }: ToolCardsProps) {
   return (
-    <div className="w-full grid md:grid-cols-3 gap-10 relative mt-5 sm:mt-15">
+    <div className={`w-full grid md:grid-cols-3 gap-10 relative mt-5 sm:mt-15 ${className}`}>
       <Card title={title1} content={content1} image={image1} icon={icon1} blobClass={blobClasses[0]} imageWrapperClass={imageWrapperClasses[0]} iconPosition={iconPosition} iconType={iconType} buttonText={buttonText1} />
       <Card title={title2} content={content2} image={image2} icon={icon2} blobClass={blobClasses[1]} imageWrapperClass={imageWrapperClasses[1]} iconPosition={iconPosition} iconType={iconType} buttonText={buttonText2} />
       <Card title={title3} content={content3} image={image3} icon={icon3} blobClass={blobClasses[2]} imageWrapperClass={imageWrapperClasses[2]} iconPosition={iconPosition} iconType={iconType} buttonText={buttonText3} />

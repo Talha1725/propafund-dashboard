@@ -15,6 +15,7 @@ export default function ToolsCardsSection() {
           text="Trade on platforms that feel like an extension of your brain—fast, sharp, and ready for action."
         />
         <ToolCards
+        className="overflow-hidden"
           title1={TOOLS_CARDS[0].title}
           title2={TOOLS_CARDS[1].title}
           title3={TOOLS_CARDS[2].title}

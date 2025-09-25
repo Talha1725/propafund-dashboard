@@ -1,4 +1,5 @@
 import Image from "next/image";
+import * as React from "react";
 import morning from "@/public/assets/morningstar-icon.svg";
 import journal from "@/public/assets/insider-icon.svg";
 import benzinga from "@/public/assets/benziga.svg";
@@ -18,7 +19,7 @@ export default function BrandsMarquee() {
 
   const renderLoop = (repeat: number) =>
     Array.from({ length: repeat }).map((_, loopIndex) => (
-      <>
+      <React.Fragment key={`loop-${loopIndex}`}>
         {logos.map(({ src, alt, className }) => (
           <Image
             key={`${alt}-${loopIndex}`}
@@ -29,7 +30,7 @@ export default function BrandsMarquee() {
             className={className}
           />
         ))}
-      </>
+      </React.Fragment>
     ));
 
   return (

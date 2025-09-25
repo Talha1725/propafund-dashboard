@@ -7,6 +7,8 @@ export default function TestimonialCard({
   bottomMode,
   authorName,
   authorMeta,
+  extraHeading,
+  extraContent,
   stats = [],
 }: TestimonialCardPropsType) {
   const quoteClass = "font-romanica font-normal text-[20px] leading-[1] tracking-[0] uppercase";
@@ -24,6 +26,16 @@ export default function TestimonialCard({
               )}
               {authorMeta && (
                 <p className="text-white/80 text-sm">{authorMeta}</p>
+              )}
+              {(extraHeading || extraContent) && (
+                <div className="mt-[14px]">
+                  {extraHeading && (
+                    <p className="text-white/90">{extraHeading}</p>
+                  )}
+                  {extraContent && (
+                    <p className="text-white/80 text-sm">{extraContent}</p>
+                  )}
+                </div>
               )}
             </div>
           ) : (
@@ -59,6 +71,16 @@ export default function TestimonialCard({
         <div className="mt-6 font-creato-display">
           {authorName && <p className="text-white/60 text-sm">{authorName}</p>}
           {authorMeta && <p className="text-white/50 text-xs">{authorMeta}</p>}
+          {(extraHeading || extraContent) && (
+            <div className="mt-[14px]">
+              {extraHeading && (
+                <p className="text-white/60 text-sm">{extraHeading}</p>
+              )}
+              {extraContent && (
+                <p className="text-white/50 text-xs">{extraContent}</p>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <div className="mt-6 flex flex-col items-center gap-2">

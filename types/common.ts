@@ -27,6 +27,7 @@ export interface ToolCardsProps {
   buttonText1?: string; buttonText2?: string; buttonText3?: string;
   blobClasses?: [string, string, string];
   imageWrapperClasses?: [string, string, string];
+  className?: string;
 }
 
 export interface SectionHeaderProps {

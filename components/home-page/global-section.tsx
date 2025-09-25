@@ -9,7 +9,7 @@ export default function GlobalSection() {
     <div className="font-creato-display">
       <Container>
         <SectionHeader
-          title="Seen On Global Platforms"
+          title="AS SEEN AROUND THE WORLD"
           text=""
         />
         <div className="mt-10">

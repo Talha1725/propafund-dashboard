@@ -8,11 +8,13 @@ import ToolCards from "../common/tool-cards";
 import marbleMail from "@/public/assets/marble-mail.svg";
 import marbleSend from "@/public/assets/marble-send.svg";
 import marbleClipboard from "@/public/assets/marble-clipboard.svg";
+import Glow from "../common/glow";
 
 export default function SupportAssistanceSection() {
   return (
     <div className="font-creato-display">
       <Container>
+      <div className="relative">
       <SectionHeader
           title="Support & Assistance"
           text="At PropaFund, we're committed to guiding you every step of the way. Select the support option that works best for you."
@@ -38,9 +40,10 @@ export default function SupportAssistanceSection() {
             "w-[181px] h-fit ml-auto mr-0"
           ]}
         />
-        <div className="flex justify-center mt-10">
-          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded Now</Button>
+        <div className="pointer-events-none absolute inset-x-0 -bottom-170 flex justify-center -z-10">
+          <Glow width={2400} height={1600} opacity={0.45} shape="farthest-side" blur={100} zIndex={-10} />
         </div>
+      </div>
       </Container>
     </div>
   );

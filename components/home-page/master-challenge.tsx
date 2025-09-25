@@ -8,11 +8,13 @@ import SectionHeader from "../common/section-header";
 import Frame from "../common/frame";
 import { Button } from "../ui/button";
 import FramedTable from "../common/framed-table";
+import Glow from "../common/glow";
 
 export default function MasterChallengeSection() {
   return (
     <div className="font-creato-display">
       <Container>
+        <div className="relative">
         <SectionHeader
           title="Master Your Challenge in Real-Time"
           text="See every stat that matters — live profit tracking, drawdown monitoring, progress milestones, and more — all in one powerful dashboard."
@@ -52,6 +54,10 @@ export default function MasterChallengeSection() {
         <div className="flex justify-center mt-15">
           <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded Now</Button>
         </div>  
+        <div className="pointer-events-none absolute inset-x-0 bottom-80 flex justify-center -z-10">
+          <Glow width={2000} height={1200} opacity={0.55} shape="farthest-side" blur={100} zIndex={-10} />
+        </div>
+        </div>
       </Container>
     </div>
   );

@@ -5,11 +5,13 @@ import SectionHeader from "../common/section-header";
 import FramedTable from "../common/framed-table";
 import PriceBar from "../common/price-bar";
 import { Button } from "../ui/button";
+import Glow from "../common/glow";
 
 export default function MasterOlympusSection() {
   return (
     <div className="font-creato-display py-30">
       <Container>
+        <div className="relative">
         <SectionHeader
           title="Climb the Levels of Olympus"
           text="Choose your tier and begin your funded quest."
@@ -39,6 +41,10 @@ export default function MasterOlympusSection() {
         <div className="flex justify-center mt-15">
           <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded Now</Button>
         </div>  
+        <div className="pointer-events-none absolute inset-x-0 bottom-35 flex justify-center -z-10">
+          <Glow width={2000} height={1200} opacity={0.55} shape="farthest-side" blur={100} zIndex={-10} />
+        </div>
+        </div>
       </Container>
     </div>
   );

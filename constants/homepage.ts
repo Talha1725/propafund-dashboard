@@ -12,6 +12,8 @@ export interface TestimonialCardPropsType {
   authorName?: string;
   authorMeta?: string;
   stats?: StatItem[];
+  extraHeading?: string;
+  extraContent?: string;
 }
 
 export const QUESTION_CLASS =
@@ -43,6 +45,9 @@ export interface TestimonialItem {
   author: string;
   variant: "primary" | "dark";
 }
+
+// Shared sizes/constants
+export const REWARD_ICON_SIZE = 36;
 
 export const TESTIMONIALS: TestimonialItem[] = [
   {

@@ -22,7 +22,7 @@ export default function TestimonialSection() {
     { src: savingTradersLogo, alt: "savingtraders-logo" },
   ];
   return (
-    <div className="relative font-creato-display py-17 overflow-hidden">
+    <div className="relative font-creato-display pt-17 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-1/3 left-1/2 -translate-x-1/2">
           <Glow width={1600} height={1000} opacity={0.35} />

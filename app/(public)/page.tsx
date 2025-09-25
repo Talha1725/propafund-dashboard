@@ -14,6 +14,7 @@ import ToolsCardsSection from "@/components/home-page/tools-cards";
 import TradeCardsSection from "@/components/home-page/trade-cards";
 import hammer from "@/public/assets/marble-hammer.svg";
 import Image from "next/image";
+import Glow from "@/components/common/glow";
 
 export default function Home() {
   return (
@@ -33,7 +34,12 @@ export default function Home() {
       <PlanSelectionSection />  
       <OracleSection />
       <SupportAssistanceSection />  
-      <Image src={hammer} alt="hammer" className="w-full h-full object-cover" />
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-x-0 -top-150 flex justify-center">
+          <Glow width={2600} height={1800} opacity={0.45} shape="farthest-side" blur={100} />
+        </div>
+        <Image src={hammer} alt="hammer" className="w-full h-full object-cover" />
+      </div>
     </>
   );
 }
