@@ -5,7 +5,7 @@ import Container from "../common/container";
 import Frame from "../common/frame";
 import SectionHeader from "../common/section-header";
 import marketShield from "@/public/assets/bg-marble.svg";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import * as React from "react";
 import Glow from "../common/glow";
 import marbleSpark from "@/public/assets/marble-spark.svg";
@@ -13,9 +13,9 @@ import marbleMoney from "@/public/assets/marble-cash.svg";
 import marbleGraph from "@/public/assets/marble-graph.png";
 import marbleClipboard from "@/public/assets/marable-paperroll.svg";
 
-export default function MarketShieldSection() {
+export default function MarketShieldSection({ className }: { className?: string }) {
   return (
-    <div className="font-creato-display py-30">
+    <div className={cn("font-creato-display py-30", className)}>
       <Container>
       <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full")}>
       <div className="">
@@ -73,7 +73,7 @@ function LocalCard({
   imageWrapperClass,
 }: {
   content: string;
-  image: any;
+  image: StaticImageData;
   imageWrapperClass?: string;
 }) {
   const [hover, setHover] = React.useState(false);

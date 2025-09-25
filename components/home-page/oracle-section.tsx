@@ -7,11 +7,11 @@ import Frame from "../common/frame";
 import { useState } from "react";
 import { ORACLE_FAQ_ITEMS } from "@/constants/homepage";
 
-export default function OracleSection() {
+export default function OracleSection({ className }: { className?: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const questionClass = "font-romanica font-normal text-[20px] leading-[1] tracking-[0] uppercase";
   return (
-    <div className="font-creato-display py-30">
+    <div className={`font-creato-display py-30 ${className || ''}`}>
       <Container>
         <SectionHeader
           title="Oracle of Propafund"

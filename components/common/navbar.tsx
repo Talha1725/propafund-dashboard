@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import Container from "./container";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,7 +43,8 @@ export default function Navbar() {
   };
 
   return (
-    <div className="py-5 flex justify-between items-center font-creato-display relative">
+    <Container>
+      <div className="py-5 flex justify-between items-center font-creato-display relative">
       <div className="sm:w-[180px] sm:h-[37px] w-[120px] h-[25px]">
         <Image
           src={logo}
@@ -59,9 +61,9 @@ export default function Navbar() {
           <ul className="flex gap-8">
             <li>
               <Link
-                href="/"
+                href="/home"
                 className={`hover:text-blue transition-all duration-300 ${
-                  isActiveLink("/") ? "text-blue" : ""
+                  isActiveLink("/home") ? "text-blue" : ""
                 }`}
               >
                 Home
@@ -101,7 +103,7 @@ export default function Navbar() {
         </div>
         <div>
           <Button>
-            <Link href="/">Get Funded Now</Link>
+            <Link href="/challenges">Get Funded Now</Link>
           </Button>
         </div>
       </div>
@@ -110,7 +112,7 @@ export default function Navbar() {
       <div className="md:hidden flex items-center gap-4">
         <div>
           <Button>
-            <Link href="/">Get Funded Now</Link>
+            <Link href="/challenges">Get Funded Now</Link>
           </Button>
         </div>
         <button
@@ -152,10 +154,10 @@ export default function Navbar() {
             <ul className="flex flex-col gap-6">
               <li>
                 <Link
-                  href="/"
+                  href="/home"
                   onClick={handleLinkClick}
                   className={`block text-lg hover:text-blue transition-all duration-300 ${
-                    isActiveLink("/") ? "text-blue" : "text-white"
+                    isActiveLink("/home") ? "text-blue" : "text-white"
                   }`}
                 >
                   Home
@@ -198,6 +200,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </Container>
   );
 }
