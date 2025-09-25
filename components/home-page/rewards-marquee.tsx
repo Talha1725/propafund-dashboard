@@ -36,7 +36,7 @@ export default function RewardsMarquee() {
       <div className="h-20 w-26 bg-black rounded-full -right-5 absolute top-1/2 -translate-y-1/2 blur-2xl lg:blur-md opacity-80 z-[9999] lg:block hidden"></div>
       <div className="brands-marquee-container">
         <div className="flex items-center gap-10">
-          {renderLoop(3)}
+          {renderLoop(6)}
         </div>
       </div>
     </div>
