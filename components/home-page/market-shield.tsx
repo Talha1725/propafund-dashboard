@@ -16,7 +16,7 @@ import marbleClipboard from "@/public/assets/marable-paperroll.svg";
 export default function MarketShieldSection({ className }: { className?: string }) {
   return (
     <div className={cn("font-creato-display py-30", className)}>
-      <Container>
+      <Container className="w-full max-w-[1440px]">
       <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full")}>
       <div className="">
         <Image
@@ -27,14 +27,13 @@ export default function MarketShieldSection({ className }: { className?: string 
           aria-hidden
           className="object-cover -z-10 select-none pointer-events-none"
         />
-      <div className="w-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8D9] to-[#3B62B8D9]">
+      <div className="w-full overflow-hidden rounded-none border border-white/30 gradient-primary-opacity">
 
         <SectionHeader
           className="mt-15"
           title="Your Shield in the Markets"
           text="More than funding — we equip you with the tools to win."
         />
-        {/* Local cards matching ToolCards styling, but no title or icon */}
         <div className="w-full grid md:grid-cols-4 gap-10 relative mt-5 sm:mt-15 px-[100px] pb-[100px]">
           <LocalCard
             content="INSTANT SETUP & CLEAR RULES"
@@ -58,7 +57,7 @@ export default function MarketShieldSection({ className }: { className?: string 
           />
         </div>
         </div>
-          <div className="w-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8D9] to-[#3B62B8D9]">
+          <div className="w-full overflow-hidden rounded-none border border-white/30 gradient-primary-opacity">
           </div>
           </div>
         </Frame>
@@ -80,21 +79,21 @@ function LocalCard({
 
   return (
     <div
-      className={`overflow-hidden relative w-full !p-0 flex-col flex justify-between transition-all duration-300 ease-in-out ${hover ? 'border-0' : 'border border-[#FFFFFF1A]'}`}
+      className={`overflow-hidden relative w-full !p-0 flex-col flex justify-between transition-all duration-300 ease-in-out backdrop-blur-sm ${hover ? 'border-0' : 'border border-[#FFFFFF1A]'}`}
       style={{
-        background: hover ? '#FFFFFF' : "linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%)",
+        background: hover ? '#FFFFFF' : "linear-gradient(90deg, rgba(0, 0, 0, 0.005) 30%, rgba(0, 0, 0, 0.07) 100%);",
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
+      <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px] pointer-events-none z-0" />
 
       <div className="pointer-events-none absolute inset-0 z-0 flex items-start justify-center">
         <Glow width={800} height={500} opacity={0.25} />
       </div>
-      {/* No overlay or borders on hover; background turns solid white */}
 
       <div className="pt-4 px-4 pb-0 relative z-10">
-        <p className={`h-fit mb-2 font-lay-grotesk mt-1 z-50 md:text-[16px] text-[16px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-[#0B0D12]' : 'text-white'}`}>{content}</p>
+        <p className={`h-fit mb-2 font-romanica uppercase mt-1 z-50 text-[20px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-[#0B0D12]' : 'text-white'}`}>{content}</p>
       </div>
 
       <div className={`${imageWrapperClass ?? ""} relative z-10 -mt-2`}>

@@ -22,17 +22,17 @@ export default function FundedSection() {
           text="Our streamlined process transforms skilled traders into funded warriors."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-14 mt-15">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-20 md:gap-14 mt-20 md:mt-15">
           <Frame variants={hover === "card1" ? "white" : "none"} edgesZIndex={5}>
             <div
               onMouseEnter={() => setHover("card1")}
               onMouseLeave={() => setHover("")}
-              className={` border border-white/10 h-[240px] md:h-[313px] flex flex-col justify-end items-center transition-all duration-300 ease-in-out ${
+              className={`p-4 border border-white/10 h-[240px] md:h-[313px] flex flex-col justify-end items-center transition-all duration-300 ease-in-out ${
                 hover === "card1" ? "gradient-primary" : "gradient-dark"
               }`}
             >
               <Image src={marbleCoin} alt="price-stone" className="w-full h-full bg-no-repeat object-cover relative z-10" />
-              <h1 className="font-romanica text-xl uppercase">
+              <h1 className="font-romanica text-lg lg:text-xl uppercase text-center">
                 Choose Your Challenge
               </h1>
               <p
@@ -52,14 +52,13 @@ export default function FundedSection() {
                 hover === "card2" ? "gradient-primary" : "gradient-dark"
               }`}
             >
-                            <Image src={paperRoll} alt="price-stone" className="w-full h-full bg-no-repeat object-cover relative z-10" />
-
-              <h1 className="font-romanica text-xl uppercase">
+              <Image src={paperRoll} alt="price-stone" className="w-full h-full bg-no-repeat object-cover relative z-10" />
+              <h1 className="font-romanica text-lg lg:text-xl uppercase text-center">
                 Prove Your Discipline{" "}
               </h1>
               <p
                 className={`text-center mt-2 md:w-[70%] mx-auto ${
-                  hover === "card1" ? "text-white" : "text-white/30"
+                  hover === "card2" ? "text-white" : "text-white/30"
                 }`}
               >
                 Trade responsibly, hit targets, and follow the rules.{" "}
@@ -75,10 +74,10 @@ export default function FundedSection() {
               }`}
             >
               <Image src={coins} alt="price-stone" className="w-full h-full bg-no-repeat object-cover relative z-10" />
-              <h1 className="font-romanica text-xl uppercase">Get Funded </h1>
+              <h1 className="font-romanica text-lg lg:text-xl uppercase text-center">Get Funded </h1>
               <p
                 className={`text-center mt-2 md:w-[70%] mx-auto ${
-                  hover === "card1" ? "text-white" : "text-white/30"
+                  hover === "card3" ? "text-white" : "text-white/30"
                 }`}
               >
                 Receive capital and earn real profits with zero risk.{" "}
