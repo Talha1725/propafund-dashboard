@@ -22,7 +22,7 @@ export default function OracleSection({ className }: { className?: string }) {
           {ORACLE_FAQ_ITEMS.map(({ q, a }, i) => {
             const isOpen = openIndex === i;
             return (
-              <div key={q} className="w-full sm:w-[820px]">
+              <div key={q} className="w-full">
                   <Frame variants={isOpen ? "white" : "none"}>
                   {isOpen ? (
                     <div className="gradient-primary p-[24px] min-h-[76px] flex flex-col gap-2 text-white" onClick={() => setOpenIndex(null)}>
