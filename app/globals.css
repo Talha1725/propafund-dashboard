@@ -80,6 +80,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --gradient-primary: linear-gradient(180deg, #3ba9f4 0%, #4f54b2 100%);
+  --gradient-primary-opacity: linear-gradient(180deg, #42acf4d2 0%, #6d74fd89 100%);
   --gradient-light: linear-gradient(180deg, #3BA9F4 0%, #1D8BD6 100%);
 }
 
@@ -115,6 +116,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --gradient-primary: linear-gradient(180deg, #3ba9f4 0%, #4f54b2 100%);
+  --gradient-primary-opacity: linear-gradient(180deg, #3ba9f4 0%, #4f54b2 50%);
 }
 
 @layer base {
@@ -128,6 +131,9 @@
 
 .gradient-primary {
   background: var(--gradient-primary);
+}
+.gradient-primary-opacity {
+  background: var(--gradient-primary-opacity);
 }
 .gradient-light {
   background: var(--gradient-light);

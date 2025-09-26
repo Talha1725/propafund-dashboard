@@ -37,12 +37,12 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
                   <div
                     key={cellIdx}
                     className={cn(
-                      "px-4 py-4 text-white/95 text-sm sm:text-base font-creato-display",
+                      "pr-4 pl-0 py-4 text-white/95 text-sm sm:text-base font-creato-display",
                       "border-b border-white/20",
                       cellIdx !== columnCount - 1 ? "border-b border-l-transparent border-r-transparent" : ""
                     )}
                   >
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-left justify-left gap-0">
                       <span className="text-white">{rowIdx === 0 && cellIdx === 0 ? "" : ""}</span>
                       <span className={cn(
                         "block w-full text-left",

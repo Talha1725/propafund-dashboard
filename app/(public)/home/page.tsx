@@ -25,8 +25,8 @@ export default function Home() {
       <MasterOlympusSection />
       <MasterChallengeSection />
       <MarketShieldSection />
-      <TradeCardsSection />
       <TitanTraderSection />
+      <TradeCardsSection />
       <ToolsCardsSection /> 
       <RewardSection />
       <div className="section-top-border" />

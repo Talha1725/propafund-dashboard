@@ -46,7 +46,7 @@ function TitanTile({ title, img, tall = false }: TitanCard & { tall?: boolean })
 
 export default function TitanTraderSection() {
   return (
-    <div className="font-creato-display py-30">
+    <div className="font-creato-display">
       <Container>
         <div className="relative">
           <SectionHeader
