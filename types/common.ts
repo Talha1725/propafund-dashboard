@@ -3,6 +3,11 @@ export interface FramedTableProps {
   rows: Array<string[]>;
   caption?: string;
   className?: string;
+  showHeaders?: boolean;
+  showButton?: boolean;
+  buttonText?: string;
+  boldText?: boolean;
+  specialOrderTotal?: boolean;
 }
 
 export type IconPosition = "bottom-left" | "below-text";
@@ -49,4 +54,8 @@ export interface PriceBarProps {
   className?: string;
 }
 
+export interface PaymentTabsProps {
+  selectedPayment: string;
+  onPaymentChange: (value: string) => void;
+}
 
