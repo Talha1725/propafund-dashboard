@@ -3,9 +3,10 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import Frame from "./frame";
+import { Button } from "@/components/ui/button";
 import { FramedTableProps } from "@/types/common";
 
-export default function FramedTable({ headers, rows, className = "", showHeaders = true }: FramedTableProps) {
+export default function FramedTable({ headers, rows, className = "", showHeaders = true, showButton = false, buttonText = "Complete Order", boldText = false, specialOrderTotal = false }: FramedTableProps) {
   const columnCount = headers?.length || (rows.length > 0 ? rows[0].length : 0);
   
   return (
@@ -23,8 +24,8 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
           )}
 
           {rows.map((cells, rowIdx) => {
-            // Check if this is the "Order Total" row
-            const isOrderTotalRow = cells[0] === "Order Total";
+            // Check if this is the "Order Total" row and if special styling is enabled
+            const isOrderTotalRow = specialOrderTotal && cells[0] === "Order Total";
             
             return (
               <div
@@ -47,9 +48,9 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
                         "block w-full text-left",
                         isOrderTotalRow 
                           ? "font-creato-display font-medium text-[24px] leading-[100%] tracking-[-2%]" 
-                          : cellIdx === 0 
-                            ? "text-[16px] font-[400]" 
-                            : "font-[600]"
+                          : boldText 
+                            ? "font-creato-display font-bold text-[16px] leading-[100%] tracking-[-2%]" 
+                            : "text-[16px] font-[400]"
                       )}>{cell}</span>
                     </div>
                   </div>
@@ -57,6 +58,14 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
               </div>
             );
           })}
+          
+          {showButton && (
+            <div className="px-6 py-4 flex justify-center">
+              <Button variant="secondary" className="w-full h-[45px] px-[30px] py-[12px] gap-[15px]">
+                {buttonText}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </Frame>

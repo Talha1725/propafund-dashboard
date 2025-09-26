@@ -16,9 +16,9 @@ export default function PaymentTabs({ selectedPayment, onPaymentChange }: Paymen
               variants="white" 
               topBottomThicknessPx={6} 
               sideThicknessPx={12} 
-              className="transition-all duration-300 hover:opacity-80"
+              className="transition-all duration-300 hover:opacity-80 !h-[45px] absolute inset-0"
             >
-              <TabsTrigger value={method.value}>
+              <TabsTrigger value={method.value} className="!h-[45px]">
                 {method.label}
               </TabsTrigger>
             </Frame>

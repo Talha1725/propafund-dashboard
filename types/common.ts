@@ -4,6 +4,10 @@ export interface FramedTableProps {
   caption?: string;
   className?: string;
   showHeaders?: boolean;
+  showButton?: boolean;
+  buttonText?: string;
+  boldText?: boolean;
+  specialOrderTotal?: boolean;
 }
 
 export type IconPosition = "bottom-left" | "below-text";

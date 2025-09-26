@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { purchaseFields, orderDetails, commonStyles, content } from "../../../constants/purchase";
 import PaymentTabs from "@/components/purchase/payment-tabs";
+import Glow from "@/components/common/glow";
 
 export default function PurchasePage() {
   const [selectedPayment, setSelectedPayment] = React.useState("crypto");
@@ -44,6 +45,9 @@ export default function PurchasePage() {
             </div>
 
             <div className="relative space-y-[10px]">
+              <div className="pointer-events-none absolute inset-0 -z-10 flex justify-center items-center">
+                <Glow width={6000} height={2500} opacity={0.8} blur={100} />
+              </div>
               
               <h2 className={commonStyles.sectionTitle}>
                 {content.sections.order}
@@ -52,6 +56,7 @@ export default function PurchasePage() {
                 headers={["Parameter", "Value"]}
                 rows={orderDetails}
                 showHeaders={false}
+                specialOrderTotal={true}
               />
 
               <div>

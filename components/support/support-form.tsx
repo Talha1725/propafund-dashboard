@@ -88,7 +88,7 @@ export default function SupportForm({
                             <SelectTrigger className="w-full h-[64px] !h-[64px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] !bg-gradient-to-r !from-white/[0.05] !to-white/[0.02] border border-white/10 !border-white/10 text-white focus:border-white/30 !focus:border-white/30 focus:outline-none data-[state=open]:bg-gradient-to-r data-[state=open]:from-white/[0.05] data-[state=open]:to-white/[0.02] data-[state=open]:border-white/30 !data-[state=open]:border-white/30 rounded-none !rounded-none">
                               <SelectValue 
                                 placeholder={f.placeholder ?? "Select"} 
-                                className="text-white/70 placeholder:text-white/70 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%]" 
+                                className="text-white placeholder:text-white/70 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%]" 
                               />
                             </SelectTrigger>
                             <SelectContent className="bg-black border border-white/10 text-white z-50">
@@ -97,7 +97,7 @@ export default function SupportForm({
                                   <SelectItem 
                                     key={opt.value} 
                                     value={opt.value}
-                                    className="text-white/70 hover:bg-white/20 focus:bg-white/20 data-[highlighted]:bg-white/20 data-[state=checked]:bg-white/20 data-[state=checked]:text-white data-[selected]:text-white data-[selected]:bg-white/20 font-creato-display font-medium text-[18px] leading-[100%] tracking-[-5%]"
+                                    className="text-white/70 hover:bg-white/20 hover:text-white focus:bg-white/20 focus:text-white data-[highlighted]:bg-white/20 data-[highlighted]:text-white data-[state=checked]:bg-white/20 data-[state=checked]:text-white data-[selected]:text-white data-[selected]:bg-white/20 font-creato-display font-medium text-[18px] leading-[100%] tracking-[-5%]"
                                   >
                                     {opt.label}
                                   </SelectItem>
