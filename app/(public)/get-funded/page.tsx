@@ -8,7 +8,7 @@ import SupportForm from "@/components/support/support-form";
 import FramedTable from "@/components/common/framed-table";
 import Glow from "@/components/common/glow";
 import * as React from "react";
-import { productFields, summaryDetails, commonStyles, content, challengeTypeOptions, platformOptions } from "@/constants/funded";
+import { summaryDetails, commonStyles, content, challengeTypeOptions, platformOptions } from "@/constants/funded";
 import OptionTabs from "@/components/funded/option-tabs";
 
 export default function GetFundedPage() {

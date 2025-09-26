@@ -16,7 +16,7 @@ export type FieldConfig =
   | { type: "select"; name: string; label: string; placeholder?: string; options: { label: string; value: string }[]; fullWidth?: boolean };
 
 export function buildZodSchema(fields: FieldConfig[]) {
-  const shape: Record<string, any> = {};
+  const shape: Record<string, z.ZodTypeAny> = {};
   for (const f of fields) {
     if (f.type === "email") {
       shape[f.name] = z.string().email({ message: "Enter a valid email" });
@@ -45,7 +45,7 @@ export default function SupportForm({
   const schema = buildZodSchema(fields);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: Object.fromEntries(fields.map((f) => [f.name, ""])) as any,
+    defaultValues: Object.fromEntries(fields.map((f) => [f.name, ""])) as Record<string, string>,
     mode: "onTouched",
   });
 
@@ -54,7 +54,7 @@ export default function SupportForm({
       <Form {...form}>
             <form
               onSubmit={form.handleSubmit(async (vals) => {
-                await onSubmit(vals as any);
+                await onSubmit(vals as Record<string, string>);
               })}
               className="grid grid-cols-1 md:grid-cols-2 gap-5"
             >
@@ -62,7 +62,7 @@ export default function SupportForm({
                 <FormField
                   key={f.name}
                   control={form.control}
-                  name={f.name as any}
+                  name={f.name as keyof z.infer<typeof schema>}
                   render={({ field }) => (
                     <FormItem className={`${f.fullWidth || f.type === "textarea" ? "md:col-span-2" : ""} flex flex-col gap-2`}>
                       <FormLabel className="font-romanica font-normal text-[18px] leading-[100%] tracking-[0%] uppercase text-white">{f.label}</FormLabel>
@@ -77,7 +77,7 @@ export default function SupportForm({
                           />
                         ) : f.type === "textarea" ? (
                           <Textarea
-                            rows={(f as any).rows ?? 5}
+                            rows={f.type === "textarea" ? f.rows ?? 5 : 5}
                             placeholder={f.placeholder}
                             {...field}
                             value={field.value as string}
@@ -93,7 +93,7 @@ export default function SupportForm({
                             </SelectTrigger>
                             <SelectContent className="bg-black border border-white/10 text-white z-50">
                               <SelectGroup>
-                                {(f as any).options?.map((opt: any) => (
+                                {f.type === "select" ? f.options?.map((opt) => (
                                   <SelectItem 
                                     key={opt.value} 
                                     value={opt.value}
@@ -101,7 +101,7 @@ export default function SupportForm({
                                   >
                                     {opt.label}
                                   </SelectItem>
-                                ))}
+                                )) : null}
                               </SelectGroup>
                             </SelectContent>
                           </Select>
