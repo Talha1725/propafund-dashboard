@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import bell from "@/public/assets/bell.svg";
+// import bell from "@/public/assets/bell.svg";
 import toggle from "@/public/assets/toggle-icon.svg";
 import Image from "next/image";
 import logo from "@/public/assets/dashbaord-logo.svg";
