@@ -30,9 +30,6 @@ export default function SidebarProfile() {
                 <span className="text-sm font-medium text-white font-lay-grotesk">
                   User
                 </span>
-                <span className="text-xs text-white/50 font-lay-grotesk">
-                  email@example.com
-                </span>
               </div>
             </div>
           </div>

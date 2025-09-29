@@ -4,8 +4,8 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M612.735 558.522H574.898V543.808H783V558.522H745.163V802.359H783V817.073H574.898V802.359H612.735V558.522ZM707.327 558.522H652.673V802.359H707.327V558.522Z" fill="white"/>
 </g>
 <defs>
-<filter id="filter0_f_2029_614" x="0.323334" y="0.763763" width="1359.35" height="1359.35" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<filter id="filter0_f_2029_614" x="0.323334" y="0.763763" width="1359.35" height="1359.35" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feGaussianBlur stdDeviation="236.838" result="effect1_foregroundBlur_2029_614"/>
 </filter>
