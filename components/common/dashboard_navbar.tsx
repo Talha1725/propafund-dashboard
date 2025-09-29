@@ -58,7 +58,7 @@ export function Navbar() {
   const pageTitle = getPageTitle(pathname);
 
   return (
-    <div className="md:h-[80px] h-[60px] w-full px-4 md:px-6 border-b border-white/10 bg-[#0F0F0F] md:bg-transparent">
+    <div className="md:h-[80px] h-[60px] w-full px-3 md:px-6 border-b border-white/10 bg-[#0F0F0F] md:bg-transparent">
       <div className="flex items-center justify-between h-full w-full">
         <div className="flex items-center gap-2">
           <button

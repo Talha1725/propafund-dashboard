@@ -10,7 +10,7 @@ export default function StatusCard({ title, value, active = false }: { title: st
         }`}
       >
         <div className="p-3">
-          <h1 className="font-creato-display text-white uppercase text-sm font-medium">
+          <h1 className="font-creato-display text-white uppercase sm:text-sm text-xs font-medium">
             {title}
           </h1>
         </div>
@@ -20,10 +20,10 @@ export default function StatusCard({ title, value, active = false }: { title: st
             active
               ? "bg-gradient-to-t from-[#4EB2E4] to-white"
               : "bg-gradient-to-b from-[#FFFFFF12] to-[#FFFFFF08]"
-          } rounded-[10px] p-3 mt-3 md:mt-1 flex gap-2 items-center`}
+          } rounded-[10px] p-3 mt-2 md:mt-1 flex gap-2 items-center`}
         >
           <p
-            className={`font-creato-display text-2xl font-medium ${
+            className={`font-creato-display sm:text-2xl text-xl font-medium ${
               active ? "text-black" : "text-white"
             }`}
           >
