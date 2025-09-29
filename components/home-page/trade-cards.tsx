@@ -12,7 +12,7 @@ export default function TradeCardsSection() {
   const defaultIndex = 0;
 
   return (
-    <div className="font-creato-display">
+    <div className="font-creato-display py-30">
       <Container>
         <div className="relative">
         <SectionHeader
