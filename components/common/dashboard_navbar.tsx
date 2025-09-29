@@ -81,9 +81,9 @@ export function Navbar() {
           </div>
         </div>
         <div className="flex items-center sm:gap-2 gap-1">
-          <button className="flex h-10 w-10 items-center justify-center border border-white/10 rounded-lg px-2 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent">
+          {/* <button className="flex h-10 w-10 items-center justify-center border border-white/10 rounded-lg px-2 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent">
             <Image src={bell} alt="bell" className="w-4 h-4" />
-          </button>
+          </button> */}
 
           <DropdownMenu>
             <DropdownMenuTrigger className="md:w-[117px] h-10 border border-white/10 rounded-lg md:px-2 px-3 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent flex gap-2 items-center justify-center outline-0">
@@ -93,8 +93,8 @@ export function Navbar() {
               <ChevronDown className="w-4 h-4 text-white" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-dark border border-white/10 outline-0">
-              <DropdownMenuItem className="text-white">Profile</DropdownMenuItem>
-              <DropdownMenuItem className="text-white">Logout</DropdownMenuItem>
+              <DropdownMenuItem className="text-white">#2138932</DropdownMenuItem>
+              <DropdownMenuItem className="text-white">#2138933</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

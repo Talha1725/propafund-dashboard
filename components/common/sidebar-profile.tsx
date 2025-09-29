@@ -16,9 +16,9 @@ export default function SidebarProfile() {
         <DropdownMenuTrigger asChild>
           <div className="relative">
             <div className="flex items-center gap-2">
-              <Avatar className="h-8 w-8 !rounded-lg">
+              <Avatar className="h-8 w-8 !rounded-full">
                 <AvatarImage
-                  className="!rounded-lg"
+                  className="!rounded-full"
                   src={""}
                   alt={"User"}
                 />

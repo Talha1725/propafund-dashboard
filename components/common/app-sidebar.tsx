@@ -78,7 +78,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   return (
     <Sidebar className="border-none">
-      <SidebarContent className="bg-dark overflow-hidden border-r border-white/10 xl:border-none relative">
+      <SidebarContent className="bg-dark overflow-hidden border-r-0 xl:border-r border-white/10 xl:border-none relative">
         <div className="xl:p-3 xl:pr-0 h-full backdrop-blur-2xl">
           <ThunderIcon className="absolute bottom-[-10px] right-[-75px] z-30 " />
           <div className="w-full h-full pt-6 flex flex-col xl:rounded-l-[20px] gradient-white xl:border border-white/10">
