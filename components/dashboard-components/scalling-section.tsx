@@ -17,10 +17,10 @@ export default function ScallingSection({ className }: { className?: string }) {
       </div>
 
       <div>
-        <PerformancePieChart 
+        <PerformancePieChart
           data={[
             { name: "Completed", value: 77 },
-            { name: "Remaining", value: 23 }
+            { name: "Remaining", value: 23 },
           ]}
           colors={["#1CCDE6", "#ffffff11"]}
           height={160}

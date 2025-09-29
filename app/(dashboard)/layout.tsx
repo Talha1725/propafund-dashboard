@@ -8,14 +8,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-dark w-screen">
+    <div className="bg-dark overflow-hidden">
       <SidebarProvider
         style={{
           "--sidebar-width": "280px",
         } as React.CSSProperties}
       >
         <AppSidebar />
-        <SidebarInset className="bg-dark">
+        <SidebarInset className="bg-dark w-full">
           <main className="flex-1 xl:border border-l-0 xl:my-3 border-white/10 xl:mr-3 xl:rounded-r-[20px]">
             <Navbar />
             {children}

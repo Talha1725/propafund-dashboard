@@ -101,7 +101,7 @@ export default function RiskChart({
             cx="50%"
             cy="50%"
             innerRadius={90}
-            outerRadius={120}
+            outerRadius={115}
             dataKey="value"
             stroke="transparent"
             fill="rgba(255, 255, 255, 0.04)"
@@ -117,7 +117,7 @@ export default function RiskChart({
             cx="50%"
             cy="50%"
             innerRadius={90}
-            outerRadius={120}
+            outerRadius={115}
             dataKey="value"
             stroke="none"
             strokeLinecap="round"
@@ -132,9 +132,9 @@ export default function RiskChart({
 
           {/* Progress indicator dot */}
           <circle
-            cx="50%"
-            cy="50%"
-            r="4"
+            cx="51%"
+            cy="51%"
+            r="3"
             className="drop-shadow-lg"
             fill="url(#sentimentGradient2)"
             style={{
