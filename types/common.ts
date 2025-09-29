@@ -49,4 +49,11 @@ export interface PriceBarProps {
   className?: string;
 }
 
-
+export interface DataTableProps {
+  data: unknown[];
+  columns: any[];
+  className?: string;
+  responsive?: boolean;
+  dateHeader?: string;
+  showDateHeaders?: boolean;
+}

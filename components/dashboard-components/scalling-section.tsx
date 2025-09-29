@@ -5,7 +5,7 @@ import PerformancePieChart from "../charts/pie-chart";
 export default function ScallingSection({ className }: { className?: string }) {
   return (
     <div
-      className={`border border-white/10 gradient-dark-primary rounded-[14px] p-4 w-full sm:w-[48.50%] lg:w-[33%] xl:w-[28%] flex flex-col justify-between ${className}`}
+      className={`border border-white/10 gradient-dark-primary rounded-[14px] p-4 w-full sm:w-[48.50%] lg:w-[38%] min-[1410px]:!w-[29%] min-[1465px]:!w-[28%] flex flex-col justify-between ${className}`}
     >
       <div className="flex flex-col items-start gap-2.5">
         <h1 className="text-white md:font-medium md:text-lg font-creato-display">
@@ -23,9 +23,9 @@ export default function ScallingSection({ className }: { className?: string }) {
             { name: "Remaining", value: 23 }
           ]}
           colors={["#1CCDE6", "#ffffff11"]}
-          height={170}
+          height={160}
           innerRadius={100}
-          outerRadius={140}
+          outerRadius={135}
         />
       </div>
     </div>
