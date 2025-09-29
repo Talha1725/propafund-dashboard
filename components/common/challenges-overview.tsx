@@ -1,6 +1,6 @@
-import { IconComplete } from "../common/icon";
+import { IconComplete } from "./icon";
 
-export default function ChallengesComponent({className}: {className?: string}) {
+export default function ChallengesOverview({className}: {className?: string}) {
   return (
     <div className={`border border-white/10 gradient-dark-primary rounded-[14px] p-4 w-full lg:w-[33%] xl:w-[47%] flex flex-col justify-between ${className}`}>
         <div className="flex flex-col xl:flex-row items-start gap-2 xl:justify-between xl:items-center">

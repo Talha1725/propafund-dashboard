@@ -2,7 +2,7 @@
 
 import RiskChart from "../charts/risk-cahrt";
 
-export default function RiskSection({ className }: { className?: string }) {
+export default function RiskMonitor({ className }: { className?: string }) {
   return (
     <div
       className={`border border-white/10 gradient-dark-primary rounded-[14px] p-4 w-full sm:w-[48.50%] lg:w-[33%] xl:w-[28%] flex flex-col justify-between ${className}`}

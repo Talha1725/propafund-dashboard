@@ -1,4 +1,4 @@
-import StatusCard from "./status-card";
+import StatusCard from "../common/status-card";
 
 export default function StatusCardSection() {
   return (

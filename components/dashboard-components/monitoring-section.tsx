@@ -1,12 +1,12 @@
 import EventsSection from "./events-section";
-import RiskSection from "./risk-section";
-import TradingBehaviorSection from "./trading-behavior";
+import TradingBehaviorSection from "../common/trading-behavior";
+import RiskMonitor from "../common/risk-monitor";
 
 export default function MonitoringSection() {
   return (
     <div className="flex gap-4 justify-between flex-wrap lg:flex-nowrap">
       <TradingBehaviorSection />
-      <RiskSection />
+      <RiskMonitor />
       <EventsSection />
     </div>
   );

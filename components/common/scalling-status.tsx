@@ -2,7 +2,7 @@
 
 import PerformancePieChart from "../charts/pie-chart";
 
-export default function ScallingSection({ className }: { className?: string }) {
+export default function ScallingStatus({ className }: { className?: string }) {
   return (
     <div
       className={`border border-white/10 gradient-dark-primary rounded-[14px] p-4 w-full sm:w-[48.50%] lg:w-[38%] min-[1410px]:!w-[29%] min-[1465px]:!w-[28%] flex flex-col justify-between ${className}`}
