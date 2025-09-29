@@ -20,8 +20,8 @@ export default function HeroSection({
     <div className="relative border border-t-transparent border-r-transparent border-l-transparent border-b-[#FFFFFF38] overflow-hidden h-[60vh] lg:h-full font-creato-display">
       <Image src={image} alt="hero" className="w-full h-full object-cover" />
       <div className="absolute top-0 left-0 w-full h-full">
-        <Container>
           <Navbar />
+          <Container>
           <div className={`absolute top-1/2 -translate-y-1/2 ${isHomepage ? '' : 'left-1/2 -translate-x-1/2 w-full'}`}>
             <div className={isHomepage ? '' : 'text-center'}>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold lg:font-normal flex flex-col font-romanica uppercase">
