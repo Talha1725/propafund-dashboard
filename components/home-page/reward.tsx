@@ -8,6 +8,7 @@ import Glow from "../common/glow";
 export default function RewardSection() {
   return (
     <div className="font-creato-display py-30">
+      <Container>
         <div className="relative">
         <SectionHeader
           title="Swift & Secure Rewards"
@@ -20,6 +21,7 @@ export default function RewardSection() {
             <Glow width={2000} height={1200} opacity={0.55} shape="farthest-side" blur={100} zIndex={-10} />
           </div>
         </div>
+      </Container>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import BrandsMarquee from "./brands-marquee";
 export default function GlobalSection() {
   return (
     <div className="font-creato-display">
+      <Container>
         <SectionHeader
           title="AS SEEN AROUND THE WORLD"
           text=""
@@ -14,6 +15,7 @@ export default function GlobalSection() {
         <div className="mt-10">
           <BrandsMarquee />
         </div>
+      </Container>
     </div>
   );
 }

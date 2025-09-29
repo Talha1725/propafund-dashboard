@@ -283,3 +283,83 @@ export function IconHelp({ active }: { active: boolean }) {
     </svg>
   );
 }
+
+export function TradeUp({
+  className,
+  fill = "#00EB6E",
+}: {
+  className?: string;
+  fill?: string;
+}) {
+  return (
+    <svg
+      width="24"
+      height="25"
+      viewBox="0 0 24 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M20 13.5V8.5H15"
+        stroke={fill}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M20 8.5L15 13.5C14.117 14.383 13.676 14.824 13.135 14.873C13.045 14.881 12.955 14.881 12.865 14.873C12.324 14.823 11.883 14.383 11 13.5C10.117 12.617 9.676 12.176 9.135 12.127C9.04518 12.1189 8.95482 12.1189 8.865 12.127C8.324 12.177 7.883 12.617 7 13.5L4 16.5"
+        stroke={fill}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function IconComplete({
+  className,
+  fill = "#fff",
+}: {
+  className?: string;
+  fill?: string;
+}) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <rect
+        width="24"
+        height="24"
+        rx="12"
+        fill="url(#paint0_linear_2133_28117)"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M19.1899 12C19.1899 15.9709 15.9709 19.1899 12 19.1899C8.0291 19.1899 4.81006 15.9709 4.81006 12C4.81006 8.0291 8.0291 4.81006 12 4.81006C15.9709 4.81006 19.1899 8.0291 19.1899 12ZM14.8978 9.82121C15.1084 10.0318 15.1084 10.3732 14.8978 10.5838L11.3028 14.1788C11.0922 14.3894 10.7508 14.3894 10.5402 14.1788L9.10222 12.7408C8.89163 12.5302 8.89163 12.1888 9.10222 11.9782C9.3128 11.7676 9.65424 11.7676 9.86482 11.9782L10.9215 13.0349L12.5283 11.428L14.1352 9.82121C14.3458 9.61062 14.6872 9.61062 14.8978 9.82121Z"
+        fill={fill}
+        fillOpacity="0.4"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_2133_28117"
+          x1="12"
+          y1="0"
+          x2="12"
+          y2="24"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#131315" stopOpacity="0.02" />
+          <stop offset="1" stopColor="white" stopOpacity="0.06" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}

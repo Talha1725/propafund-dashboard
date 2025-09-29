@@ -1,11 +1,9 @@
 "use client";
 
-import { ChevronDown, Search } from "lucide-react";
-import { Input } from "../ui/input";
-import bell from "@/public/assets/bell.svg";
+import { ChevronDown } from "lucide-react";
+// import bell from "@/public/assets/bell.svg";
 import toggle from "@/public/assets/toggle-icon.svg";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import logo from "@/public/assets/dashbaord-logo.svg";
 import { useSidebar } from "../ui/sidebar";
 import { usePathname } from "next/navigation";
@@ -60,7 +58,7 @@ export function Navbar() {
   const pageTitle = getPageTitle(pathname);
 
   return (
-    <div className="md:h-[80px] h-[60px] w-full px-4 md:px-6 border-b border-white/10 bg-[#0F0F0F] md:bg-transparent">
+    <div className="md:h-[80px] h-[60px] w-full px-3 md:px-6 border-b border-white/10 bg-[#0F0F0F] md:bg-transparent">
       <div className="flex items-center justify-between h-full w-full">
         <div className="flex items-center gap-2">
           <button
@@ -83,9 +81,9 @@ export function Navbar() {
           </div>
         </div>
         <div className="flex items-center sm:gap-2 gap-1">
-          <button className="flex h-10 w-10 items-center justify-center border border-white/10 rounded-lg px-2 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent">
+          {/* <button className="flex h-10 w-10 items-center justify-center border border-white/10 rounded-lg px-2 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent">
             <Image src={bell} alt="bell" className="w-4 h-4" />
-          </button>
+          </button> */}
 
           <DropdownMenu>
             <DropdownMenuTrigger className="md:w-[117px] h-10 border border-white/10 rounded-lg md:px-2 px-3 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent flex gap-2 items-center justify-center outline-0">
@@ -95,8 +93,8 @@ export function Navbar() {
               <ChevronDown className="w-4 h-4 text-white" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-dark border border-white/10 outline-0">
-              <DropdownMenuItem className="text-white">Profile</DropdownMenuItem>
-              <DropdownMenuItem className="text-white">Logout</DropdownMenuItem>
+              <DropdownMenuItem className="text-white">#2138932</DropdownMenuItem>
+              <DropdownMenuItem className="text-white">#2138933</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
