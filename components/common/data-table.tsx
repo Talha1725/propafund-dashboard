@@ -149,7 +149,7 @@ export default function DataTable({
               )}
 
               {(isResponsive ? columns.slice(0, visibleColumns) : columns).map(
-                (column, index) => (
+                (column) => (
                   <TableHead
                     key={String(column.key)}
                     className={`text-black font-creato-display font-semibold bg-gradient-to-b from-white to-blue pl-5`}
@@ -258,7 +258,7 @@ export default function DataTable({
                         </TableCell>
                       )}
 
-                      {visibleColumnsList.map((column, colIndex) => (
+                      {visibleColumnsList.map((column) => (
                         <TableCell
                           key={String(column.key)}
                           className={`text-white py-2 md:py-3 pl-5 font-creato-display overflow-hidden relative z-10 bg-transparent ${index !== sortedData.length - 1 ? "border-b border-white/10" : ""}`}

@@ -1,5 +1,3 @@
-import CoinImage from "@/public/assets/coin-icon";
-
 export default function TradingBehaviorSection({
   className,
 }: {

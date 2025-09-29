@@ -1,6 +1,5 @@
 "use client";
 
-import PerformancePieChart from "../charts/pie-chart";
 import RiskChart from "../charts/risk-cahrt";
 
 export default function RiskSection({ className }: { className?: string }) {

@@ -1,23 +1,21 @@
 "use client";
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 
 interface RiskChartProps {
   value?: number;
   risk?: string;
   maxValue?: number;
-  autoUpdate?: boolean;
 }
 
 export default function RiskChart({
   value = 1200,
   risk = "Overall loss",
   maxValue = 5000,
-  autoUpdate = false,
 }: RiskChartProps) {
-  const [currentValue, setCurrentValue] = useState(value);
-  const [currentRisk, setCurrentRisk] = useState(risk);
+  const [currentValue] = useState(value);
+  const [currentRisk] = useState(risk);
 
 
   // Calculate progress angle
@@ -32,7 +30,7 @@ export default function RiskChart({
 
   // Generate dots around the arc
   const generateDots = () => {
-    const dots = [];
+    const dots: ReactElement[] = [];
     const dotCount = 40; // Number of dots in the arc
     const startAngle = 120; // Start angle in degrees
     const endAngle = 420; // End angle in degrees
