@@ -1,6 +1,9 @@
 interface PerformanceTooltipProps {
   active?: boolean;
-  payload?: any[];
+  payload?: Array<{
+    payload: Record<string, unknown>;
+    value: number;
+  }>;
   label?: string;
   labelKey?: string;
   labelPrefix?: string;
@@ -22,7 +25,7 @@ export default function PerformanceTooltip({
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     const value = payload[0].value;
-    const displayLabel = data[labelKey] || label;
+    const displayLabel = String(data[labelKey] || label || '');
     
     return (
       <div 

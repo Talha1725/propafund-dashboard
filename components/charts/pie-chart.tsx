@@ -3,7 +3,9 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 interface PerformancePieChartProps {
-  data: any[];
+  data: Array<{
+    [key: string]: string | number;
+  }>;
   height?: number;
   dataKey?: string;
   nameKey?: string;
@@ -22,8 +24,8 @@ export default function PerformancePieChart({
   outerRadius = 100,
 }: PerformancePieChartProps) {
   // Calculate percentage for center text
-  const total = data.reduce((sum, item) => sum + item[dataKey], 0);
-  const completed = data[0]?.[dataKey] || 0;
+  const total = data.reduce((sum, item) => sum + Number(item[dataKey] || 0), 0);
+  const completed = Number(data[0]?.[dataKey] || 0);
   const percentage = Math.round((completed / total) * 100);
   
   return (
