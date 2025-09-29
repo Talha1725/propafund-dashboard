@@ -8,7 +8,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-dark w-screen overflow-x-hidden">
+    <div className="bg-dark w-screen">
       <SidebarProvider
         style={{
           "--sidebar-width": "280px",

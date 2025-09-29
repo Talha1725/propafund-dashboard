@@ -3,7 +3,7 @@ import CoinImage from "@/public/assets/coin-icon";
 export default function UpgradeSection({ className }: { className?: string }) {
   return (
     <div
-      className={`border w-full sm:w-[48.50%] lg:w-[33%] xl:w-[25%] rounded-[14px] p-4 bg-gradient-to-b from-white to-blue relative overflow-hidden h-[290px] sm:h-auto ${className}`}
+      className={`border border-t-white border-l-[#b6dbef] border-r-[#7fc6ec] border-b-[#4EB2E4] w-full sm:w-[48.50%] lg:w-[33%] xl:w-[25%] rounded-[14px] p-4 bg-gradient-to-b from-white to-blue relative overflow-hidden h-[290px] sm:h-auto ${className}`}
     >
       <CoinImage className="absolute bottom-[-8%] right-0 sm:w-[80%]" />
       <div className="h-full flex flex-col justify-between">
