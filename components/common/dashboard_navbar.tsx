@@ -1,11 +1,9 @@
 "use client";
 
-import { ChevronDown, Search } from "lucide-react";
-import { Input } from "../ui/input";
+import { ChevronDown } from "lucide-react";
 import bell from "@/public/assets/bell.svg";
 import toggle from "@/public/assets/toggle-icon.svg";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import logo from "@/public/assets/dashbaord-logo.svg";
 import { useSidebar } from "../ui/sidebar";
 import { usePathname } from "next/navigation";

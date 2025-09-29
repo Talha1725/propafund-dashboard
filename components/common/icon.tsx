@@ -283,3 +283,31 @@ export function IconHelp({ active }: { active: boolean }) {
     </svg>
   );
 }
+
+export function TradeUp({className, fill="#00EB6E"}: {className?: string, fill?: string}) {
+  return (
+    <svg
+      width="24"
+      height="25"
+      viewBox="0 0 24 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M20 13.5V8.5H15"
+        stroke={fill}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M20 8.5L15 13.5C14.117 14.383 13.676 14.824 13.135 14.873C13.045 14.881 12.955 14.881 12.865 14.873C12.324 14.823 11.883 14.383 11 13.5C10.117 12.617 9.676 12.176 9.135 12.127C9.04518 12.1189 8.95482 12.1189 8.865 12.127C8.324 12.177 7.883 12.617 7 13.5L4 16.5"
+        stroke={fill}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
