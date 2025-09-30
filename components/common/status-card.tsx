@@ -33,10 +33,10 @@ export default function StatusCard({
     >
       <div
         className={`${
-          small ? "py-2 px-3" : "p-3"
+          small ? "py-2 pl-3 pr-1" : "p-3"
         } flex justify-between items-center`}
       >
-        <h1 className={`font-creato-display text-white uppercase ${small ? "text-sm" : "sm:text-sm text-xs"} font-medium`}>
+        <h1 className={`font-creato-display text-white uppercase ${small ? "text-xs sm:text-sm" : "sm:text-sm text-xs"} font-medium`}>
           {titleShort && title.length > 15 ? title.slice(0, 10) + "..." : title}
         </h1>
 
@@ -52,7 +52,7 @@ export default function StatusCard({
             : "bg-gradient-to-b from-[#FFFFFF12] to-[#FFFFFF08]"
         } rounded-[10px] ${
           small ? "py-2 px-3" : "p-3"
-        } mt-2 md:mt-1 flex gap-2 items-center ${
+        } mt-1 flex gap-2 items-center ${
           challenges ? "justify-between" : "justify-start"
         }`}
       >
