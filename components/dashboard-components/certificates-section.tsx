@@ -3,6 +3,7 @@
 import ResponsiveTabs from "@/components/common/responsive-tabs";
 import Image from "next/image";
 import certificate from "@/public/assets/certificate.png";
+import DashboardHeadings from "../common/dashboard-headings";
 
 export default function CertificatesSection() {
   const tabs = [
@@ -16,9 +17,7 @@ export default function CertificatesSection() {
   return (
     <div className="border border-white/10 gradient-dark-primary rounded-[14px] py-4 overflow-hidden grid">
       <div className="flex md:flex-row flex-col justify-between md:items-center gap-4 px-4">
-        <h1 className="text-white md:font-medium md:text-lg font-creato-display">
-          Certificates
-        </h1>
+        <DashboardHeadings title="Certificates" />
 
         <ResponsiveTabs
           tabs={tabs}
