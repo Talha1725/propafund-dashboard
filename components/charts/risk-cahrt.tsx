@@ -21,7 +21,7 @@ export default function RiskChart({
   // Calculate progress angle
   const progressPercentage = (currentValue / maxValue) * 100;
   const totalArcSpan = 320; // Total arc span in degrees
-  const progressAngle = (progressPercentage / 100) * totalArcSpan;
+  const progressAngle = Math.round(((progressPercentage / 100) * totalArcSpan) * 10000) / 10000;
 
   const chartData = [
     { name: "Progress", value: currentValue, color: "url(#sentimentGradient)" },
@@ -41,8 +41,8 @@ export default function RiskChart({
     for (let i = 0; i < dotCount; i++) {
       const angle = startAngle - (i / (dotCount - 1)) * arcSpan;
       const radian = (angle * Math.PI) / 180;
-      const x = 50 + (innerRadius / 2) * Math.cos(radian);
-      const y = 50 + (innerRadius / 3.2) * Math.sin(radian);
+      const x = Math.round((50 + (innerRadius / 2) * Math.cos(radian)) * 10000) / 10000;
+      const y = Math.round((50 + (innerRadius / 3.2) * Math.sin(radian)) * 10000) / 10000;
 
       dots.push(
         <div
@@ -136,7 +136,7 @@ export default function RiskChart({
             className="drop-shadow-lg"
             fill="url(#sentimentGradient2)"
             style={{
-              transform: `rotate(${190 + progressAngle}deg) translateY(-105px)`,
+              transform: `rotate(${Math.round((190 + progressAngle) * 10000) / 10000}deg) translateY(-105px)`,
               transformOrigin: "50% 50%",
             }}
           />
