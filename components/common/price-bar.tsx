@@ -46,5 +46,3 @@ export default function PriceBar({ prices, className = "" }: PriceBarProps) {
     </div>
   );
 }
-
-

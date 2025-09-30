@@ -54,5 +54,3 @@ function Banner({ icon, alt }: { icon: StaticImageData; alt: string }) {
     </Frame>
   );
 }
-
-

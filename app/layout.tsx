@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${creatoDisplay.variable} ${romanica.variable} bg-black text-white antialiased`}
+        className={`${creatoDisplay.variable} ${romanica.variable} bg-black text-white overflow-x-hidden antialiased`}
       >
         {children}
       </body>

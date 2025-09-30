@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface FaqItem {
   q: string;
   a: string;
@@ -8,7 +6,7 @@ export interface FaqItem {
 export type StatItem = { heading: string; content: string };
 
 export interface TestimonialCardPropsType {
-  quote: string | React.ReactNode;
+  quote: string;
   isActive?: boolean;
   bottomMode: "author" | "stats";
   authorName?: string;

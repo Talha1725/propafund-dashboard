@@ -1,12 +1,11 @@
 "use client";
 
-import Container from "../common/container";
 import SectionHeader from "../common/section-header";
 import BrandsMarquee from "./brands-marquee";
 
 export default function GlobalSection() {
   return (
-    <div className="font-creato-display">
+      <div className="font-creato-display">
         <SectionHeader
           title="AS SEEN AROUND THE WORLD"
           text=""
@@ -14,6 +13,6 @@ export default function GlobalSection() {
         <div className="mt-10">
           <BrandsMarquee />
         </div>
-    </div>
+      </div>
   );
 }
