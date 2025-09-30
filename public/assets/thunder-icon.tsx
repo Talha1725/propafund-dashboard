@@ -9,7 +9,7 @@ export default function ThunderIcon({ className }: { className?: string }) {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       className={className}
     >
-      <g clip-path="url(#clip0_2539_1506)">
+      <g clipPath="url(#clip0_2539_1506)">
         <rect
           x="60.9099"
           y="18"
@@ -45,9 +45,9 @@ export default function ThunderIcon({ className }: { className?: string }) {
           width="405.728"
           height="405.728"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"

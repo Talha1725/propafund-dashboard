@@ -1,4 +1,5 @@
 import { TradeDown, TradeUp } from "../common/icon";
+import { StatusCardProps } from "@/types/status-card";
 
 export default function StatusCard({
   title,
@@ -11,18 +12,7 @@ export default function StatusCard({
   tradeIcon = true,
   iconClick,
   titleShort = false
-}: {
-  title: string;
-  value: string;
-  active?: boolean;
-  small?: boolean;
-  tradeUp?: boolean;
-  challenges?: boolean;
-  icon?: React.ReactNode;
-  tradeIcon?: boolean;
-  iconClick?: () => void;
-  titleShort?: boolean;
-}) {
+}: StatusCardProps) {
   return (
     <div
       className={`border p-1 rounded-[14px] ${
