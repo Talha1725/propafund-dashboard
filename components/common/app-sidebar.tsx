@@ -80,7 +80,7 @@ export function AppSidebar() {
     <Sidebar className="border-none">
       <SidebarContent className="bg-dark overflow-hidden border-r-0 xl:border-r border-white/10 xl:border-none relative">
         <div className="xl:p-3 xl:pr-0 h-full backdrop-blur-2xl">
-          <ThunderIcon className="absolute bottom-[-10px] right-[-75px] z-30 " />
+          <ThunderIcon className="absolute bottom-[-69px] xl:bottom-[-57px] right-[-150px] z-30 " />
           <div className="w-full h-full pt-6 flex flex-col xl:rounded-l-[20px] gradient-white xl:border border-white/10">
             {/* Logo Section */}
             <div className="px-6 w-full border-b border-white/10 flex items-center justify-center max-h-14 pb-5 mb-6">

@@ -1,55 +1,53 @@
 export default function ThunderIcon({ className }: { className?: string }) {
   return (
     <svg
-      width="250"
-      height="300"
-      viewBox="0 0 250 300"
+      width="407"
+      height="407"
+      viewBox="0 0 407 407"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       className={className}
     >
-      <g clipPath="url(#clip0_2448_1430)">
-        <g clipPath="url(#clip1_2448_1430)">
-          <rect
-            x="-17"
-            y="-37"
-            width="310.136"
-            height="310.136"
-            transform="rotate(4.49842 -17 -37)"
-            fill="url(#pattern0_2448_1430)"
-          />
-        </g>
-        <g opacity="0.4" filter="url(#filter0_f_2448_1430)">
-          <rect
-            x="-17.6755"
-            y="-18"
-            width="310.136"
-            height="310.136"
-            transform="rotate(4.49842 -17.6755 -18)"
-            fill="url(#pattern1_2448_1430)"
-          />
-        </g>
+      <g clip-path="url(#clip0_2539_1506)">
+        <rect
+          x="60.9099"
+          y="18"
+          width="310.136"
+          height="310.136"
+          transform="rotate(4.49842 60.9099 18)"
+          fill="url(#pattern0_2539_1506)"
+        />
+      </g>
+      <g opacity="0.4" filter="url(#filter0_f_2539_1506)">
+        <rect
+          x="60.9099"
+          y="37"
+          width="310.136"
+          height="310.136"
+          transform="rotate(4.49842 60.9099 37)"
+          fill="url(#pattern1_2539_1506)"
+        />
       </g>
       <defs>
         <pattern
-          id="pattern0_2448_1430"
+          id="pattern0_2539_1506"
           patternContentUnits="objectBoundingBox"
           width="1"
           height="1"
         >
-          <use xlinkHref="#image0_2448_1430" transform="scale(0.000753012)" />
+          <use xlinkHref="#image0_2539_1506" transform="scale(0.000753012)" />
         </pattern>
         <filter
-          id="filter0_f_2448_1430"
-          x="-78.1117"
-          y="-54.1117"
+          id="filter0_f_2539_1506"
+          x="0.473701"
+          y="0.888252"
           width="405.728"
           height="405.728"
           filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
+          color-interpolation-filters="sRGB"
         >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -58,30 +56,27 @@ export default function ThunderIcon({ className }: { className?: string }) {
           />
           <feGaussianBlur
             stdDeviation="18.0559"
-            result="effect1_foregroundBlur_2448_1430"
+            result="effect1_foregroundBlur_2539_1506"
           />
         </filter>
         <pattern
-          id="pattern1_2448_1430"
+          id="pattern1_2539_1506"
           patternContentUnits="objectBoundingBox"
           width="1"
           height="1"
         >
-          <use xlinkHref="#image0_2448_1430" transform="scale(0.000753012)" />
+          <use xlinkHref="#image0_2539_1506" transform="scale(0.000753012)" />
         </pattern>
-        <clipPath id="clip0_2448_1430">
-          <rect width="250" height="300" fill="white" />
-        </clipPath>
-        <clipPath id="clip1_2448_1430">
+        <clipPath id="clip0_2539_1506">
           <rect
             width="312"
-            height="342"
+            height="236"
             fill="white"
-            transform="translate(-42 -90)"
+            transform="translate(35.9099 37)"
           />
         </clipPath>
         <image
-          id="image0_2448_1430"
+          id="image0_2539_1506"
           width="1328"
           height="1328"
           preserveAspectRatio="none"

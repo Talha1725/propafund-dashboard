@@ -1,3 +1,5 @@
+import DashboardHeadings from "./dashboard-headings";
+
 export default function TradingBehaviorSection({
   className,
 }: {
@@ -9,9 +11,7 @@ export default function TradingBehaviorSection({
     >
       <div className="h-full flex flex-col gap-2 justify-between">
         <div>
-          <h1 className="text-black font-creato-display text-lg font-medium">
-            Your Trading Behavior{" "}
-          </h1>
+          <DashboardHeadings title="Your Trading Behavior" className="!text-black" />
         </div>
 
         <div>

@@ -200,6 +200,13 @@
   background-clip: text;
   color: transparent; /* Fallback for browsers that don't support text-fill-color */
 }
+.gradient-text-secondary {
+  background: linear-gradient(180deg, #7AD3FF 0%, #4FBAF0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent; /* Fallback for browsers that don't support text-fill-color */
+}
 
 .gradient-border-top-white {
   border-top: 1px solid transparent;
@@ -211,7 +218,6 @@
   );
   border-image-slice: 1;
 }
-
 .section-top-border {
   border-top: 1px solid transparent;
   border-image-source: linear-gradient(
