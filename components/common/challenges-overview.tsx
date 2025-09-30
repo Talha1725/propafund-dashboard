@@ -1,5 +1,4 @@
 import ChallengeProgress from "./challenge-progress";
-import { IconColoredCheck, IconComplete } from "./icon";
 
 export default function ChallengesOverview({
   className,
