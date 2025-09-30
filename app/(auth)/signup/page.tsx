@@ -1,50 +1,44 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, type RegisterData } from "@/lib/schemas/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
+import Link from "next/link";
 
 export default function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullNameError, setFullNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useForm<RegisterData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data: RegisterData) => {
     setIsSubmitting(true);
-    
-    // Simple validation
-    setFullNameError("");
-    setEmailError("");
-    setPasswordError("");
-    
-    if (!fullName) {
-      setFullNameError("Full name is required");
+
+    try {
+      setTimeout(() => {
+        console.log("Signup attempt:", data);
+        setIsSubmitting(false);
+      }, 1000);
+    } catch (error) {
+      console.error('Form submission error:', error);
       setIsSubmitting(false);
-      return;
     }
-    
-    if (!email) {
-      setEmailError("Email is required");
-      setIsSubmitting(false);
-      return;
-    }
-    
-    if (!password) {
-      setPasswordError("Password is required");
-      setIsSubmitting(false);
-      return;
-    }
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 1000);
   };
 
 
@@ -54,22 +48,21 @@ export default function SignupPage() {
         title="CREATE YOUR ACCOUNT"
         subtitle="Enter your details to create an account."
         titleClassName="font-romanica font-normal text-[26px]"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         buttonText={isSubmitting ? "Creating Account..." : "Create Account"}
         isSubmitting={isSubmitting}
         linkText="Already have an account?"
         linkHref="/login"
         linkLabel="Login"
       >
-
         <AuthFormField
           id="fullName"
           label="FULL NAME"
           type="text"
           placeholder="Enter your full name"
-          value={fullName}
-          onChange={setFullName}
-          error={fullNameError}
+          value={watch("fullName")}
+          onChange={(value) => setValue("fullName", value)}
+          error={errors.fullName?.message}
         />
 
         <AuthFormField
@@ -77,9 +70,9 @@ export default function SignupPage() {
           label="EMAIL ADDRESS"
           type="email"
           placeholder="hello@fxutopia.com"
-          value={email}
-          onChange={setEmail}
-          error={emailError}
+          value={watch("email")}
+          onChange={(value) => setValue("email", value)}
+          error={errors.email?.message}
         />
 
         <AuthFormField
@@ -87,11 +80,10 @@ export default function SignupPage() {
           label="PASSWORD"
           type="password"
           placeholder="••••••••"
-          value={password}
-          onChange={setPassword}
-          error={passwordError}
+          value={watch("password")}
+          onChange={(value) => setValue("password", value)}
+          error={errors.password?.message}
         />
-
       </AuthForm>
     </AuthLayout>
   );

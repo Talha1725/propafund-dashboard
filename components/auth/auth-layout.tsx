@@ -22,7 +22,7 @@ export function AuthLayout({
             <Link href="/">
               <Image
                 src={AuthIcon}
-                alt="FX Utopia"
+                alt="Propafund"
                 width={logoWidth}
                 height={logoHeight}
                 className="cursor-pointer"
