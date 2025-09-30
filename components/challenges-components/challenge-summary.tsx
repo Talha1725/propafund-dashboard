@@ -1,0 +1,46 @@
+"use client";
+
+import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
+import { DropdownMenuContent } from "../ui/dropdown-menu";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
+import DataTable from "../common/data-table";
+import { challengeSummaryData, challengeSummaryColumns } from "@/lib/data/challenge-summary";
+import DashboardHeadings from "../common/dashboard-headings";
+
+export default function ChallengeSummary({ className }: { className?: string }) {
+
+  return (
+    <div
+      className={`border border-white/10 gradient-dark-primary rounded-[14px] w-full lg:w-[33%] xl:w-[47%] flex flex-col justify-between max-h-[500px] overflow-y-auto ${className}`}
+    >
+      <div className="flex flex-row justify-between items-center gap-2.5 px-5 py-4">
+        <DashboardHeadings title="Challenge Summary" />
+
+        <DropdownMenu>
+          <DropdownMenuTrigger className="md:w-[117px] h-10 border border-white/10 rounded-lg md:px-2 px-3 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent flex gap-2 items-center justify-center outline-0">
+            <span className="text-white font-creato-display text-sm">
+              Weekly
+            </span>
+            <ChevronDown className="w-4 h-4 text-white" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-dark border border-white/10 outline-0">
+            <DropdownMenuItem className="text-white">Weekly</DropdownMenuItem>
+            <DropdownMenuItem className="text-white">Monthly</DropdownMenuItem>
+            <DropdownMenuItem className="text-white">Yearly</DropdownMenuItem>
+            <DropdownMenuItem className="text-white">All Time</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <div className="">
+        <DataTable
+          data={challengeSummaryData}
+          columns={challengeSummaryColumns}
+          className="challenge-summary-table"
+          responsive={true}
+        />
+      </div>
+    </div>
+  );
+}
