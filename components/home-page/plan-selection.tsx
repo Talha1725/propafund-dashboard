@@ -25,7 +25,7 @@ export default function PlanSelectionSection() {
 
         {/* Plans table */}
         <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full mt-10")}> 
-          <div className="relative w-full p-2" style={{ background: "#ffffff" }}>
+          <div className="relative w-full py-2 px-4" style={{ background: "#ffffff" }}>
             <div className="w-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8] to-[#3B62B8]">
               {/* Header row */}
               <div className="grid" style={{ gridTemplateColumns: `repeat(4, minmax(0, 1fr))` }}>
@@ -50,7 +50,7 @@ export default function PlanSelectionSection() {
 
               {/* Body rows */}
               {/* Price */}
-              <div className="grid px-6" style={{ gridTemplateColumns: `repeat(4, minmax(0, 1fr))` }}>
+              <div className="grid px-2" style={{ gridTemplateColumns: `repeat(4, minmax(0, 1fr))` }}>
                 {[
                   ["Price", "$299", "$449", "$799"],
                   ["Time Period", "15-25 Days", "7-15 Days", "Under 3 Days"],
@@ -63,7 +63,7 @@ export default function PlanSelectionSection() {
                       <div
                         key={`${rowIdx}-${cellIdx}`}
                         className={cn(
-                          "px-4 py-4 text-white/95 text-sm sm:text-base font-creato-display border-b border-white/20",
+                          "pl-0 pr-4 py-3 text-white/95 text-sm sm:text-base font-creato-display border-b border-white/20",
                           cellIdx !== 3 ? "border-b border-l-transparent border-r-transparent" : ""
                         )}
                       >
@@ -116,7 +116,7 @@ export default function PlanSelectionSection() {
 
           {/* Right: Payment options inside a frame */}
           <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full")}> 
-            <div className="relative w-full p-4" style={{ background: "#ffffff" }}>
+            <div className="relative w-full py-2 px-4" style={{ background: "#ffffff" }}>
               <div className="relative w-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8] to-[#3B62B8] p-4 md:p-6 flex flex-col items-start gap-3 md:gap-4">
                 {[
                   { label: "Pay with Bank Transfer", icon: moneyIcon },

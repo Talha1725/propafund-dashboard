@@ -28,7 +28,7 @@ export default function FramedTable({ headers, rows, className = "" }: FramedTab
                 <div
                   key={cellIdx}
                   className={cn(
-                    "pr-4 pl-0 py-4 text-white/95 text-sm sm:text-base font-creato-display",
+                    "pr-4 pl-0 py-3 text-white/95 text-sm sm:text-base font-creato-display",
                     "border-b border-white/20",
                     cellIdx !== headers.length - 1 ? "border-b border-l-transparent border-r-transparent" : ""
                   )}

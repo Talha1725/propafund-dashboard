@@ -31,7 +31,7 @@ function Card({
 
   return (
     <div 
-      className="border border-[#FFFFFF1A] relative w-full !p-0 flex-col flex justify-between transition-all duration-300 ease-in-out"
+      className="overflow-hidden border border-[#FFFFFF1A] relative w-full !p-0 flex-col flex justify-between transition-all duration-300 ease-in-out"
       style={{ background: hover ? "linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)" : "linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%)" }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

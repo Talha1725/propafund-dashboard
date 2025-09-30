@@ -23,7 +23,7 @@ export default function FundedSection() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-20 md:gap-14 mt-20 md:mt-15">
-          <Frame variants={hover === "card1" ? "white" : "none"} edgesZIndex={5}>
+          <Frame variants={hover === "card1" ? "white" : "none"} topBottomThicknessPx={6} sideThicknessPx={12} edgesZIndex={5}>
             <div
               onMouseEnter={() => setHover("card1")}
               onMouseLeave={() => setHover("")}
