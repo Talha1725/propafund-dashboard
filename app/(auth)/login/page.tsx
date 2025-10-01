@@ -3,10 +3,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { loginSchema, type LoginData } from "@/lib/schemas/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
+import { auth } from "@/lib/api/endpoints/auth";
+import { handleApiError, handleApiResponse } from "@/lib/utils/apiUtils";
+import { setUserAtom, setTokenAtom } from "@/lib/store/atoms";
 import Image from "next/image";
 import checkmarkIcon from "@/public/assets/checkmark.svg";
 import { toast } from "sonner";
@@ -15,6 +20,9 @@ import Link from "next/link";
 export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const router = useRouter();
+  const [, setUser] = useAtom(setUserAtom);
+  const [, setToken] = useAtom(setTokenAtom);
 
   const {
     register,
@@ -32,18 +40,41 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginData) => {
+    const loadingToastId = toast.loading("Signing you in...");
     setIsSubmitting(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await auth.login(data);
       
-      toast.success("Login successful! Welcome back.");
-      console.log("Login attempt:", data);
+      // Handle API response
+      const success = handleApiResponse(
+        response,
+        () => {
+          // Success callback
+          if (response.user && response.token) {
+            setUser(response.user);
+            setToken(response.token);
+            toast.success("Welcome back! Login successful.");
+            router.push("/dashboard");
+          }
+        },
+        (errorMessage) => {
+          // Error callback
+          toast.error(errorMessage);
+        }
+      );
+
+      if (!success) {
+        toast.dismiss(loadingToastId);
+        return;
+      }
+
     } catch (error) {
-      console.error('Form submission error:', error);
-      toast.error("Login failed. Please check your credentials.");
+      const errorMessage = handleApiError(error);
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
+      toast.dismiss(loadingToastId);
     }
   };
 

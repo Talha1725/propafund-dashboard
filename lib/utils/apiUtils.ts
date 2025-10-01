@@ -58,3 +58,18 @@ export function getStoredUser() {
     return null;
   }
 }
+
+export const handleApiResponse = (
+  response: { success?: boolean; status?: string; message?: string; error?: string },
+  onSuccess: () => void,
+  onError: (message: string) => void
+): boolean => {
+  if (response?.success === false || response?.status === 'failed') {
+    const errorMessage = response?.message || response?.error || 'Request failed';
+    onError(errorMessage);
+    return false;
+  }
+  
+  onSuccess();
+  return true;
+};
