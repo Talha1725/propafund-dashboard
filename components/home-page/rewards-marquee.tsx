@@ -45,7 +45,7 @@ export default function RewardsMarquee() {
 
 function Banner({ icon, alt }: { icon: StaticImageData; alt: string }) {
   return (
-    <Frame variants="white" topBottomThicknessPx={2.57} sideThicknessPx={2.57} edgeStretchPercent={100}>
+    <Frame variants="white" topBottomThicknessPx={3} sideThicknessPx={3} edgesZIndex={30}>
       <div className="relative w-[72px] h-[70px] sm:w-[81.43px] sm:h-[79px] p-[2px] sm:p-[2.14px]">
         <div className="w-full h-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8] to-[#3B62B8] flex items-center justify-center">
           <Image src={icon} alt={alt} width={REWARD_ICON_SIZE} height={REWARD_ICON_SIZE} className="opacity-100 w-[28px] h-[28px] sm:w-[36px] sm:h-[36px]" />

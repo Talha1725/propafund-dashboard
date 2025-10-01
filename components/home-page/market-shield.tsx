@@ -16,8 +16,8 @@ import marbleClipboard from "@/public/assets/marable-paperroll.svg";
 export default function MarketShieldSection({ className }: { className?: string }) {
   return (
     <div className={cn("font-creato-display py-30", className)}>
-      <Container className="w-full max-w-[1440px]">
-      <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full")}>
+      <Container reducedMargin={true}>
+      <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} edgeStretchPercent={104}>
       <div className="">
         <Image
           src={marketShield}
@@ -34,7 +34,7 @@ export default function MarketShieldSection({ className }: { className?: string 
           title="Your Shield in the Markets"
           text="More than funding — we equip you with the tools to win."
         />
-        <div className="w-full grid md:grid-cols-4 gap-10 relative mt-5 sm:mt-15 px-[100px] pb-[100px]">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 relative mt-5 sm:mt-15 px-4 sm:px-8 md:px-16 lg:px-[100px] pb-8 sm:pb-12 md:pb-16 lg:pb-[100px]">
           <LocalCard
             content="INSTANT SETUP & CLEAR RULES"
             image={marbleSpark}
@@ -97,7 +97,7 @@ function LocalCard({
       </div>
 
       <div className={`${imageWrapperClass ?? ""} relative z-10 -mt-2`}>
-        <Image src={image} alt="card-image" width={186} height={186} className="w-[186px] h-[186px] opacity-100 rotate-0" />
+        <Image src={image} alt="card-image" width={186} height={186} className="w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] md:w-[150px] md:h-[150px] lg:w-[186px] lg:h-[186px] opacity-100 rotate-0" />
       </div>
     </div>
   );

@@ -20,7 +20,6 @@ export default function FAQPage() {
         isHomepage={false}
       />
       <div className="font-creato-display py-30" id="promos">
-        <Container>
           <SectionHeader
             title="Seize the Exclusive PropaFund Rewards"
             text="Unlock limited-time deals, trading perks, and bonus opportunities designed to boost your journey to funded success."
@@ -35,7 +34,6 @@ export default function FAQPage() {
           </div>
           <Image src={hammer} alt="hammer" className="w-full h-full object-cover" />
         </div>
-        </Container>
       </div>
     </>
   );
