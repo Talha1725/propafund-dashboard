@@ -44,7 +44,7 @@ function TabsTrigger({
       className={cn(
         "inline-flex items-center justify-center px-2 md:px-4 md:py-2 py-1.5 text-sm font-creato-display whitespace-nowrap transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 rounded-[6px]",
         "text-white/50 hover:text-white",
-        "data-[state=active]:bg-gradient-to-b data-[state=active]:from-white data-[state=active]:to-blue data-[state=active]:text-black data-[state=active]:rounded-[6px] data-[state=active]:px-4 data-[state=active]:py-2 data-[state=active]:font-medium",
+        "data-[state=active]:bg-[#0B0E121A] data-[state=active]:text-[#0B0E12] data-[state=active]:rounded-[6px] data-[state=active]:px-4 data-[state=active]:py-2 data-[state=active]:font-medium",
         className
       )}
       {...props}

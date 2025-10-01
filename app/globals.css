@@ -241,6 +241,22 @@ html, body {
   width: 200%;
 }
 
+.bg-instant-funding {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+.column-panel {
+  background: linear-gradient(180deg, rgba(110, 110, 110, 0.1) 0%, rgba(19, 19, 21, 0.02) 100%);
+  border: 1px solid #FFFFFF1A;
+}
+
+.border-gradient-to-b {
+  border-top: 1px solid rgba(255, 255, 255, 0);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 @keyframes brandsMarquee {
   0% {
     transform: translateX(0%);
