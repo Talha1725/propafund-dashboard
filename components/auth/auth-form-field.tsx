@@ -37,7 +37,7 @@ export function AuthFormField({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             className={cn(
-              "w-[392px] h-[49px] text-[16px] font-regular text-[#99A0AE] placeholder:text-[16px] placeholder:text-[#99A0AE] font-regular font-creato-display rounded-none",
+              "w-full h-[49px] text-[16px] font-regular text-[#99A0AE] placeholder:text-[16px] placeholder:text-[#99A0AE] font-regular font-creato-display rounded-none",
               error && "border-red-400 focus-visible:border-red-400"
             )}
             style={{
@@ -59,7 +59,7 @@ export function AuthFormField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={cn(
-            "w-[392px] h-[49px] text-[16px] font-regular text-[#99A0AE] placeholder:text-[16px] placeholder:text-[#99A0AE] font-regular font-creato-display rounded-none",
+            "w-full h-[49px] text-[16px] font-regular text-[#99A0AE] placeholder:text-[16px] placeholder:text-[#99A0AE] font-regular font-creato-display rounded-none",
             error && "border-red-400 focus-visible:border-red-400"
           )}
           style={{

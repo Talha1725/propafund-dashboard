@@ -7,13 +7,12 @@ import { registerSchema, type RegisterData } from "@/lib/schemas/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
-import Link from "next/link";
+import { PasswordRequirements } from "@/components/auth/password-requirements";
 
 export default function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
     watch,
@@ -26,6 +25,8 @@ export default function SignupPage() {
       password: "",
     },
   });
+
+  const password = watch("password");
 
   const onSubmit = async (data: RegisterData) => {
     setIsSubmitting(true);
@@ -61,7 +62,9 @@ export default function SignupPage() {
           type="text"
           placeholder="Enter your full name"
           value={watch("fullName")}
-          onChange={(value) => setValue("fullName", value)}
+          onChange={(value) => {
+            setValue("fullName", value, { shouldValidate: true });
+          }}
           error={errors.fullName?.message}
         />
 
@@ -71,7 +74,9 @@ export default function SignupPage() {
           type="email"
           placeholder="hello@fxutopia.com"
           value={watch("email")}
-          onChange={(value) => setValue("email", value)}
+          onChange={(value) => {
+            setValue("email", value, { shouldValidate: true });
+          }}
           error={errors.email?.message}
         />
 
@@ -81,9 +86,15 @@ export default function SignupPage() {
           type="password"
           placeholder="••••••••"
           value={watch("password")}
-          onChange={(value) => setValue("password", value)}
+          onChange={(value) => {
+            setValue("password", value, { shouldValidate: true });
+          }}
           error={errors.password?.message}
         />
+        
+        <div className="w-[392px] mx-auto mt-2">
+          <PasswordRequirements password={password} />
+        </div>
       </AuthForm>
     </AuthLayout>
   );

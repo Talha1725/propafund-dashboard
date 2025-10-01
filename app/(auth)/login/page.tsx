@@ -7,6 +7,8 @@ import { loginSchema, type LoginData } from "@/lib/schemas/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
+import Image from "next/image";
+import checkmarkIcon from "@/public/assets/checkmark.svg";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -42,13 +44,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Google login clicked");
-  };
-
-  const handleAppleLogin = () => {
-    console.log("Apple login clicked");
-  };
 
   return (
     <AuthLayout>
@@ -69,7 +64,9 @@ export default function LoginPage() {
           type="email"
           placeholder="hello@fxutopia.com"
           value={watch("email")}
-          onChange={(value) => setValue("email", value)}
+          onChange={(value) => {
+            setValue("email", value, { shouldValidate: true });
+          }}
           error={errors.email?.message}
         />
 
@@ -79,7 +76,9 @@ export default function LoginPage() {
           type="password"
           placeholder="••••••••"
           value={watch("password")}
-          onChange={(value) => setValue("password", value)}
+          onChange={(value) => {
+            setValue("password", value, { shouldValidate: true });
+          }}
           error={errors.password?.message}
         />
 
@@ -99,14 +98,14 @@ export default function LoginPage() {
                   borderColor: '#E1E4EA1A'
                 }}
               >
-                <svg
-                  className="w-3 h-3 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  style={{ display: isChecked ? 'block' : 'none' }}
-                >
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
+                {isChecked && (
+                  <Image
+                    src={checkmarkIcon}
+                    alt="Checkmark"
+                    width={12}
+                    height={12}
+                  />
+                )}
               </div>
             </div>
             <span className="text-white text-[16px] font-regular font-creato-display">
