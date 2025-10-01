@@ -11,7 +11,7 @@ export default function TestimonialCard({
   extraContent,
   stats = [],
 }: TestimonialCardPropsType) {
-  const quoteClass = "font-romanica font-normal text-[20px] leading-[1] tracking-[0] uppercase";
+  const quoteClass = "font-romanica font-normal text-[20px] leading-[1] tracking-[0] uppercase text-center";
 
   if (isActive) {
     return (
