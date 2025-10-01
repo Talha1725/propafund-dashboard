@@ -6,7 +6,8 @@ import { useAtom } from 'jotai';
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/common/app-sidebar";
 import { Navbar } from "@/components/common/dashboard_navbar";
-import { isAuthenticatedAtom, userAtom } from '@/lib/store/atoms';
+import { isAuthenticatedAtom } from '@/lib/store/atoms';
+import PageHeadings from "@/components/common/page-headings";
 
 export default function DashboardLayout({
   children,
@@ -18,7 +19,6 @@ export default function DashboardLayout({
   const [, user] = useAtom(userAtom);
 
   useEffect(() => {
-    // Check if user is authenticated
     if (!isAuthenticated) {
       router.push('/login');
     }
@@ -43,6 +43,7 @@ export default function DashboardLayout({
         <SidebarInset className="bg-dark w-full">
           <main className="flex-1 xl:border border-l-0 xl:my-3 border-white/10 xl:mr-3 xl:rounded-r-[20px]">
             <Navbar />
+            <PageHeadings />
             {children}
           </main>
         </SidebarInset>

@@ -32,11 +32,11 @@ export default function RewardsMarquee() {
 
   return (
     <div className="relative z-50 mt-3 lg:mt-12 overflow-hidden">
-      <div className="h-20 w-26 bg-black rounded-full -left-5 absolute top-1/2 -translate-y-1/2 blur-md opacity-80 z-[9999] lg:block hidden"></div>
-      <div className="h-20 w-26 bg-black rounded-full -right-5 absolute top-1/2 -translate-y-1/2 blur-2xl lg:blur-md opacity-80 z-[9999] lg:block hidden"></div>
+      <div className="h-20 w-26 bg-black rounded-full -left-5 absolute top-1/2 -translate-y-1/2 blur-2xl opacity-80 z-[9999] lg:block hidden"></div>
+      <div className="h-20 w-26 bg-black rounded-full -right-5 absolute top-1/2 -translate-y-1/2 blur-2xl opacity-80 z-[9999] lg:block hidden"></div>
       <div className="brands-marquee-container">
         <div className="flex items-center gap-10">
-          {renderLoop(6)}
+          {renderLoop(8)}
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@ export default function RewardsMarquee() {
 
 function Banner({ icon, alt }: { icon: StaticImageData; alt: string }) {
   return (
-    <Frame variants="white" topBottomThicknessPx={2.57} sideThicknessPx={2.57} edgeStretchPercent={100}>
+    <Frame variants="white" topBottomThicknessPx={3} sideThicknessPx={3} edgesZIndex={30}>
       <div className="relative w-[72px] h-[70px] sm:w-[81.43px] sm:h-[79px] p-[2px] sm:p-[2.14px]">
         <div className="w-full h-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8] to-[#3B62B8] flex items-center justify-center">
           <Image src={icon} alt={alt} width={REWARD_ICON_SIZE} height={REWARD_ICON_SIZE} className="opacity-100 w-[28px] h-[28px] sm:w-[36px] sm:h-[36px]" />
@@ -54,5 +54,3 @@ function Banner({ icon, alt }: { icon: StaticImageData; alt: string }) {
     </Frame>
   );
 }
-
-

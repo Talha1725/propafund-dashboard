@@ -11,11 +11,11 @@ export default function TestimonialCard({
   extraContent,
   stats = [],
 }: TestimonialCardPropsType) {
-  const quoteClass = "font-romanica font-normal text-[20px] leading-[1] tracking-[0] uppercase";
+  const quoteClass = "font-romanica font-normal text-[20px] leading-[1] tracking-[0] uppercase text-center";
 
   if (isActive) {
     return (
-      <Frame variants="white">
+      <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12}>
         <div className="p-8 text-center gradient-primary text-white">
           <p className={quoteClass}>{quote}</p>
 

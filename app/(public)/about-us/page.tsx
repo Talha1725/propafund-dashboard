@@ -20,7 +20,6 @@ export default function FAQPage() {
         isHomepage={false}
       />
         <div className="font-creato-display" id="about-us">
-        <Container>
           <FundedSection/>
           <MarketShieldSection className="-py-30"/>
           <OracleSection className="-py-30"/>
@@ -30,7 +29,6 @@ export default function FAQPage() {
           </div>
           <Image src={hammer} alt="hammer" className="w-full h-full object-cover" />
         </div>
-        </Container>
       </div>
     </>
   );
