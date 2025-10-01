@@ -15,7 +15,7 @@ export default function TestimonialCard({
 
   if (isActive) {
     return (
-      <Frame variants="white">
+      <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12}>
         <div className="p-8 text-center gradient-primary text-white">
           <p className={quoteClass}>{quote}</p>
 

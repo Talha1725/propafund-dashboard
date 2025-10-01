@@ -8,7 +8,7 @@ import { FramedTableProps } from "@/types/common";
 export default function FramedTable({ headers, rows, className = "" }: FramedTableProps) {
   return (
     <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full", className)}>
-      <div className="relative w-full p-2" style={{ background: "#ffffff" }}>
+      <div className="relative w-full px-4 py-2 bg-white">
         <div className="w-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8] to-[#3B62B8]">
           <div className="grid" style={{ gridTemplateColumns: `repeat(${headers.length}, minmax(0, 1fr))` }}>
             {headers.map((h, i) => (

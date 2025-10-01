@@ -23,7 +23,7 @@ export default function OracleSection({ className }: { className?: string }) {
             const isOpen = openIndex === i;
             return (
               <div key={q} className="w-full">
-                  <Frame variants={isOpen ? "white" : "none"}>
+                <Frame variants={isOpen ? "white" : "default"} edgesZIndex={10} topBottomThicknessPx={6} edgeStretchPercent={104} sideThicknessPx={12}>
                   {isOpen ? (
                     <div className="gradient-primary p-[24px] min-h-[76px] flex flex-col gap-2 text-white" onClick={() => setOpenIndex(null)}>
                       <p className={questionClass}>
@@ -34,11 +34,18 @@ export default function OracleSection({ className }: { className?: string }) {
                       </p>
                     </div>
                   ) : (
-                    <GradientRow onClick={() => setOpenIndex(i)}>
+                    <div 
+                      className="w-full h-[76px] p-[24px] flex items-center cursor-pointer"
+                      style={{
+                        background: "linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)",
+                        opacity: 1,
+                      }}
+                      onClick={() => setOpenIndex(i)}
+                    >
                       <p className={questionClass}>
                         {q}
                       </p>
-                    </GradientRow>
+                    </div>
                   )}
                 </Frame>
               </div>
