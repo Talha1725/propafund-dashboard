@@ -57,3 +57,56 @@ export interface DataTableProps {
   dateHeader?: string;
   showDateHeaders?: boolean;
 }
+
+export interface CredentialsDialogProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  accountId: string;
+  username: string;
+  password: string;
+  server: string;
+  platform?: string;
+  showDeleteButton?: boolean;
+  onDelete?: () => void;
+}
+
+export interface AccountCredentials {
+  accountId: string;
+  username: string;
+  password: string;
+  server: string;
+  platform?: string;
+}
+
+export interface AccountCardProps extends AccountCredentials {
+  phase: string;
+  tradesCount: number;
+  daysTraded: number;
+  balance?: boolean;
+  isAddNewCard?: boolean;
+}
+
+export interface CardContainerProps {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+  className?: string;
+  headerClassName?: string;
+  contentClassName?: string;
+  customHeader?: React.ReactNode;
+}
+
+export interface DataDisplayItemProps {
+  label: string;
+  value: string;
+  valueColor?: "red" | "green" | "white";
+  variant?: "horizontal" | "vertical" | "responsive";
+}
+
+export interface ChartButtonProps {
+  children: string;
+  top: string;
+  visibility: string;
+  isRed?: boolean;
+  className?: string;
+}
