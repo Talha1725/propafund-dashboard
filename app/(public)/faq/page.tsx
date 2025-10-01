@@ -18,7 +18,6 @@ export default function FAQPage() {
         isHomepage={false}
       />
       <div className="font-creato-display" id="faq">
-        <Container>
           <OracleSection className="-py-30"/>
           <div className="relative">
           <div className="pointer-events-none absolute inset-x-0 -top-150 flex justify-center">
@@ -26,7 +25,6 @@ export default function FAQPage() {
           </div>
           <Image src={hammer} alt="hammer" className="w-full h-full object-cover" />
         </div>
-        </Container>
       </div>
     </>
   );

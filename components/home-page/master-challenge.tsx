@@ -18,7 +18,7 @@ export default function MasterChallengeSection() {
           text="See every stat that matters — live profit tracking, drawdown monitoring, progress milestones, and more — all in one powerful dashboard."
         />
         <div className="mt-10 flex justify-center relative">
-          <Frame variants="white" className="w-full max-w-[1104px] aspect-[1104/693.566650390625]" topBottomThicknessPx={6} sideThicknessPx={12}>
+          <Frame variants="white" className="w-full max-w-[1104px] aspect-[1104/693.566650390625]" topBottomThicknessPx={6} sideThicknessPx={12} edgeStretchPercent={104}>
             <div
               className="relative w-full h-full p-[6.13px]"
               style={{

@@ -34,7 +34,7 @@ function Card({
 
   return (
     <Frame 
-      variants={hover ? "white" : "default"} 
+      variants={hover ? "white" : "none"} 
       topBottomThicknessPx={6} 
       sideThicknessPx={12}
       edgesZIndex={30}

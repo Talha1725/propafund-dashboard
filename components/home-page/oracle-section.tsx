@@ -2,7 +2,6 @@
 
 import Container from "../common/container";
 import SectionHeader from "../common/section-header";
-import GradientRow from "../common/gradient-row";
 import Frame from "../common/frame";
 import { useState } from "react";
 import { ORACLE_FAQ_ITEMS } from "@/constants/homepage";
@@ -23,7 +22,7 @@ export default function OracleSection({ className }: { className?: string }) {
             const isOpen = openIndex === i;
             return (
               <div key={q} className="w-full">
-                <Frame variants={isOpen ? "white" : "default"} edgesZIndex={10} topBottomThicknessPx={6} edgeStretchPercent={104} sideThicknessPx={12}>
+                <Frame variants={isOpen ? "white" : "none"} edgesZIndex={10} topBottomThicknessPx={6} edgeStretchPercent={104} sideThicknessPx={12}>
                   {isOpen ? (
                     <div className="gradient-primary p-[24px] min-h-[76px] flex flex-col gap-2 text-white" onClick={() => setOpenIndex(null)}>
                       <p className={questionClass}>

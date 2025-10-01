@@ -9,7 +9,7 @@ import ToolCards from "../common/tool-cards";
 export default function ToolsCardsSection() {
   return (
     <div className="font-creato-display">
-      <Container>
+      <Container reducedMargin={true}>
         <SectionHeader
           title="Tools to Match Your Hustle"
           text="Trade on platforms that feel like an extension of your brain—fast, sharp, and ready for action."

@@ -1,6 +1,5 @@
 "use client";
 
-import Container from "../common/container";
 import SectionHeader from "../common/section-header";
 import RewardsMarquee from "./rewards-marquee";
 import Glow from "../common/glow";

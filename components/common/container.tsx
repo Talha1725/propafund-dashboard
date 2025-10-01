@@ -1,3 +1,19 @@
-export default function Container({ children, className }: { children?: React.ReactNode, className?: string }) {
-  return <div className={`container mx-auto w-[90%] lg:w-[86%] ${className}`}>{children}</div>;
+export default function Container({ 
+  children, 
+  className, 
+  reducedMargin = false 
+}: { 
+  children?: React.ReactNode, 
+  className?: string,
+  reducedMargin?: boolean 
+}) {
+  const containerClass = reducedMargin 
+    ? 'w-[95%] lg:w-[92%]' 
+    : 'w-[90%] lg:w-[86%]';
+  
+  return (
+    <div className="w-full flex justify-center">
+      <div className={`${containerClass} ${className}`}>{children}</div>
+    </div>
+  );
 }
