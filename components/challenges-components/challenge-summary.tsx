@@ -12,7 +12,7 @@ export default function ChallengeSummary({ className }: { className?: string }) 
 
   return (
     <div
-      className={`border border-white/10 gradient-dark-primary rounded-[14px] w-full lg:w-[33%] xl:w-[47%] flex flex-col justify-between max-h-[500px] overflow-y-auto ${className}`}
+      className={`border border-white/10 gradient-dark-primary rounded-[14px] w-full lg:w-[33%] xl:w-[43%] flex flex-col justify-between max-h-[500px] overflow-y-auto ${className}`}
     >
       <div className="flex flex-row justify-between items-center gap-2.5 px-5 py-4">
         <DashboardHeadings title="Challenge Summary" />

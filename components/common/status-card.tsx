@@ -11,7 +11,10 @@ export default function StatusCard({
   icon,
   tradeIcon = true,
   iconClick,
-  titleShort = false
+  titleShort = false,
+  valueDivStyle = "",
+  valueStyle = "",
+  className = "",
 }: StatusCardProps) {
   return (
     <div
@@ -19,7 +22,7 @@ export default function StatusCard({
         active
           ? "border-t-white border-l-[#b6dbef] border-r-[#b6dbef] border-b-[#4EB2E4] gradient-blue"
           : "border-white/10 gradient-dark-primary"
-      }`}
+      } ${className}`}
     >
       <div
         className={`${
@@ -44,12 +47,12 @@ export default function StatusCard({
           small ? "py-2 px-3" : "p-3"
         } mt-1 flex gap-2 items-center ${
           challenges ? "justify-between" : "justify-start"
-        }`}
+        } ${valueDivStyle}`}
       >
         <p
           className={`font-creato-display ${
             small ? "text-lg" : "sm:text-2xl text-xl"
-          } font-medium ${active ? "text-black" : "text-white"}`}
+          } font-medium ${active ? "text-black" : "text-white"} ${valueStyle}`}
         >
           {value}
         </p>

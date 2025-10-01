@@ -7,7 +7,7 @@ export default function TradingBehaviorSection({
 }) {
   return (
     <div
-      className={`border border-t-white border-l-[#b6dbef] border-r-[#7fc6ec] border-b-[#4EB2E4] w-full sm:w-[48.50%] lg:w-[33%] xl:w-[25%] rounded-[14px] p-4 bg-gradient-to-b from-white to-blue relative overflow-hidden h-[290px] sm:h-auto ${className}`}
+      className={`border border-t-white border-l-[#b6dbef] border-r-[#7fc6ec] border-b-[#4EB2E4] w-full sm:w-[48.50%] lg:w-[33%] xl:w-[30%] min-[1308px]:!w-[28%] rounded-[14px] p-4 bg-gradient-to-b from-white to-blue relative overflow-hidden h-[290px] sm:h-auto ${className}`}
     >
       <div className="h-full flex flex-col gap-2 justify-between">
         <div>

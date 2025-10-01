@@ -9,4 +9,7 @@ export interface StatusCardProps {
   tradeIcon?: boolean;
   iconClick?: () => void;
   titleShort?: boolean;
+  valueDivStyle?: string;
+  valueStyle?: string;
+  className?: string;
 }
