@@ -10,6 +10,7 @@ import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import { PasswordRequirements } from "@/components/auth/password-requirements";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 function ResetPasswordContent() {
   const router = useRouter();
@@ -46,18 +47,21 @@ function ResetPasswordContent() {
   const onSubmit = async (data: ResetPasswordData) => {
     if (!token) {
       console.error("Invalid or missing reset token");
+      toast.error("Invalid or missing reset token");
       return;
     }
 
     try {
       setIsLoading(true);
-      setTimeout(() => {
-        console.log("Password reset successful!", data);
-        setIsLoading(false);
-        router.push("/login");
-      }, 1000);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast.success("Password reset successfully! Redirecting to login...");
+      console.log("Password reset successful!", data);
+      router.push("/login");
     } catch (error: unknown) {
       console.error("Password reset error:", error);
+      toast.error("Failed to reset password. Please try again.");
+    } finally {
       setIsLoading(false);
     }
   };

@@ -7,6 +7,7 @@ import { forgotPasswordSchema, type ForgotPasswordData } from "@/lib/schemas/aut
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
+import { toast } from "sonner";
 
 export default function ForgotPasswordPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,12 +28,14 @@ export default function ForgotPasswordPage() {
     setIsSubmitting(true);
 
     try {
-      setTimeout(() => {
-        console.log("Forgot password attempt:", data);
-        setIsSubmitting(false);
-      }, 1000);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast.success("Reset link sent! Please check your email.");
+      console.log("Forgot password attempt:", data);
     } catch (error) {
       console.error('Form submission error:', error);
+      toast.error("Failed to send reset link. Please try again.");
+    } finally {
       setIsSubmitting(false);
     }
   };

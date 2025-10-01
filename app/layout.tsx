@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { creatoDisplay, romanica } from "@/lib/fonts";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
         className={`${creatoDisplay.variable} ${romanica.variable} bg-black text-white overflow-x-hidden antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

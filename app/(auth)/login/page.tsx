@@ -9,6 +9,7 @@ import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import Image from "next/image";
 import checkmarkIcon from "@/public/assets/checkmark.svg";
+import { toast } from "sonner";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -34,12 +35,14 @@ export default function LoginPage() {
     setIsSubmitting(true);
 
     try {
-      setTimeout(() => {
-        console.log("Login attempt:", data);
-        setIsSubmitting(false);
-      }, 1000);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast.success("Login successful! Welcome back.");
+      console.log("Login attempt:", data);
     } catch (error) {
       console.error('Form submission error:', error);
+      toast.error("Login failed. Please check your credentials.");
+    } finally {
       setIsSubmitting(false);
     }
   };

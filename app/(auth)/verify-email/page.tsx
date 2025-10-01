@@ -3,19 +3,22 @@
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function VerifyEmailPage() {
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const handleResendEmail = async () => {
     try {
       setIsLoading(true);
-      setTimeout(() => {
-        console.log("Resend verification email");
-        setIsLoading(false);
-      }, 1000);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      toast.success("Verification email sent! Please check your inbox.");
+      console.log("Resend verification email");
     } catch (error: unknown) {
       console.error("Resend verification email error:", error);
+      toast.error("Failed to resend verification email. Please try again.");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -28,7 +31,8 @@ export default function VerifyEmailPage() {
             Verify Your Email
           </h1>
           <p className="text-[#525866] text-[18px] font-regular font-lay-grotesk">
-             We&apos;ve sent a verification link to your email address. Please check your inbox and click the link to verify your account.
+            We&apos;ve sent a verification link to your email address. Please
+            check your inbox and click the link to verify your account.
           </p>
 
           <div className="w-[200px] relative mx-auto mt-8">
@@ -39,7 +43,7 @@ export default function VerifyEmailPage() {
               disabled={isLoading}
               onClick={handleResendEmail}
             >
-              {isLoading ? "Sending..." :  "Resend Email"}
+              {isLoading ? "Sending..." : "Resend Email"}
             </Button>
           </div>
         </div>

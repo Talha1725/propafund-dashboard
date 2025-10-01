@@ -8,6 +8,7 @@ import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import { PasswordRequirements } from "@/components/auth/password-requirements";
+import { toast } from "sonner";
 
 export default function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,12 +33,14 @@ export default function SignupPage() {
     setIsSubmitting(true);
 
     try {
-      setTimeout(() => {
-        console.log("Signup attempt:", data);
-        setIsSubmitting(false);
-      }, 1000);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast.success("Account created successfully! Please check your email to verify your account.");
+      console.log("Signup attempt:", data);
     } catch (error) {
       console.error('Form submission error:', error);
+      toast.error("Signup failed. Please try again.");
+    } finally {
       setIsSubmitting(false);
     }
   };
