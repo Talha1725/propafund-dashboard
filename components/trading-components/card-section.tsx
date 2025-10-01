@@ -10,7 +10,7 @@ export const CardSection = memo(() => {
       {ACCOUNT_DATA.map((account, index) => {
         const fallback = ACCOUNT_CARD_CONSTANTS.DEFAULT_CREDENTIALS;
         const creds = ACCOUNT_CREDENTIALS_DATA[account.accountId as keyof typeof ACCOUNT_CREDENTIALS_DATA];
-        const platform = creds && typeof creds === "object" && "platform" in creds ? (creds as any).platform : undefined;
+        const platform = creds && typeof creds === "object" && "platform" in creds ? (creds as { platform?: string }).platform : undefined;
         return (
           <AccountCard
             key={index}
@@ -22,7 +22,7 @@ export const CardSection = memo(() => {
             phase={account.phase}
             tradesCount={account.tradesCount}
             daysTraded={account.daysTraded}
-            balance={!!(account as any).isFirstCard}
+            balance={!!(account as { isFirstCard?: boolean }).isFirstCard}
             isAddNewCard={false}
           />
         );

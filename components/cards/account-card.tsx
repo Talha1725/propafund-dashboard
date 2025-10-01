@@ -1,7 +1,6 @@
 "use client";
 
 import { memo, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image, { type StaticImageData } from "next/image";
 import profile from "../../public/assets/profile.svg";
 import graphUp from "../../public/assets/graph-up.svg";
@@ -11,7 +10,7 @@ import { CredentialsDialog } from "../common/credentials-dialog";
 import { ACCOUNT_CARD_CONSTANTS } from "../../constants/accounts";
 import type { AccountCardProps } from "../../types/common";
 
-const { CARD_STYLES, STATS_CONFIG, ADD_NEW_CARD_CONFIG } = ACCOUNT_CARD_CONSTANTS;
+const { CARD_STYLES, STATS_CONFIG } = ACCOUNT_CARD_CONSTANTS;
 
 export const AccountCard = memo<AccountCardProps>(({ 
   accountId, 
@@ -22,7 +21,6 @@ export const AccountCard = memo<AccountCardProps>(({
   isAddNewCard = false,
   ...credentials
 }) => {
-  const router = useRouter();
   const [isClicked, setIsClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

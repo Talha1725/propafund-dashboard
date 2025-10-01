@@ -2,7 +2,7 @@
 
 import { memo, useCallback } from "react";
 import Image from "next/image";
-import { Copy, Link } from "lucide-react";
+import { Copy, Link, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import credentialsIcon from "@/public/assets/credentials-icon.svg";
-import TrashIcon from "@/public/images/trash-icon.svg";
 import type { CredentialsDialogProps } from "../../types/common";
 import { CREDENTIAL_FIELDS } from "@/constants/accounts";
 
@@ -25,7 +24,7 @@ const DIALOG_STYLES = {
   fieldValue: "font-lay-grotesk text-white",
   fieldContainer: "flex gap-2 items-center",
   copyIcon: "text-white w-4 h-4 cursor-pointer",
-  platformIcon: "text-white w-4 h-4",
+  platformIcon: "text-white w-4 h-4 cursor-pointer",
   deleteRow: "grid grid-cols-2 mt-2 text-sm items-center",
   deleteButton: "flex items-center gap-1.5 border-t border-[#C193F6] border-b border-[#3B65CF] border-l border-[#3B65CF] border-r border-[#3B65CF]"
 } as const;
@@ -48,6 +47,7 @@ export const CredentialsDialog = memo<CredentialsDialogProps>(({
   const handleDelete = useCallback(() => {
     onDelete?.();
   }, [onDelete]);
+
 
   const credentials = { username, password, server };
 
@@ -91,16 +91,14 @@ export const CredentialsDialog = memo<CredentialsDialogProps>(({
           )}
           
           {showDeleteButton && (
-            <div className={DIALOG_STYLES.deleteRow}>
+            <div className={DIALOG_STYLES.fieldRow}>
               <p className={DIALOG_STYLES.fieldLabel}>Delete Account</p>
-              {/* <Button
-                variant="lightPurpleGradient"
-                className={DIALOG_STYLES.deleteButton}
-                onClick={handleDelete}
-              >
-                <Image src={TrashIcon} alt="trash-icon" />
-                <p>Delete Account</p>
-              </Button> */}
+              <div className={DIALOG_STYLES.fieldContainer}>
+                <Button variant="gradient" onClick={handleDelete}>
+                  <Trash2 className="w-4 h-4" />
+                  Delete Account
+                </Button>
+              </div>
             </div>
           )}
         </div>

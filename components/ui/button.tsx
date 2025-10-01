@@ -12,6 +12,7 @@ const buttonVariants = cva(
       variant: {
         default: "gradient-primary text-white shadow-primary text-sm sm:text-md",
         secondary: "bg-white shadow-primary text-md",
+        gradient: "bg-gradient-to-b from-white to-blue text-[#0B0E12] !px-[14px] !py-[6px] !rounded-[6px] font-medium text-sm leading-[136%] tracking-[-2%]",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -47,6 +48,17 @@ function Button({
     frameVariant?: "white" | "gradient" | "none";
   }) {
   const Comp = asChild ? Slot : "button";
+
+  // Don't use Frame wrapper for gradient variant
+  if (variant === "gradient") {
+    return (
+      <Comp
+        data-slot="button"
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...props}
+      />
+    );
+  }
 
   return (
     <Frame variants={frameVariant ?? (variant === "secondary" ? "gradient" : "white")} className="transition-all duration-300 hover:opacity-80">

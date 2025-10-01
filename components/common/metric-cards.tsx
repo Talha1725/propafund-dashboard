@@ -9,7 +9,7 @@ interface MetricCardProps {
   variant?: "horizontal" | "vertical";
 }
 
-const MetricCard = memo<MetricCardProps>(({ label, value, valueColor, variant = "vertical" }) => {
+const MetricCard = memo<MetricCardProps>(({ label, value, valueColor }) => {
   const getValueColor = () => {
     switch (valueColor) {
       case "red": return "text-red-500";

@@ -1,9 +1,5 @@
 import { CardSection } from "@/components/trading-components/card-section";
-import ResponsiveTabs from "@/components/common/responsive-tabs";
-import { ACCOUNT_OVERVIEW_DATA, ACCOUNT_TABS } from "@/constants/accounts";
 import CardContainer from "@/components/common/card-container";
-import DataDisplayItem from "@/components/common/data-display-item";
-import BalanceChart from "@/components/chart/balance-chart";
 import AccountOverviewChart from "@/components/chart/account-overview-chart";
 import MetricCard from "@/components/common/metric-cards";
 import TradingBehaviorSection from "@/components/common/trading-behavior";
