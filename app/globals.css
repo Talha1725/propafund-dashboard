@@ -83,6 +83,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --gradient-primary: linear-gradient(180deg, #3ba9f4 0%, #4f54b2 100%);
+  --gradient-primary-opacity: linear-gradient(180deg, #42acf4d2 0%, #6d74fd89 100%);
   --gradient-light: linear-gradient(180deg, #3ba9f4 0%, #1d8bd6 100%);
 }
 
@@ -118,6 +119,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --gradient-primary: linear-gradient(180deg, #3ba9f4 0%, #4f54b2 100%);
+  --gradient-primary-opacity: linear-gradient(180deg, #3ba9f4 0%, #4f54b2 50%);
 }
 
 @layer base {
@@ -160,6 +163,9 @@ html, body {
 
 .gradient-primary {
   background: var(--gradient-primary);
+}
+.gradient-primary-opacity {
+  background: var(--gradient-primary-opacity);
 }
 .gradient-light {
   background: var(--gradient-light);
@@ -239,6 +245,22 @@ html, body {
   white-space: nowrap;
   display: inline-block;
   width: 200%;
+}
+
+.bg-instant-funding {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+.column-panel {
+  background: linear-gradient(180deg, rgba(110, 110, 110, 0.1) 0%, rgba(19, 19, 21, 0.02) 100%);
+  border: 1px solid #FFFFFF1A;
+}
+
+.border-gradient-to-b {
+  border-top: 1px solid rgba(255, 255, 255, 0);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes brandsMarquee {

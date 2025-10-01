@@ -24,7 +24,7 @@ export default function PlanSelectionSection() {
         />
 
         {/* Plans table */}
-        <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full mt-10")}> 
+        <Frame variants="white" topBottomThicknessPx={6} sideThicknessPx={12} className={cn("w-full mt-10")} edgeStretchPercent={104}> 
           <div className="relative w-full p-2" style={{ background: "#ffffff" }}>
             <div className="w-full overflow-hidden rounded-none border border-white/30 bg-gradient-to-b from-[#60A8E8] to-[#3B62B8]">
               {/* Header row */}

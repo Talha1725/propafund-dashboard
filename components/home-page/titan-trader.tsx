@@ -26,6 +26,8 @@ function TitanTile({ title, img, tall = false }: TitanCard & { tall?: boolean })
         <>
           <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 z-30 h-[6px] w-[110%] bg-white" />
           <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 z-30 h-[6px] w-[110%] bg-white" />
+          <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 z-30 w-[12px] h-[100%] bg-white" />
+          <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 z-30 w-[12px] h-[100%] bg-white" />
         </>
       )}
 
@@ -46,7 +48,7 @@ function TitanTile({ title, img, tall = false }: TitanCard & { tall?: boolean })
 
 export default function TitanTraderSection() {
   return (
-    <div className="font-creato-display py-30">
+    <div className="font-creato-display">
       <Container>
         <div className="relative">
           <SectionHeader

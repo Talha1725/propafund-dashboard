@@ -9,13 +9,12 @@ import ToolCards from "../common/tool-cards";
 export default function ToolsCardsSection() {
   return (
     <div className="font-creato-display">
-      <Container>
+      <Container reducedMargin={true}>
         <SectionHeader
           title="Tools to Match Your Hustle"
           text="Trade on platforms that feel like an extension of your brain—fast, sharp, and ready for action."
         />
         <ToolCards
-        className="overflow-hidden"
           title1={TOOLS_CARDS[0].title}
           title2={TOOLS_CARDS[1].title}
           title3={TOOLS_CARDS[2].title}

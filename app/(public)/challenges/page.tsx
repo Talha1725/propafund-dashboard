@@ -20,7 +20,6 @@ export default function ChallengesPage() {
         isHomepage={false}
       />
       <div className="font-creato-display" id="challenges">
-        <Container>
           <MasterOlympusSection/>
           <MarketShieldSection className="-py-30"/>
           <OracleSection className="-py-30"/>
@@ -30,7 +29,6 @@ export default function ChallengesPage() {
           </div>
           <Image src={hammer} alt="hammer" className="w-full h-full object-cover" />
         </div>
-        </Container>
       </div>
     </>
   );
