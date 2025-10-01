@@ -19,10 +19,6 @@ const CertificateCard = ({ certificate }: { certificate: Certificate }) => {
     router.push(`/user/certificates/${certificate.id}`);
   };
 
-  const handleButtonClick = () => {
-    // Handle button click without event parameter
-  };
-
   // Determine category based on certificate ID (alternating between Gold and Silver)
   const getCategory = (id: string) => {
     const numId = parseInt(id);
@@ -31,7 +27,6 @@ const CertificateCard = ({ certificate }: { certificate: Certificate }) => {
 
   const category = getCategory(certificate.id);
   const isGold = category === 'gold';
-  const isSilver = category === 'silver';
 
   return (
     <div 
