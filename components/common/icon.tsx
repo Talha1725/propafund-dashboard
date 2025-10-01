@@ -318,6 +318,34 @@ export function TradeUp({
   );
 }
 
+export function TradeDown({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M4 11V16H9"
+        stroke="#E13E3E"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M4 16L9 11C9.883 10.117 10.324 9.676 10.865 9.627C10.955 9.619 11.045 9.619 11.135 9.627C11.676 9.677 12.117 10.117 13 11C13.883 11.883 14.324 12.324 14.865 12.373C14.9548 12.3811 15.0452 12.3811 15.135 12.373C15.676 12.323 16.117 11.883 17 11L20 8"
+        stroke="#E13E3E"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function IconComplete({
   className,
   fill = "#fff",
@@ -382,8 +410,8 @@ export function IconColoredCheck({ className }: { className?: string }) {
         fill="url(#paint0_linear_2539_1555)"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M19.1899 12.5C19.1899 16.4709 15.9709 19.6899 12 19.6899C8.0291 19.6899 4.81006 16.4709 4.81006 12.5C4.81006 8.5291 8.0291 5.31006 12 5.31006C15.9709 5.31006 19.1899 8.5291 19.1899 12.5ZM14.8978 10.3212C15.1084 10.5318 15.1084 10.8732 14.8978 11.0838L11.3028 14.6788C11.0922 14.8894 10.7508 14.8894 10.5402 14.6788L9.10222 13.2408C8.89163 13.0302 8.89163 12.6888 9.10222 12.4782C9.3128 12.2676 9.65424 12.2676 9.86482 12.4782L10.9215 13.5349L12.5283 11.928L14.1352 10.3212C14.3458 10.1106 14.6872 10.1106 14.8978 10.3212Z"
         fill="white"
       />
@@ -396,8 +424,8 @@ export function IconColoredCheck({ className }: { className?: string }) {
           y2="24.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#7AD3FF" />
-          <stop offset="1" stop-color="#4FBAF0" />
+          <stop stopColor="#7AD3FF" />
+          <stop offset="1" stopColor="#4FBAF0" />
         </linearGradient>
       </defs>
     </svg>
