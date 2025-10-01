@@ -35,11 +35,11 @@ export default function VerifyEmailPage() {
             check your inbox and click the link to verify your account.
           </p>
 
-          <div className="w-[200px] relative mx-auto mt-8">
+          <div className="w-[195px] relative mx-auto mt-8">
             <Button
               type="button"
               variant="secondary"
-              className="w-full"
+              className="w-full h-[45px]"
               disabled={isLoading}
               onClick={handleResendEmail}
             >

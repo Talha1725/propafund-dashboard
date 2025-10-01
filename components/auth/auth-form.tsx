@@ -52,12 +52,12 @@ export function AuthForm({
 
                 <div className="space-y-4">{children}</div>
 
-                <div className="w-[200px] relative mx-auto">
+                <div className="w-[195px] relative mx-auto">
                     {buttonText && (
                         <Button
                             type="submit"
                             variant="secondary"
-                            className="w-full"
+                            className="w-full h-[45px]"
                             disabled={isSubmitting}
                         >
                             {buttonText}
