@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { handleApiError } from "@/lib/utils/apiUtils";
+import { auth } from "@/lib/api/endpoints/auth";
 
 function CongratsSignupContent() {
   const router = useRouter();
@@ -35,10 +36,20 @@ function CongratsSignupContent() {
 
     try {
       setIsLoading(true);
-      setIsVerified(true);
+      
+      const response = await auth.verifyEmail(token);
+      
+      if (response && (response.success !== false && response.status !== 'failed')) {
+        setIsVerified(true);
+      } else if (response?.error && response.error.toLowerCase().includes("already verified")) {
+        setIsVerified(true);
+      } else {
+        const errorMessage = response?.message || response?.error || 'Verification failed';
+        setVerificationError(errorMessage);
+        setFailed(true);
+      }
     } catch (error: unknown) {
       
-      // Check if email is already verified 
       if (error && typeof error === 'object' && 'status' in error && error.status === 400 && 
           'data' in error && error.data && typeof error.data === 'object' && 
           'error' in error.data && typeof error.data.error === 'string' && 
@@ -69,7 +80,7 @@ function CongratsSignupContent() {
         <div className="text-center mb-4">
           <h1 className="text-white text-[26px] font-medium font-lay-grotesk mb-1">
             {isVerified
-              ? "Email Verified!"
+              ? "Email Verified"
               : failed
               ? "Verification Failed"
               : "Verifying your email..."}
@@ -79,7 +90,7 @@ function CongratsSignupContent() {
               "Failed to verify email. Please try again."
             ) : (
               isVerified
-                ? "Congratulations! Your email has been verified successfully."
+                ? "Congratulations! Your email is verified."
                 : verificationError
                 ? verificationError
                 : "Please wait while we verify your email address."

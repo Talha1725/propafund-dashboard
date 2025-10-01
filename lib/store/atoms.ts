@@ -77,6 +77,9 @@ export const clearAuthAtom = atom(
   }
 );
 
+// Signup email for verification
+export const signupEmailAtom = atom<string>('');
+
 // Initialize from localStorage
 export const initializeAuthAtom = atom(
   null,

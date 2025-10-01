@@ -15,7 +15,7 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const [isAuthenticated] = useAtom(isAuthenticatedAtom);
-  const [user] = useAtom(userAtom);
+  const [, user] = useAtom(userAtom);
 
   useEffect(() => {
     // Check if user is authenticated

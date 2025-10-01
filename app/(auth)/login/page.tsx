@@ -10,7 +10,7 @@ import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import { auth } from "@/lib/api/endpoints/auth";
-import { handleApiError, handleApiResponse } from "@/lib/utils/apiUtils";
+import { handleApiError } from "@/lib/utils/apiUtils";
 import { setUserAtom, setTokenAtom } from "@/lib/store/atoms";
 import Image from "next/image";
 import checkmarkIcon from "@/public/assets/checkmark.svg";
@@ -46,27 +46,31 @@ export default function LoginPage() {
     try {
       const response = await auth.login(data);
       
-      // Handle API response
-      const success = handleApiResponse(
-        response,
-        () => {
-          // Success callback
-          if (response.user && response.token) {
-            setUser(response.user);
-            setToken(response.token);
-            toast.success("Welcome back! Login successful.");
-            router.push("/dashboard");
+      if (response && (response.success !== false && response.status !== 'failed')) {
+        let userData = response.user;
+        let tokenData = response.token;
+        
+        if (response.data) {
+          if (typeof response.data === 'object' && 'userData' in response.data) {
+            userData = response.data.userData;
+            tokenData = response.data.token;
+          } else if (typeof response.data === 'object' && 'user' in response.data) {
+            userData = response.data.user;
+            tokenData = response.data.token;
           }
-        },
-        (errorMessage) => {
-          // Error callback
-          toast.error(errorMessage);
         }
-      );
-
-      if (!success) {
-        toast.dismiss(loadingToastId);
-        return;
+        
+        if (userData && tokenData) {
+          setUser(userData);
+          setToken(tokenData);
+          toast.success("Welcome back! Login successful.");
+          router.push("/user/dashboard");
+        } else {
+          toast.error("Login failed: No user data received");
+        }
+      } else {
+        const errorMessage = response?.message || response?.error || 'Login failed';
+        toast.error(errorMessage);
       }
 
     } catch (error) {

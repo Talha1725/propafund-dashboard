@@ -3,15 +3,24 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { registerSchema, type RegisterData } from "@/lib/schemas/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import { PasswordRequirements } from "@/components/auth/password-requirements";
+import { auth } from "@/lib/api/endpoints/auth";
+import { handleApiError } from "@/lib/utils/apiUtils";
+import { setUserAtom, setTokenAtom, signupEmailAtom } from "@/lib/store/atoms";
 import { toast } from "sonner";
 
 export default function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const [, setUser] = useAtom(setUserAtom);
+  const [, setToken] = useAtom(setTokenAtom);
+  const [, setSignupEmail] = useAtom(signupEmailAtom);
 
   const {
     handleSubmit,
@@ -21,6 +30,7 @@ export default function SignupPage() {
   } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
+      userName: "",
       fullName: "",
       email: "",
       password: "",
@@ -30,18 +40,36 @@ export default function SignupPage() {
   const password = watch("password");
 
   const onSubmit = async (data: RegisterData) => {
+    const loadingToastId = toast.loading("Creating your account...");
     setIsSubmitting(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log("Sending registration data:", data);
+      const response = await auth.register(data);
       
-      toast.success("Account created successfully! Please check your email to verify your account.");
-      console.log("Signup attempt:", data);
+      // Check if registration was successful
+      if (response && (response.success !== false && response.status !== 'failed')) {
+        if (response.user && response.token) {
+          setUser(response.user);
+          setToken(response.token);
+          toast.success("Account created successfully! Welcome!");
+          router.push("/dashboard");
+        } else {
+          setSignupEmail(data.email);
+          toast.success("Account created successfully! Please check your email for verification.");
+          router.push("/verify-email");
+        }
+      } else {
+        const errorMessage = response?.message || response?.error || 'Registration failed';
+        toast.error(errorMessage);
+      }
+
     } catch (error) {
-      console.error('Form submission error:', error);
-      toast.error("Signup failed. Please try again.");
+      const errorMessage = handleApiError(error);
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
+      toast.dismiss(loadingToastId);
     }
   };
 
@@ -59,6 +87,18 @@ export default function SignupPage() {
         linkHref="/login"
         linkLabel="Login"
       >
+        <AuthFormField
+          id="userName"
+          label="USERNAME"
+          type="text"
+          placeholder="Enter your username"
+          value={watch("userName")}
+          onChange={(value) => {
+            setValue("userName", value, { shouldValidate: true });
+          }}
+          error={errors.userName?.message}
+        />
+
         <AuthFormField
           id="fullName"
           label="FULL NAME"
@@ -98,6 +138,7 @@ export default function SignupPage() {
         <div className="w-[392px] mx-auto mt-2">
           <PasswordRequirements password={password} />
         </div>
+
       </AuthForm>
     </AuthLayout>
   );

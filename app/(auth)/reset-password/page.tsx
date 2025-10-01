@@ -1,24 +1,27 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { resetPasswordSchema, ResetPasswordData } from "@/lib/schemas/auth";
+import { resetPasswordSchema, type ResetPasswordData } from "@/lib/schemas/auth";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import { PasswordRequirements } from "@/components/auth/password-requirements";
-import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/api/endpoints/auth";
+import { handleApiError } from "@/lib/utils/apiUtils";
 import { toast } from "sonner";
+import Link from "next/link";
 
 function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isValidToken, setIsValidToken] = useState(false);
-  const [isCheckingToken, setIsCheckingToken] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
+  
+  const token = searchParams.get('token');
 
   const {
     handleSubmit,
@@ -36,84 +39,118 @@ function ResetPasswordContent() {
   const password = watch("password");
 
   useEffect(() => {
-    if (token) {
-      setIsValidToken(true);
-    } else {
+    if (!token) {
       setIsValidToken(false);
+      toast.error("Invalid or missing reset token");
+    } else {
+      setIsValidToken(true);
     }
-    setIsCheckingToken(false);
   }, [token]);
 
   const onSubmit = async (data: ResetPasswordData) => {
     if (!token) {
-      console.error("Invalid or missing reset token");
-      toast.error("Invalid or missing reset token");
+      toast.error("Invalid reset token");
       return;
     }
 
+    const loadingToastId = toast.loading("Resetting your password...");
+    setIsSubmitting(true);
+
     try {
-      setIsLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await auth.resetPassword({
+        ...data,
+        token: token
+      });
       
-      toast.success("Password reset successfully! Redirecting to login...");
-      console.log("Password reset successful!", data);
-      router.push("/login");
-    } catch (error: unknown) {
-      console.error("Password reset error:", error);
-      toast.error("Failed to reset password. Please try again.");
+      if (response && (response.success !== false && response.status !== 'failed')) {
+        setIsSuccess(true);
+        toast.success("Password reset successfully!");
+        
+        setTimeout(() => {
+          router.push("/login");
+        }, 3000);
+      } else {
+        const errorMessage = response?.message || response?.error || 'Failed to reset password';
+        toast.error(errorMessage);
+      }
+
+    } catch (error) {
+      const errorMessage = handleApiError(error);
+      toast.error(errorMessage);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
+      toast.dismiss(loadingToastId);
     }
   };
 
-  if (isCheckingToken) {
+  if (isValidToken === false) {
     return (
       <AuthLayout>
-        <AuthForm
-          title="VERIFYING RESET TOKEN"
-          subtitle="Please wait while we verify your reset token..."
-          titleClassName="font-romanica font-normal text-[26px]"
-          onSubmit={() => {}}
-          buttonText="Loading..."
-          isSubmitting={true}
-          showSocialLogin={false}
-          showOrDivider={false}
-        >
-          <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+        <div className="w-full max-w-md mx-auto text-center">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </div>
-        </AuthForm>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Invalid Reset Link</h2>
+          <p className="text-gray-600 mb-6">
+            This password reset link is invalid or has expired. Please request a new one.
+          </p>
+          <div className="space-y-3">
+            <Link
+              href="/forgot-password"
+              className="block w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 text-center"
+            >
+              Request New Reset Link
+            </Link>
+            <Link
+              href="/login"
+              className="block w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 text-center"
+            >
+              Back to Login
+            </Link>
+          </div>
+        </div>
       </AuthLayout>
     );
   }
 
-  if (!isValidToken) {
+  if (isSuccess) {
     return (
       <AuthLayout>
-        <AuthForm
-          title="INVALID OR EXPIRED TOKEN"
-          subtitle="Your password reset link is invalid or has expired."
-          titleClassName="font-romanica font-normal text-[26px]"
-          buttonText=""
-          isSubmitting={false}
-          showSocialLogin={false}
-          showOrDivider={false}
-          linkText="Remember your password?"
-          linkHref="/login"
-          linkLabel="Back to login"
-          onSubmit={() => {}}
-        >
-          <div className="w-[200px] relative mx-auto">
-            <Button
-              type="button"
-              variant="secondary"
-              className="w-full"
-              onClick={() => router.push("/forgot-password")}
-            >
-              Request New Reset
-            </Button>
+        <div className="w-full max-w-md mx-auto text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
           </div>
-        </AuthForm>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Password Reset Successfully!</h2>
+          <p className="text-gray-600 mb-6">
+            Your password has been updated. Redirecting you to login...
+          </p>
+          <Link
+            href="/login"
+            className="inline-block bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+          >
+            Go to Login
+          </Link>
+        </div>
+      </AuthLayout>
+    );
+  }
+
+  if (isValidToken === null) {
+    return (
+      <AuthLayout>
+        <div className="w-full max-w-md mx-auto text-center">
+          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Validating Reset Link...</h2>
+          <p className="text-gray-600">
+            Please wait while we validate your reset link.
+          </p>
+        </div>
       </AuthLayout>
     );
   }
@@ -121,17 +158,15 @@ function ResetPasswordContent() {
   return (
     <AuthLayout>
       <AuthForm
-        title="RESET YOUR PASSWORD"
+        title="RESET PASSWORD"
         subtitle="Enter your new password below."
         titleClassName="font-romanica font-normal text-[26px]"
         onSubmit={handleSubmit(onSubmit)}
-        buttonText={isLoading ? "Resetting Password..." : "Reset Password"}
-        isSubmitting={isLoading}
-        showSocialLogin={false}
-        showOrDivider={false}
+        buttonText={isSubmitting ? "Resetting..." : "Reset Password"}
+        isSubmitting={isSubmitting}
         linkText="Remember your password?"
         linkHref="/login"
-        linkLabel="Back to login"
+        linkLabel="Back to Login"
       >
         <AuthFormField
           id="password"
@@ -147,7 +182,7 @@ function ResetPasswordContent() {
 
         <AuthFormField
           id="confirmPassword"
-          label="CONFIRM NEW PASSWORD"
+          label="CONFIRM PASSWORD"
           type="password"
           placeholder="••••••••"
           value={watch("confirmPassword")}
@@ -157,7 +192,9 @@ function ResetPasswordContent() {
           error={errors.confirmPassword?.message}
         />
         
-        <PasswordRequirements password={password} className="-mt-2" />
+        <div className="w-[392px] mx-auto mt-2">
+          <PasswordRequirements password={password} />
+        </div>
       </AuthForm>
     </AuthLayout>
   );
