@@ -27,7 +27,7 @@ export default function SidebarProfile() {
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
-                <span className="text-sm font-medium text-white font-lay-grotesk">
+                <span className="text-sm font-medium text-white font-creato-display">
                   User
                 </span>
               </div>

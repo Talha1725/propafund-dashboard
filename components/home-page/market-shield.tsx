@@ -94,7 +94,7 @@ function LocalCard({
       {/* No overlay or borders on hover; background turns solid white */}
 
       <div className="pt-4 px-4 pb-0 relative z-10">
-        <p className={`h-fit mb-2 font-lay-grotesk mt-1 z-50 md:text-[16px] text-[16px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-[#0B0D12]' : 'text-white'}`}>{content}</p>
+        <p className={`h-fit mb-2 font-creato-display mt-1 z-50 md:text-[16px] text-[16px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-[#0B0D12]' : 'text-white'}`}>{content}</p>
       </div>
 
       <div className={`${imageWrapperClass ?? ""} relative z-10 -mt-2`}>

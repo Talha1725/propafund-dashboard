@@ -122,7 +122,7 @@ export function AppSidebar() {
                               (item.url === "/user/challenges" &&
                                 pathname.startsWith("/user/challenges/")),
                           })}
-                      <span className="text-sm font-lay-grotesk mt-[1px]">
+                      <span className="text-sm font-creato-display mt-[1px]">
                         {item.title}
                       </span>
                     </div>
@@ -155,7 +155,7 @@ export function AppSidebar() {
                       </>
                     )}
                     <IconHelp active={pathname === "/user/help"} />
-                    <span className="text-sm font-lay-grotesk mt-[1px]">
+                    <span className="text-sm font-creato-display mt-[1px]">
                       Help
                     </span>
                   </div>
