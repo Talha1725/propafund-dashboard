@@ -43,7 +43,8 @@ export interface TabsProps<T extends TabId = TabId> {
   inactiveTabClassName?: string;
   containerClassName?: string;
   size?: "sm" | "md" | "lg";
-  variant?: "default" | "leaderboard" | "minimal";
+
+  variant?: "default" | "leaderboard" | "minimal" | "certificate";
 }
 
 const sizeClasses = {
@@ -79,6 +80,12 @@ const variantClasses = {
     tab: "text-foreground hover:text-foreground/80",
     active: "bg-accent text-accent-foreground",
     inactive: "text-muted-foreground hover:text-foreground",
+  },
+  certificate: {
+    container: "border-0 bg-transparent",
+    tab: "text-gray-500 hover:text-gray-400 transition-colors duration-200",
+    active: "bg-gradient-to-b from-white to-blue text-black shadow-sm",
+    inactive: "text-white/50 hover:text-white/70",
   },
 };
 

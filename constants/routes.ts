@@ -7,6 +7,7 @@ export type Route = {
 export const NAVBAR_ROUTES: Route[] = [
   { href: "/home", label: "Home" },
   { href: "/challenges", label: "Challenges" },
+  { href: "/certificates", label: "Certificates" },
   { href: "/faq", label: "FAQ" },
   { href: "/help", label: "Help" },
   { href: "/support", label: "Support" },

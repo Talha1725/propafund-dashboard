@@ -156,7 +156,7 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
           borderLeftColor: '#FFFFFF',
         }}
       >
-        <div className="flex items-center justify-between pb-6 pt-10 px-10">
+        <div className="flex items-center justify-between pb-6 pt-10 px-10 ">
           <h2 className="font-creato-display font-medium text-[26px] leading-[100%] tracking-[0%] text-white">
             Help
           </h2>
@@ -174,21 +174,28 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
         </div>
 
         <div className="px-10 pb-10 space-y-6 max-h-[calc(90vh-80px)] overflow-y-auto">
-          <div className="flex justify-center">
-            <SearchBar />
-          </div>
+          <div 
+            className="space-y-6 p-6 rounded-lg"
+            style={{
+              background: 'linear-gradient(180deg, rgba(110, 110, 110, 0.1) 0%, rgba(19, 19, 21, 0.02) 100%)',
+              border: '1px solid #FFFFFF1A'
+            }}
+          >
+            <div className="flex justify-center">
+              <SearchBar />
+            </div>
 
-          <div className="mt-4">
             <div className="hidden sm:block">
               <Tabs
                 tabs={HELP_TABS}
                 activeTab={activeTab}
                 onTabChange={handleTabChange}
-                variant="leaderboard"
+                variant="certificate"
                 size="lg"
+                containerClassName="!pl-0"
               />
             </div>
-            
+              
             <div className="block sm:hidden">
               <StackedTabs
                 tabs={HELP_TABS}
@@ -196,18 +203,18 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
                 onTabChange={handleTabChange}
               />
             </div>
-          </div>
-          
-          <div className="space-y-[10px]">
-            {FAQ_ITEMS.map((item, index) => (
-              <FAQCard
-                key={index}
-                item={item}
-                index={index}
-                isOpen={openCard === index}
-                onClick={() => handleCardToggle(index)}
-              />
-            ))}
+            
+            <div className="space-y-[10px]">
+              {FAQ_ITEMS.map((item, index) => (
+                <FAQCard
+                  key={index}
+                  item={item}
+                  index={index}
+                  isOpen={openCard === index}
+                  onClick={() => handleCardToggle(index)}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="mt-8">
