@@ -41,7 +41,7 @@ export function AuthForm({
                 )}
 
                 {showOrDivider && (
-                    <div className="flex items-center w-[392px] mx-auto">
+                    <div className="flex items-center w-full max-w-[392px] mx-auto px-4">
                         <div className="flex-1 border-t border-[#E1E4EA1A]"></div>
                         <span className="px-5 text-[#99A0AE] font-creato-display text-sm">
                             OR
@@ -52,7 +52,7 @@ export function AuthForm({
 
                 <div className="space-y-4">{children}</div>
 
-                <div className="w-[195px] relative mx-auto">
+                <div className="w-full max-w-[195px] relative mx-auto px-4">
                     {buttonText && (
                         <Button
                             type="submit"

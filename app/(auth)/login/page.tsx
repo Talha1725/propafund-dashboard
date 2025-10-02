@@ -136,7 +136,7 @@ export default function LoginPage() {
           error={errors.password?.message}
         />
 
-        <div className="flex items-center justify-between w-[392px] mx-auto">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full max-w-[392px] mx-auto px-4 gap-3 sm:gap-0">
           <label className="flex items-center gap-2 cursor-pointer">
             <div className="relative">
               <input
@@ -162,14 +162,14 @@ export default function LoginPage() {
                 )}
               </div>
             </div>
-            <span className="text-white text-[16px] font-regular font-creato-display">
+            <span className="text-white text-sm sm:text-[16px] font-regular font-creato-display">
               Keep me logged in
             </span>
           </label>
 
           <Link
             href="/forgot-password"
-            className="text-[#525866] text-[16px] font-medium underline font-creato-display hover:text-white transition-colors"
+            className="text-[#525866] text-sm sm:text-[16px] font-medium underline font-creato-display hover:text-white transition-colors"
           >
             Forgot password?
           </Link>

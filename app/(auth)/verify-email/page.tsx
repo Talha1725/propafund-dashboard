@@ -46,19 +46,19 @@ export default function VerifyEmailPage() {
   return (
     <AuthLayout imageType="signup">
       <div className="w-full">
-        <div className="text-center mb-4">
-          <h1 className="text-white text-[26px] font-medium font-lay-grotesk mb-1">
+        <div className="text-center mb-4 px-4">
+          <h1 className="text-white text-xl sm:text-[26px] font-medium font-lay-grotesk mb-1">
             Verify Your Email
           </h1>
-          <p className="text-[#525866] text-[18px] font-regular font-lay-grotesk mb-4">
+          <p className="text-[#525866] text-sm sm:text-[18px] font-regular font-lay-grotesk mb-4">
             We&apos;ve sent a verification link to your email address. Please check your inbox and click the link to verify your account.
           </p>
-          <p className="text-[#3BA9F4] text-[16px] font-medium font-creato-display">
+          <p className="text-[#3BA9F4] text-sm sm:text-[16px] font-medium font-creato-display">
             Email: {signupEmail || 'your-email@example.com'}
           </p>
         </div>
 
-        <div className="w-[195px] relative mx-auto mt-8">
+        <div className="w-full max-w-[195px] relative mx-auto mt-8 px-4">
           <Button
             type="button"
             variant="secondary"

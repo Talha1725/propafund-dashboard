@@ -25,7 +25,7 @@ export function AuthFormField({
   className = "",
 }: AuthFormFieldProps) {
   return (
-    <div className={cn("flex flex-col gap-1 w-[392px] mx-auto", className)}>
+    <div className={cn("flex flex-col gap-1 w-full max-w-[392px] mx-auto px-4", className)}>
       <Label htmlFor={id} className="text-white text-[16px] font-normal font-romanica">
         {label}
       </Label>

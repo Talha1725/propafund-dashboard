@@ -10,10 +10,10 @@ export function SocialLoginButtons({
   googleLoading = false
 }: SocialLoginButtonsProps) {
   return (
-    <div className={`flex gap-3 justify-center ${className}`}>
+    <div className={`flex gap-3 justify-center w-full max-w-[392px] mx-auto px-4 ${className}`}>
       <button
         onClick={onAppleLogin}
-        className="w-[190px] h-[48px] flex items-center justify-center bg-gradient-to-r from-white/5 to-white/2 border border-white/10 hover:opacity-80 transition-opacity"
+        className="w-full max-w-[190px] h-[48px] flex items-center justify-center bg-gradient-to-r from-white/5 to-white/2 border border-white/10 hover:opacity-80 transition-opacity"
         style={{
           background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
           border: '1px solid #FFFFFF1A',
@@ -34,7 +34,7 @@ export function SocialLoginButtons({
       <button
         onClick={onGoogleLogin}
         disabled={googleLoading}
-        className="w-[190px] h-[48px] flex items-center justify-center bg-gradient-to-r from-white/5 to-white/2 border border-white/10 hover:opacity-80 transition-opacity disabled:opacity-50"
+        className="w-full max-w-[190px] h-[48px] flex items-center justify-center bg-gradient-to-r from-white/5 to-white/2 border border-white/10 hover:opacity-80 transition-opacity disabled:opacity-50"
         style={{
           background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
           border: '1px solid #FFFFFF1A',

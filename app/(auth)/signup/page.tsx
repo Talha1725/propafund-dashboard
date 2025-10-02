@@ -135,7 +135,7 @@ export default function SignupPage() {
           error={errors.password?.message}
         />
         
-        <div className="w-[392px] mx-auto mt-2">
+        <div className="w-full max-w-[392px] mx-auto px-4 mt-2">
           <PasswordRequirements password={password} />
         </div>
 

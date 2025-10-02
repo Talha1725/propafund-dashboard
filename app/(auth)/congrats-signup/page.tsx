@@ -77,15 +77,15 @@ function CongratsSignupContent() {
   return (
     <AuthLayout>
       <div className={`w-full`}>
-        <div className="text-center mb-4">
-          <h1 className="text-white text-[26px] font-medium font-lay-grotesk mb-1">
+        <div className="text-center mb-4 px-4">
+          <h1 className="text-white text-xl sm:text-[26px] font-medium font-lay-grotesk mb-1">
             {isVerified
               ? "Email Verified"
               : failed
               ? "Verification Failed"
               : "Verifying your email..."}
           </h1>
-          <p className="text-[#525866] text-[18px] font-regular font-lay-grotesk">
+          <p className="text-[#525866] text-sm sm:text-[18px] font-regular font-lay-grotesk">
             {failed ? (
               "Failed to verify email. Please try again."
             ) : (
@@ -97,7 +97,7 @@ function CongratsSignupContent() {
             )}
           </p>
 
-          <div className="w-[195px] relative mx-auto mt-8">
+          <div className="w-full max-w-[195px] relative mx-auto mt-8 px-4">
             <Button
               type="button"
               variant="secondary"

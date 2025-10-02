@@ -64,15 +64,15 @@ export default function ForgotPasswordPage() {
   if (isEmailSent) {
     return (
       <AuthLayout>
-        <div className="w-full max-w-md mx-auto text-center">
+        <div className="w-full max-w-md mx-auto text-center px-4">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Check Your Email</h2>
-          <p className="text-gray-600 mb-6">
-            We&apos;ve sent password reset instructions to <strong>{watch("email")}</strong>
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Check Your Email</h2>
+          <p className="text-[#525866] text-sm sm:text-base mb-6">
+            We&apos;ve sent password reset instructions to <strong className="text-white">{watch("email")}</strong>
           </p>
           <div className="space-y-3">
             <button
@@ -80,13 +80,13 @@ export default function ForgotPasswordPage() {
                 setIsEmailSent(false);
                 setValue("email", "");
               }}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
             >
               Send to Different Email
             </button>
             <Link
               href="/login"
-              className="block w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 text-center"
+              className="block w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 text-center transition-colors"
             >
               Back to Login
             </Link>
