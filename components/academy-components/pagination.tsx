@@ -9,7 +9,8 @@ export default function Pagination({
   totalPages, 
   onPageChange, 
 }: PaginationProps) {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const maxVisiblePages = 4;
+  const pages = Array.from({ length: Math.min(totalPages, maxVisiblePages) }, (_, i) => i + 1);
 
   return (
     <div className="flex items-center justify-center md:justify-between mt-8">
@@ -65,7 +66,7 @@ export default function Pagination({
         </button>
       </div>
       
-      <DropdownMenuComponent items={["1 / page", "2 / page", "3 / page"]} onValueChange={(value) => onPageChange(parseInt(value))} className="md:flex hidden" />
+      <DropdownMenuComponent items={["1 / page", "2 / page", "3 / page", "4 / page"]} onValueChange={(value) => onPageChange(parseInt(value))} className="md:flex hidden" />
     </div>
   );
 }

@@ -13,7 +13,7 @@ import IconFilter from "@/public/assets/filter-icon.svg";
 export default function Academy() {
   const [activeTab, setActiveTab] = useState<CourseTabId>("forex-trading");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
+  const itemsPerPage = 4;
 
   const [filterState, setFilterState] = useState<AcademyFilterState>({
     selectedDifficulty: "all",
