@@ -1,4 +1,3 @@
-import Container from "@/components/common/container";
 import HeroSection from "@/components/home-page/hero-section";
 import MasterOlympusSection from "@/components/home-page/master-olympus";
 import bgMarble from "@/public/assets/bg-marble.svg";

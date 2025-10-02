@@ -5,7 +5,6 @@ import OracleSection from "@/components/home-page/oracle-section";
 import Glow from "@/components/common/glow";
 import Image from "next/image";
 import hammer from "@/public/assets/marble-hammer.svg";
-import Container from "@/components/common/container";
 import FundedSection from "@/components/home-page/funded-section";
 
 export default function FAQPage() {

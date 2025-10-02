@@ -1,7 +1,6 @@
 "use client";
 
 import ComponentContainer from "@/components/common/component-container";
-import { SectionHeading } from "@/components/common/section-heading";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { activeSessionsData } from "@/lib/data/active-sessions";

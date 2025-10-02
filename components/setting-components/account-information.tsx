@@ -6,7 +6,6 @@ import {
     SelectValue,
   } from "@/components/ui/select";
   import ComponentContainer from "../common/component-container";
-  import { SectionHeading } from "../common/section-heading";
   import { Input } from "../ui/input";
   import { Label } from "../ui/label";
   // Button import removed - using custom button styling

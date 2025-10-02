@@ -2,7 +2,6 @@
 
 import { Switch } from "@/components/ui/switch";
 import ComponentContainer from "@/components/common/component-container";
-import { SectionHeading } from "@/components/common/section-heading";
 import { NotificationSetting } from "@/types/notifications";
 import { notificationSettingsData } from "@/lib/data/notifications";
 import { useState } from "react";
