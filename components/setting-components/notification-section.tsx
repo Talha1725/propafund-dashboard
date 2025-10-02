@@ -30,7 +30,7 @@ export default function NotificationSection() {
       <div className="flex flex-col gap-4 mt-4">
         {settings.map((setting) => (
           <div key={setting.id} className="flex items-start gap-2">
-            <div className="mt-[1px]">
+            <div className="-mt-[3px]">
               <Switch 
                 checked={setting.enabled}
                 onCheckedChange={() => handleToggle(setting.id)}

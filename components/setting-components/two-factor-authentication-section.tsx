@@ -36,12 +36,12 @@ export default function TwoFactorAuthenticationSection() {
             </div>
             <div className="flex flex-col gap-1 flex-1">
               <p className="text-white whitespace-nowrap text-sm ">SMS Code</p>
-              <p className="text-white whitespace-nowrap/50 text-xs ">
+              <p className="text-white/70 whitespace-nowrap/50 text-xs ">
                 Receive a one-time verification code via SMS to enter during
                 login.
               </p>
             </div>
-            <RadioGroupItem value="sms" id="sms" className={`${selectedMethod === "sms" ? "bg-white" : ""}`} />
+            <RadioGroupItem value="sms" id="sms" className={`${selectedMethod === "sms" ? "bg-white" : "bg-[#FFFFFF0D]"}`} />
           </div>
 
           {/* Email Code */}
@@ -51,11 +51,11 @@ export default function TwoFactorAuthenticationSection() {
             </div>
             <div className="flex flex-col gap-1 flex-1">
               <p className="text-white whitespace-nowrap text-sm ">Email Code</p>
-              <p className="text-white whitespace-nowrap/50 text-xs ">
+              <p className="text-white/70 whitespace-nowrap/50 text-xs ">
                 Get a temporary verification code sent to your email for added security.
               </p>
             </div>
-            <RadioGroupItem value="email" id="email" className={`${selectedMethod === "email" ? "bg-white" : ""}`} />
+            <RadioGroupItem value="email" id="email" className={`${selectedMethod === "email" ? "bg-white" : "bg-[#FFFFFF0D]"}`} />
           </div>
 
           {/* Authenticator App */}
@@ -65,11 +65,11 @@ export default function TwoFactorAuthenticationSection() {
             </div>
             <div className="flex flex-col gap-1 flex-1">
               <p className="text-white whitespace-nowrap text-sm ">Authenticator App</p>
-              <p className="text-white whitespace-nowrap/50 text-xs ">
+              <p className="text-white/70 whitespace-nowrap/50 text-xs ">
                 Use an authenticator app to generate time-based verification codes for login.
               </p>
             </div>
-            <RadioGroupItem value="authenticator" id="authenticator" className={`${selectedMethod === "authenticator" ? "bg-white" : ""}`} />
+            <RadioGroupItem value="authenticator" id="authenticator" className={`${selectedMethod === "authenticator" ? "bg-white" : "bg-[#FFFFFF0D]"}`} />
           </div>
         </RadioGroup>
       </div>
@@ -80,7 +80,7 @@ export default function TwoFactorAuthenticationSection() {
         className="mt-5 flex items-center justify-center gap-[10px] w-fit min-w-[180px] h-[39px] px-[42px] py-[11px] rounded-[10px] border border-white bg-[#0B0E1233] backdrop-blur-[44px] settings-label font-medium text-sm leading-[100%] text-white whitespace-nowrap"
       >
         <Image className="w-4 h-4" src={downloadIcon} alt="download-icon" />
-        <span className="">Save Changes</span>
+        <span className="">Save</span>
       </button>
     </ComponentContainer>
   );

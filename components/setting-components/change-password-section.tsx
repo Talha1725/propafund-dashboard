@@ -106,7 +106,7 @@ export default function ChangePasswordSection() {
         >
           <Image className="w-4 h-4" src={downloadIcon} alt="download-icon" />
           <span>
-            {isSubmitting ? "Saving..." : "Save Changes"}
+            {isSubmitting ? "Saving..." : "Save"}
           </span>
         </button>
       </form>
