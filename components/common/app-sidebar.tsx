@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -23,6 +23,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import SidebarProfile from "./sidebar-profile";
 import ThunderIcon from "@/public/assets/thunder-icon";
+import HelpModal from "./help-modal";
 
 // Menu items.
 const items = [
@@ -71,11 +72,25 @@ const items = [
     url: "/user/settings",
     icon: <IconSettings active={false} />,
   },
+  {
+    title: "Help",
+    url: "/user/help",
+    icon: <IconHelp active={false} />,
+  },
 ];
 
 export function AppSidebar() {
   const router = useRouter();
   const pathname = usePathname();
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+  
+  const openHelpModal = () => {
+    setIsHelpModalOpen(true);
+  };
+  
+  const closeHelpModal = () => {
+    setIsHelpModalOpen(false);
+  };
   return (
     <Sidebar className="border-none">
       <SidebarContent className="bg-dark overflow-hidden border-r-0 xl:border-r border-white/10 xl:border-none relative">
@@ -110,7 +125,11 @@ export function AppSidebar() {
                         : ""
                     }`}
                     onClick={() => {
-                      router.push(item.url);
+                      if (item.title === "Help") {
+                        openHelpModal();
+                      } else {
+                        router.push(item.url);
+                      }
                     }}
                   >
                     <div className="flex items-center gap-1 h-full relative">
@@ -122,7 +141,7 @@ export function AppSidebar() {
                               (item.url === "/user/challenges" &&
                                 pathname.startsWith("/user/challenges/")),
                           })}
-                      <span className="text-sm font-lay-grotesk mt-[1px]">
+                      <span className="text-sm font-creato-display mt-[1px]">
                         {item.title}
                       </span>
                     </div>
@@ -131,43 +150,18 @@ export function AppSidebar() {
               ))}
             </div>
 
-            {/* Bottom Section - Help and Settings */}
-            <div className="flex flex-col gap-1 px-7 mb-4">
-              {/* Help - Highlighted */}
-              <SidebarMenuItem className="list-none w-full">
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === "/user/help"}
-                  className={`text-white opacity-50 h-10 hover:opacity-100 rounded-lg  p-1 hover: px-3 py-2 hover:bg-transparent hover:text-white cursor-pointer active:bg-transparent active:text-white ${
-                    pathname === "/user/help"
-                      ? "light-purple-gradient border-2 overflow-visible border-t-purple border-b-blue border-l-purple border-r-blue opacity-100 pl-4.5"
-                      : ""
-                  }`}
-                  onClick={() => {
-                    router.push("/user/help");
-                  }}
-                >
-                  <div className="flex items-center gap-1 h-full relative">
-                    {pathname === "/user/help" && (
-                      <>
-                        <div className="absolute bottom-[3px] left-1/2 -translate-x-1/2  w-[70%] h-[2px] bg-white/50 rounded-full blur-sm z-50"></div>
-                        <div className="absolute bottom-[-2px] left-1/2 -translate-x-1/2  w-[70%] h-[2px] bg-gradient-to-r from-blue via-white to-blue rounded-lg z-[999]"></div>
-                      </>
-                    )}
-                    <IconHelp active={pathname === "/user/help"} />
-                    <span className="text-sm font-lay-grotesk mt-[1px]">
-                      Help
-                    </span>
-                  </div>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </div>
             <div className="px-8 py-4 border-t border-white/10 backdrop-blur-2xl relative z-[999]">
               <SidebarProfile />
             </div>
           </div>
         </div>
       </SidebarContent>
+      
+      {/* Help Modal */}
+      <HelpModal 
+        isOpen={isHelpModalOpen} 
+        onClose={closeHelpModal} 
+      />
     </Sidebar>
   );
 }
