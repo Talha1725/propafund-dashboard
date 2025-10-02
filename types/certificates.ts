@@ -2,6 +2,7 @@ export type CertificateTabId = "all" | "core-skills" | "advanced-tactics" | "pro
 
 export type UnlockableCertificateTabId = "all" | "core-skills" | "advanced-tactics" | "pro-trader-level" | "max-allocation" | "performance-goals" | "risk-control";
 
+
 export interface CertificateTab {
   id: CertificateTabId;
   label: string;

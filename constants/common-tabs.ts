@@ -1,8 +1,5 @@
-import { Tab } from "@/components/common/tabs";
 
-// Common tab configurations that can be reused across the app
 export const COMMON_TABS = {
-  // Certificate tabs with blue gradient styling
   certificates: [
     { id: "all", label: "All" },
     { id: "core-skills", label: "Core Skills" },
@@ -13,7 +10,6 @@ export const COMMON_TABS = {
     { id: "risk-control", label: "Risk Control" },
   ] as const,
 
-  // Trading tabs
   trading: [
     { id: "overview", label: "Overview" },
     { id: "positions", label: "Positions" },
@@ -21,7 +17,6 @@ export const COMMON_TABS = {
     { id: "analytics", label: "Analytics" },
   ] as const,
 
-  // Account tabs
   account: [
     { id: "profile", label: "Profile" },
     { id: "settings", label: "Settings" },
@@ -30,7 +25,6 @@ export const COMMON_TABS = {
   ] as const,
 } as const;
 
-// Helper function to get tab configuration
 export const getTabConfig = (type: keyof typeof COMMON_TABS) => {
   return COMMON_TABS[type];
 };
