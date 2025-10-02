@@ -56,8 +56,9 @@ const sizeClasses = {
     tab: "h-8 px-3 py-1 text-sm rounded-lg min-w-[40px]",
   },
   lg: {
-    container: "h-12 sm:h-14 px-3 py-2 sm:px-[14px] sm:py-[10px] rounded-lg",
-    tab: "h-8 sm:h-9 px-3 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm rounded-lg min-w-fit",
+
+    container: "h-12 sm:h-14 px-3 py-2 sm:px-[14px] sm:py-[10px] rounded-lg sm:rounded-[10px]",
+    tab: "h-8 sm:h-9 px-3 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm rounded-lg sm:rounded-[10px] min-w-fit",
   },
 };
 
