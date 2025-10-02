@@ -138,7 +138,6 @@ export function AppSidebar() {
                 </SidebarMenuItem>
               ))}
             </div>
-
             <div className="px-6 py-2 relative z-50">
               <button
                 onClick={openHelpModal}

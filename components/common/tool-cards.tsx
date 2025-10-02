@@ -52,9 +52,9 @@ function Card({
         {hover && <div className="absolute inset-0 gradient-primary z-5" />}
         {blobClass && <div className={blobClass}></div>}
 
-        <div className="pt-4 px-4 pb-0 relative z-10">
-          <h1 className="md:text-[22px] font-lay-grotesk text-white z-50">{title}</h1>
-          <p className={`h-fit mb-2 font-lay-grotesk mt-1 z-50 md:text-[16px] text-[16px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-white' : 'text-white/50'}`}>{content}</p>
+      <div className="pt-4 px-4 pb-0 relative z-10">
+        <h1 className="md:text-[22px] font-creato-display text-white z-50">{title}</h1>
+        <p className={`h-fit mb-2 font-creato-display mt-1 z-50 md:text-[16px] text-[16px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-white' : 'text-white/50'}`}>{content}</p>
 
           {iconPosition === "below-text" && iconType === "icon" && icon && (
             <div className="mt-3 w-[39px]">

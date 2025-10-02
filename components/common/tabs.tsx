@@ -43,7 +43,6 @@ export interface TabsProps<T extends TabId = TabId> {
   inactiveTabClassName?: string;
   containerClassName?: string;
   size?: "sm" | "md" | "lg";
-
   variant?: "default" | "leaderboard" | "minimal" | "certificate";
 }
 
@@ -57,6 +56,7 @@ const sizeClasses = {
     tab: "h-8 px-3 py-1 text-sm rounded-lg min-w-[40px]",
   },
   lg: {
+
     container: "h-12 sm:h-14 px-3 py-2 sm:px-[14px] sm:py-[10px] rounded-lg sm:rounded-[10px]",
     tab: "h-8 sm:h-9 px-3 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm rounded-lg sm:rounded-[10px] min-w-fit",
   },
@@ -84,7 +84,7 @@ const variantClasses = {
   certificate: {
     container: "border-0 bg-transparent",
     tab: "text-gray-500 hover:text-gray-400 transition-colors duration-200",
-    active: "bg-gradient-to-b from-white to-blue text-black shadow-sm",
+    active: "bg-gradient-to-b from-white to-blue text-black shadow-sm rounded-[6px]",
     inactive: "text-white/50 hover:text-white/70",
   },
 };
@@ -106,7 +106,7 @@ const TabButton = memo<{
       onClick={handleClick}
       className={cn(
         "flex items-center justify-center transition-all duration-200",
-        "font-lay-grotesk leading-none",
+        "font-creato-display leading-none",
         sizeClasses[size].tab,
         isActive ? activeClassName : inactiveClassName,
         className

@@ -37,7 +37,7 @@ export function Navbar() {
       case "/user/billing":
         return "Billing";
       case "/user/academy":
-        return "Utopia Academy";
+        return "Academy";
       case "/user/certificates":
         return "Certificates";
       case "/user/settings":

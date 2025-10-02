@@ -151,13 +151,13 @@ export default function RiskChart({
       {/* Central content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-50">
         <div className="text-center relative">
-          <p className="text-white text-sm font-lay-grotesk mb-1">
+          <p className="text-white text-sm font-creato-display mb-1">
             {currentRisk}
           </p>
-          <h3 className="text-white text-2xl font-semibold font-lay-grotesk mb-2">
+          <h3 className="text-white text-2xl font-semibold font-creato-display mb-2">
             ${currentValue.toLocaleString()}
           </h3>
-          <p className="text-white/70 text-sm font-lay-grotesk">
+          <p className="text-white/70 text-sm font-creato-display">
             / ${maxValue.toLocaleString()}
           </p>
         </div>

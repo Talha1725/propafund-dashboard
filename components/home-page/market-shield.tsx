@@ -93,9 +93,9 @@ function LocalCard({
       </div>
 
       <div className="pt-4 px-4 pb-0 relative z-10">
-        <p className={`h-fit mb-2 font-romanica uppercase mt-1 z-50 text-[20px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-[#0B0D12]' : 'text-white'}`}>{content}</p>
+        <p className={`h-fit mb-2 font-creato-display mt-1 z-50 md:text-[16px] text-[16px] lg:w-[90%] transition-colors duration-300 ${hover ? 'text-[#0B0D12]' : 'text-white'}`}>{content}</p>
       </div>
-
+      
       <div className={`${imageWrapperClass ?? ""} relative z-10 -mt-2`}>
         <Image src={image} alt="card-image" width={186} height={186} className="w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] md:w-[150px] md:h-[150px] lg:w-[186px] lg:h-[186px] opacity-100 rotate-0" />
       </div>
