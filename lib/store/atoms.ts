@@ -11,6 +11,7 @@ export const isAuthenticatedAtom = atom((get) => !!get(userAtom));
 export const authLoadingAtom = atom(false);
 export const loginLoadingAtom = atom(false);
 export const registerLoadingAtom = atom(false);
+export const authInitializedAtom = atom(false);
 
 // Error states
 export const authErrorAtom = atom<string | null>(null);
@@ -98,6 +99,12 @@ export const initializeAuthAtom = atom(
           set(clearAuthAtom);
         }
       }
+      
+      // Mark auth as initialized regardless of whether we found stored data
+      set(authInitializedAtom, true);
+    } else {
+      // On server side, mark as initialized immediately
+      set(authInitializedAtom, true);
     }
   }
 );
