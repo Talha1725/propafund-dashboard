@@ -251,6 +251,96 @@ html, body {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
 }
 
+.settings-input {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Creato Display', sans-serif;
+  font-weight: 400;
+}
+
+.settings-label {
+  font-family: 'Creato Display', sans-serif;
+  font-weight: 400;
+}
+
+.settings-menu-item {
+  font-family: 'Creato Display', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.settings-menu-item.active {
+  color: #0B0E12;
+}
+
+.settings-heading {
+  font-family: 'Creato Display', sans-serif;
+  font-weight: 400;
+}
+
+.settings-select-trigger {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Creato Display', sans-serif;
+  font-weight: 400;
+  color: white;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.settings-select-trigger:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.settings-select-trigger:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.settings-select-content {
+  background: linear-gradient(180deg, rgba(11, 14, 18, 0.95) 0%, rgba(11, 14, 18, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 4px;
+}
+
+.settings-select-item {
+  color: white;
+  font-family: 'Creato Display', sans-serif;
+  font-weight: 400;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-select-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.settings-select-item[data-highlighted] {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.settings-select-item[data-state="checked"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
 .column-panel {
   background: linear-gradient(180deg, rgba(110, 110, 110, 0.1) 0%, rgba(19, 19, 21, 0.02) 100%);
   border: 1px solid #FFFFFF1A;
