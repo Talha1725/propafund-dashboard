@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
+import { useAtom } from "jotai";
 import Container from "./container";
 import { NAVBAR_ROUTES } from "@/constants/routes";
+import { isAuthenticatedAtom } from "@/lib/store/atoms";
 
 
 export default function Navbar() {
@@ -15,6 +17,7 @@ export default function Navbar() {
   const menuRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  const [isAuthenticated] = useAtom(isAuthenticatedAtom);
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   const isActiveLink = useCallback((href: string) => pathname === href, [pathname]);
@@ -60,6 +63,16 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href={isAuthenticated ? "/user/dashboard" : "/login"}
+              className={`hover:text-blue transition-all duration-300 ${
+                isActiveLink(isAuthenticated ? "/user/dashboard" : "/login") ? "text-blue" : ""
+              }`}
+            >
+              {isAuthenticated ? "Dashboard" : "Login"}
+            </Link>
+          </li>
         </ul>
         <Button>
           <Link href="/challenges">Get Funded Now</Link>
@@ -116,6 +129,17 @@ export default function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href={isAuthenticated ? "/user/dashboard" : "/login"}
+                  onClick={closeMenu}
+                  className={`block text-lg hover:text-blue transition-all duration-300 ${
+                    isActiveLink(isAuthenticated ? "/user/dashboard" : "/login") ? "text-blue" : "text-white"
+                  }`}
+                >
+                  {isAuthenticated ? "Dashboard" : "Login"}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
