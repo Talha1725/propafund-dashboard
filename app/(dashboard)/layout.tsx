@@ -17,20 +17,19 @@ export default function DashboardLayout({
   const router = useRouter();
   const [isAuthenticated] = useAtom(isAuthenticatedAtom);
 
-  // Temporarily disabled authentication check for testing
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     router.push('/login');
-  //   }
-  // }, [isAuthenticated, router]);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isAuthenticated, router]);
 
-  // if (!isAuthenticated) {
-  //   return (
-  //     <div className="min-h-screen bg-dark flex items-center justify-center">
-  //       <div className="text-white text-lg">Loading...</div>
-  //     </div>
-  //   );
-  // }
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-dark flex items-center justify-center">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-dark overflow-hidden">

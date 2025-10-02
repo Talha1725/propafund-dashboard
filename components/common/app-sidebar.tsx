@@ -72,11 +72,6 @@ const items = [
     url: "/user/settings",
     icon: <IconSettings active={false} />,
   },
-  {
-    title: "Help",
-    url: "/user/help",
-    icon: <IconHelp active={false} />,
-  },
 ];
 
 export function AppSidebar() {
@@ -95,9 +90,8 @@ export function AppSidebar() {
     <Sidebar className="border-none">
       <SidebarContent className="bg-dark overflow-hidden border-r-0 xl:border-r border-white/10 xl:border-none relative">
         <div className="xl:p-3 xl:pr-0 h-full backdrop-blur-2xl">
-          <ThunderIcon className="absolute bottom-[-69px] xl:bottom-[-57px] right-[-150px] z-30 " />
+          <ThunderIcon className="absolute bottom-[-69px] xl:bottom-[-57px] right-[-150px] -z-10 " />
           <div className="w-full h-full pt-6 flex flex-col xl:rounded-l-[20px] gradient-white xl:border border-white/10">
-            {/* Logo Section */}
             <div className="px-6 w-full border-b border-white/10 flex items-center justify-center max-h-14 pb-5 mb-6">
               <Image
                 src={logo}
@@ -106,7 +100,6 @@ export function AppSidebar() {
               />
             </div>
 
-            {/* Main Navigation Items */}
             <div className="flex flex-col flex-1 px-6">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} className="list-none w-full">
@@ -125,11 +118,7 @@ export function AppSidebar() {
                         : ""
                     }`}
                     onClick={() => {
-                      if (item.title === "Help") {
-                        openHelpModal();
-                      } else {
-                        router.push(item.url);
-                      }
+                      router.push(item.url);
                     }}
                   >
                     <div className="flex items-center gap-1 h-full relative">
@@ -150,14 +139,25 @@ export function AppSidebar() {
               ))}
             </div>
 
-            <div className="px-8 py-4 border-t border-white/10 backdrop-blur-2xl relative z-[999]">
+            <div className="px-6 py-2 relative z-50">
+              <button
+                onClick={openHelpModal}
+                className="w-full text-white opacity-50 h-10 hover:opacity-100 rounded-sm px-3 py-2 hover:text-white cursor-pointer active:bg-transparent active:text-white font-creato-display flex items-center gap-1 relative z-50"
+              >
+                <IconHelp active={false} />
+                <span className="text-sm font-creato-display mt-[1px]">
+                  Help
+                </span>
+              </button>
+            </div>
+
+            <div className="px-8 py-4 border-t border-white/10 backdrop-blur-2xl relative z-[1]">
               <SidebarProfile />
             </div>
           </div>
         </div>
       </SidebarContent>
       
-      {/* Help Modal */}
       <HelpModal 
         isOpen={isHelpModalOpen} 
         onClose={closeHelpModal} 
