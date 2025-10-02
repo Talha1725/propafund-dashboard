@@ -7,7 +7,10 @@ export type Route = {
 export const NAVBAR_ROUTES: Route[] = [
   { href: "/home", label: "Home" },
   { href: "/challenges", label: "Challenges" },
+  { href: "/academy", label: "Academy" },
+  { href: "/certificates", label: "Certificates" },
   { href: "/faq", label: "FAQ" },
+  { href: "/help", label: "Help" },
   { href: "/support", label: "Support" },
 ];
 
@@ -17,6 +20,7 @@ export const FOOTER_QUICKLINKS: Route[] = [
   { href: "#", label: "Pricing" },
   { href: "#", label: "Testimonials" },
   { href: "/faq", label: "FAQs" },
+  { href: "/help", label: "Help Center" },
 ];
 
 export const FOOTER_LEGAL: Route[] = [

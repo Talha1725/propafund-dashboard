@@ -1,39 +1,45 @@
-import { z } from 'zod';
+import { z } from "zod";
 
+// Login schema
 export const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(1, 'Password is required'),
-  keepLoggedIn: z.boolean().optional()
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  password: z.string().min(1, "Password is required"),
+  keepLoggedIn: z.boolean().optional(),
 });
 
+export type LoginData = z.infer<typeof loginSchema>;
+
+// Register schema
 export const registerSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  fullName: z.string().min(1, 'Full name is required'),
-  userName: z.string().min(1, 'Username is required'),
-  acceptTerms: z.boolean().refine(val => val === true, 'You must accept the terms and conditions')
+  userName: z.string().min(2, "Username must be at least 2 characters"),
+  fullName: z.string().min(2, "Full name must be at least 2 characters"),
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  password: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password must contain at least one uppercase letter, one lowercase letter, and one number"),
 });
 
-// Alias for existing signup page
-export const signUpSchemaSimple = z.object({
-  username: z.string().min(1, 'Username is required'),
-  fullName: z.string().min(1, 'Full name is required'),
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters')
-});
+export type RegisterData = z.infer<typeof registerSchema>;
 
+// Forgot password schema
 export const forgotPasswordSchema = z.object({
-  email: z.string().email('Please enter a valid email address')
+  email: z.string().email("Please enter a valid email address"),
 });
 
+export type ForgotPasswordData = z.infer<typeof forgotPasswordSchema>;
+
+// Reset password schema
 export const resetPasswordSchema = z.object({
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string()
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
-  path: ["confirmPassword"]
+  path: ["confirmPassword"],
 });
 
+export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
+
+// Support form schema
 export const supportFormSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('Please enter a valid email address'),
@@ -41,9 +47,4 @@ export const supportFormSchema = z.object({
   message: z.string().min(10, 'Message must be at least 10 characters')
 });
 
-export type LoginData = z.infer<typeof loginSchema>;
-export type RegisterData = z.infer<typeof registerSchema>;
-export type SignUpDataSimple = z.infer<typeof signUpSchemaSimple>;
-export type ForgotPasswordData = z.infer<typeof forgotPasswordSchema>;
-export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
 export type SupportFormData = z.infer<typeof supportFormSchema>;

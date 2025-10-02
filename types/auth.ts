@@ -1,3 +1,51 @@
+// Component props interfaces
+export interface AuthLayoutProps {
+  children: React.ReactNode;
+  logoWidth?: number;
+  logoHeight?: number;
+  imageType?: "login" | "signup";
+}
+
+export interface SocialLoginButtonsProps {
+  onAppleLogin: () => void;
+  onGoogleLogin: () => void;
+  className?: string;
+  googleLoading?: boolean;
+}
+
+export interface AuthFormProps {
+  title: string;
+  subtitle: string;
+  children: React.ReactNode;
+  onSubmit: (e: React.FormEvent) => void;
+  buttonText?: string;
+  isSubmitting?: boolean;
+  showSocialLogin?: boolean;
+  showOrDivider?: boolean;
+  linkText?: string;
+  linkHref?: string;
+  linkLabel?: string;
+  className?: string;
+  titleClassName?: string;
+}
+
+export interface PasswordRequirementsProps {
+  password: string;
+  className?: string;
+}
+
+export interface PasswordStrengthIndicatorProps {
+  password: string;
+}
+
+// API Response types
+export interface ApiResponse<T = any> {
+  success: boolean;
+  message: string;
+  data?: T;
+  error?: string;
+}
+
 // User interface
 export interface User {
   id: string;
@@ -21,6 +69,21 @@ export interface AuthResponse {
   data?: User | { userData?: User; token?: string };
 }
 
+// Authentication context types
+export interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  login: (data: LoginData) => Promise<void>;
+  register: (data: RegisterData) => Promise<void>;
+  logout: () => Promise<void>;
+  forgotPassword: (data: ForgotPasswordData) => Promise<void>;
+  resetPassword: (data: ResetPasswordData & { token: string }) => Promise<void>;
+  socialLogin: (provider: 'google' | 'apple', token: string) => Promise<void>;
+}
+
+// Form data types (re-exported from schemas for convenience)
+export type { LoginData, RegisterData, ForgotPasswordData, ResetPasswordData } from '@/lib/schemas/auth';
 // Request interfaces
 export interface RegisterRequest {
   email: string;
@@ -51,44 +114,7 @@ export interface VerifyEmailRequest {
   token: string;
 }
 
-// Component props interfaces
-export interface AuthLayoutProps {
-  children: React.ReactNode;
-  logoWidth?: number;
-  logoHeight?: number;
-}
-
-export interface SocialLoginButtonsProps {
-  onAppleLogin: () => void;
-  onGoogleLogin: () => void;
-  className?: string;
-  googleLoading?: boolean;
-}
-
-export interface AuthFormProps {
-  title: string;
-  subtitle: string;
-  children: React.ReactNode;
-  onSubmit: (e: React.FormEvent) => void;
-  buttonText?: string;
-  isSubmitting?: boolean;
-  showSocialLogin?: boolean;
-  showOrDivider?: boolean;
-  linkText?: string;
-  linkHref?: string;
-  linkLabel?: string;
-  className?: string;
-}
-
-export interface PasswordRequirementsProps {
-  password: string;
-  className?: string;
-}
-
-export interface PasswordStrengthIndicatorProps {
-  password: string;
-}
-
+// Additional interfaces from HEAD version
 export interface Toast {
   id: string;
   type: 'success' | 'error' | 'warning' | 'info';
@@ -101,3 +127,6 @@ export interface ToastProps {
   toast: Toast;
   onDismiss: (id: string) => void;
 }
+
+// Import types for use in interfaces
+import type { LoginData, RegisterData, ForgotPasswordData, ResetPasswordData } from '@/lib/schemas/auth';

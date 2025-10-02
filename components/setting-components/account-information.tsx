@@ -132,7 +132,7 @@ import {
           
           <button 
             type="submit"
-            className="my-5 flex items-center justify-center gap-[10px] w-fit min-w-[180px] h-[39px] px-[42px] py-[11px] rounded-[10px] border border-white bg-[#0B0E1233] backdrop-blur-[44px] font-creato-display font-medium text-sm leading-[100%] text-white disabled:opacity-50 whitespace-nowrap"
+            className="my-5 flex items-center justify-center gap-[10px] w-fit min-w-[180px] h-[39px] px-[42px] py-[11px] rounded-[10px] border border-white bg-[#0B0E1233] backdrop-blur-[44px] font-creato-display font-medium text-sm leading-[100%] text-white disabled:opacity-50 whitespace-nowrap cursor-pointer"
             disabled={isSubmitting}
           >
             <Image className="w-4 h-4" src={downloadIcon} alt="download-icon" />

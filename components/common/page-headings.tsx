@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 export default function PageHeadings() {
   const pathname = usePathname();
   
-  // Define page titles based on URL
   const getPageTitle = (path: string) => {
     const pathSegments = path.split("/");
     const lastSegment = pathSegments[pathSegments.length - 1];
@@ -27,7 +26,7 @@ export default function PageHeadings() {
       case "/user/billing":
         return "Billing";
       case "/user/academy":
-        return "Utopia Academy";
+        return "Academy";
       case "/user/certificates":
         return "Certificates";
       case "/user/settings":
@@ -35,15 +34,12 @@ export default function PageHeadings() {
       case "/user/help":
         return "Help";
       default:
-        // Handle dynamic challenge routes like /user/challenges/[id]
         if (path.startsWith("/user/challenges/")) {
           return "Challenges";
         }
-        // Handle dynamic certificate routes like /user/certificates/[id]
         if (path.startsWith("/user/certificates/") && path !== "/user/certificates") {
           return "Certificate";
         }
-        // Fallback: capitalize the last segment of the URL
         return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
     }
   };

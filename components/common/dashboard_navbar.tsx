@@ -37,7 +37,7 @@ export function Navbar() {
       case "/user/billing":
         return "Billing";
       case "/user/academy":
-        return "Utopia Academy";
+        return "Academy";
       case "/user/certificates":
         return "Certificates";
       case "/user/settings":
@@ -49,7 +49,7 @@ export function Navbar() {
           return "Challenges";
         }
         if (path.startsWith("/user/certificates/")) {
-          return "Certificate";
+          return "Certificates";
         }
         return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
     }

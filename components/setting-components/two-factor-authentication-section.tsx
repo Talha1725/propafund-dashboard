@@ -77,7 +77,7 @@ export default function TwoFactorAuthenticationSection() {
       <button
         onClick={handleSave}
         
-        className="mt-5 flex items-center justify-center gap-[10px] w-fit min-w-[180px] h-[39px] px-[42px] py-[11px] rounded-[10px] border border-white bg-[#0B0E1233] backdrop-blur-[44px] settings-label font-medium text-sm leading-[100%] text-white whitespace-nowrap"
+        className="mt-5 flex items-center justify-center gap-[10px] w-fit min-w-[180px] h-[39px] px-[42px] py-[11px] rounded-[10px] border border-white bg-[#0B0E1233] backdrop-blur-[44px] settings-label font-medium text-sm leading-[100%] text-white whitespace-nowrap cursor-pointer"
       >
         <Image className="w-4 h-4" src={downloadIcon} alt="download-icon" />
         <span className="">Save</span>
