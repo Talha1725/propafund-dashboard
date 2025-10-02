@@ -53,7 +53,7 @@ export default function SignupPage() {
           setUser(response.user);
           setToken(response.token);
           toast.success("Account created successfully! Welcome!");
-          router.push("/dashboard");
+          router.push("/user/dashboard");
         } else {
           setSignupEmail(data.email);
           toast.success("Account created successfully! Please check your email for verification.");

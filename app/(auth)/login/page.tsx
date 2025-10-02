@@ -11,7 +11,7 @@ import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import { auth } from "@/lib/api/endpoints/auth";
 import { handleApiError } from "@/lib/utils/apiUtils";
-import { setUserAtom, setTokenAtom } from "@/lib/store/atoms";
+import { setUserAtom, setTokenAtom, signupEmailAtom } from "@/lib/store/atoms";
 import Image from "next/image";
 import checkmarkIcon from "@/public/assets/checkmark.svg";
 import { toast } from "sonner";
@@ -23,6 +23,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [, setUser] = useAtom(setUserAtom);
   const [, setToken] = useAtom(setTokenAtom);
+  const [, setSignupEmail] = useAtom(signupEmailAtom);
 
   const {
     register,
@@ -38,6 +39,13 @@ export default function LoginPage() {
       keepLoggedIn: false,
     },
   });
+
+  const handleUnverifiedEmail = (email: string) => {
+    setSignupEmail(email);
+    setTimeout(() => {
+      router.push('/verify-email');
+    }, 2000);
+  };
 
   const onSubmit = async (data: LoginData) => {
     const loadingToastId = toast.loading("Signing you in...");
@@ -71,11 +79,19 @@ export default function LoginPage() {
       } else {
         const errorMessage = response?.message || response?.error || 'Login failed';
         toast.error(errorMessage);
+        
+        // Check if this is the specific unverified email error message
+        if (errorMessage.includes('email') && errorMessage.includes('verify')) {
+          handleUnverifiedEmail(data.email);
+        }
       }
 
     } catch (error) {
       const errorMessage = handleApiError(error);
       toast.error(errorMessage);
+      if (errorMessage.includes('email') && errorMessage.includes('verify')) {
+        handleUnverifiedEmail(data.email);
+      }
     } finally {
       setIsSubmitting(false);
       toast.dismiss(loadingToastId);
