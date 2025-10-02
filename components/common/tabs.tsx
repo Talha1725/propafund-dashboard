@@ -43,6 +43,7 @@ export interface TabsProps<T extends TabId = TabId> {
   inactiveTabClassName?: string;
   containerClassName?: string;
   size?: "sm" | "md" | "lg";
+
   variant?: "default" | "leaderboard" | "minimal" | "certificate";
 }
 
