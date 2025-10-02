@@ -134,24 +134,17 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
   const handleTabChange = (id: string) => setActiveTab(id);
   const handleCardToggle = (index: number) => setOpenCard(openCard === index ? null : index);
 
-  console.log('HelpModal render - isOpen:', isOpen);
-
   if (!isOpen) {
-    console.log('HelpModal not rendering - isOpen is false');
     return null;
   }
 
-  console.log('HelpModal rendering modal content');
-
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
       
-      {/* Modal Content */}
       <div 
         className="relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-lg"
         style={{
@@ -163,7 +156,6 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
           borderLeftColor: '#FFFFFF',
         }}
       >
-        {/* Header */}
         <div className="flex items-center justify-between pb-6 pt-10 px-10">
           <h2 className="font-creato-display font-medium text-[26px] leading-[100%] tracking-[0%] text-white">
             Help
@@ -181,14 +173,11 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
           </button>
         </div>
 
-        {/* Content */}
         <div className="px-10 pb-10 space-y-6 max-h-[calc(90vh-80px)] overflow-y-auto">
-          {/* Search Bar */}
           <div className="flex justify-center">
             <SearchBar />
           </div>
 
-          {/* Tabs */}
           <div className="mt-4">
             <div className="hidden sm:block">
               <Tabs
@@ -209,7 +198,6 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
             </div>
           </div>
           
-          {/* FAQ Items */}
           <div className="space-y-[10px]">
             {FAQ_ITEMS.map((item, index) => (
               <FAQCard
@@ -222,7 +210,6 @@ const HelpModal = memo(({ isOpen, onClose }: HelpModalProps) => {
             ))}
           </div>
 
-          {/* Contact Card */}
           <div className="mt-8">
             <ContactCard />
           </div>
