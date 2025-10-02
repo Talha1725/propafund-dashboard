@@ -181,7 +181,7 @@ export const leaderboardColumns = [
     key: "trader",
     label: "Trader",
     sortable: true,
-    render: (value: string, row: any) => React.createElement('div', null,
+    render: (value: string, row: { country: string; location: string }) => React.createElement('div', null,
       React.createElement('div', { className: "text-white font-medium" }, value),
       React.createElement('div', { className: "flex items-center gap-2 text-gray-400 text-sm" },
         React.createElement('span', null, COUNTRY_FLAGS[row.country] || '🏳️'),
@@ -198,7 +198,7 @@ export const leaderboardColumns = [
     key: "winRate",
     label: "Win Rate",
     sortable: true,
-    render: (value: string, row: any) => React.createElement('div', { className: "flex items-center gap-2" },
+    render: (value: string, row: { winRateTrend: string }) => React.createElement('div', { className: "flex items-center gap-2" },
       React.createElement('span', { className: "text-white" }, value),
       row.winRateTrend === "up" 
         ? React.createElement(TradeUp, { className: "w-4 h-4", fill: "#00EB6E" })
@@ -219,7 +219,7 @@ export const leaderboardColumns = [
     key: "monthlyReturns",
     label: "Monthly Returns",
     sortable: true,
-    render: (value: string, row: any) => React.createElement('div', { className: "flex items-center gap-2" },
+    render: (value: string, row: { monthlyReturnsTrend: string }) => React.createElement('div', { className: "flex items-center gap-2" },
       React.createElement('span', { className: "text-white" }, value),
       row.monthlyReturnsTrend === "up" 
         ? React.createElement(TradeUp, { className: "w-4 h-4", fill: "#00EB6E" })
