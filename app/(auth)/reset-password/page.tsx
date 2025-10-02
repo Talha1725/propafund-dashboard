@@ -9,6 +9,7 @@ import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthFormField } from "@/components/auth/auth-form-field";
 import { PasswordRequirements } from "@/components/auth/password-requirements";
+import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/api/endpoints/auth";
 import { handleApiError } from "@/lib/utils/apiUtils";
 import { toast } from "sonner";
@@ -86,28 +87,36 @@ function ResetPasswordContent() {
   if (isValidToken === false) {
     return (
       <AuthLayout>
-        <div className="w-full max-w-md mx-auto text-center px-4">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+        <div className="w-full">
+          <div className="text-center mb-4 px-4">
+            <h1 className="text-white text-xl sm:text-[26px] font-medium font-lay-grotesk mb-1">
+              Invalid or Expired Token
+            </h1>
+            <p className="text-[#525866] text-sm sm:text-[18px] font-regular font-lay-grotesk mb-4">
+              Your password reset link is invalid or has expired.
+            </p>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Invalid Reset Link</h2>
-          <p className="text-[#525866] text-sm sm:text-base mb-6">
-            This password reset link is invalid or has expired. Please request a new one.
-          </p>
-          <div className="space-y-3">
-            <Link
-              href="/forgot-password"
-              className="block w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 text-center transition-colors"
+
+          <div className="w-full max-w-[250px] relative mx-auto mt-8 px-4">
+            <Button
+              type="button"
+              variant="secondary"
+              className="w-full h-[45px]"
+              onClick={() => window.location.href = '/forgot-password'}
             >
-              Request New Reset Link
-            </Link>
+              Request New Reset
+            </Button>
+          </div>
+
+          <div className="text-center mt-6 px-4">
+            <span className="text-[#525866] text-sm font-regular font-creato-display">
+              Remember your password?{" "}
+            </span>
             <Link
               href="/login"
-              className="block w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 text-center transition-colors"
+              className="text-white text-sm font-medium font-creato-display underline transition-colors"
             >
-              Back to Login
+              Back to login
             </Link>
           </div>
         </div>
@@ -118,22 +127,26 @@ function ResetPasswordContent() {
   if (isSuccess) {
     return (
       <AuthLayout>
-        <div className="w-full max-w-md mx-auto text-center px-4">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+        <div className="w-full">
+          <div className="text-center mb-4 px-4">
+            <h1 className="text-white text-xl sm:text-[26px] font-medium font-lay-grotesk mb-1">
+              Password Reset Successfully!
+            </h1>
+            <p className="text-[#525866] text-sm sm:text-[18px] font-regular font-lay-grotesk mb-4">
+              Your password has been updated. Redirecting you to login...
+            </p>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Password Reset Successfully!</h2>
-          <p className="text-[#525866] text-sm sm:text-base mb-6">
-            Your password has been updated. Redirecting you to login...
-          </p>
-          <Link
-            href="/login"
-            className="inline-block bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Go to Login
-          </Link>
+
+          <div className="w-full max-w-[250px] relative mx-auto mt-8 px-4">
+            <Button
+              type="button"
+              variant="secondary"
+              className="w-full h-[45px]"
+              onClick={() => window.location.href = '/login'}
+            >
+              Go to Login
+            </Button>
+          </div>
         </div>
       </AuthLayout>
     );
@@ -142,14 +155,26 @@ function ResetPasswordContent() {
   if (isValidToken === null) {
     return (
       <AuthLayout>
-        <div className="w-full max-w-md mx-auto text-center px-4">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="w-full">
+          <div className="text-center mb-4 px-4">
+            <h1 className="text-white text-xl sm:text-[26px] font-medium font-lay-grotesk mb-1">
+              Validating Reset Link...
+            </h1>
+            <p className="text-[#525866] text-sm sm:text-[18px] font-regular font-lay-grotesk">
+              Please wait while we validate your reset link.
+            </p>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Validating Reset Link...</h2>
-          <p className="text-[#525866] text-sm sm:text-base">
-            Please wait while we validate your reset link.
-          </p>
+
+          <div className="w-full max-w-[250px] relative mx-auto mt-8 px-4">
+            <Button
+              type="button"
+              variant="secondary"
+              className="w-full h-[45px]"
+              disabled
+            >
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mx-auto"></div>
+            </Button>
+          </div>
         </div>
       </AuthLayout>
     );

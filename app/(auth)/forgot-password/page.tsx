@@ -64,31 +64,30 @@ export default function ForgotPasswordPage() {
   if (isEmailSent) {
     return (
       <AuthLayout>
-        <div className="w-full max-w-md mx-auto text-center px-4">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+        <div className="w-full">
+          <div className="text-center mb-4 px-4">
+            <h1 className="text-white text-xl sm:text-[26px] font-medium font-lay-grotesk mb-1">
+              Check your email
+            </h1>
+            <p className="text-[#525866] text-sm sm:text-[18px] font-regular font-lay-grotesk mb-4">
+              We&apos;ve sent a password reset link to your email address.
+            </p>
+            <div className="bg-[#1a1a1a] border border-[#333] rounded-lg p-4 mt-4">
+              <p className="text-white text-sm font-regular font-lay-grotesk">
+                Password reset link has been sent to your email address. Please check your inbox and follow the instructions to reset your password.
+              </p>
+            </div>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Check Your Email</h2>
-          <p className="text-[#525866] text-sm sm:text-base mb-6">
-            We&apos;ve sent password reset instructions to <strong className="text-white">{watch("email")}</strong>
-          </p>
-          <div className="space-y-3">
-            <button
-              onClick={() => {
-                setIsEmailSent(false);
-                setValue("email", "");
-              }}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Send to Different Email
-            </button>
+
+          <div className="text-center mt-6 px-4">
+            <span className="text-[#525866] text-sm font-regular font-creato-display">
+              Remember your password?{" "}
+            </span>
             <Link
               href="/login"
-              className="block w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 text-center transition-colors"
+              className="text-white text-sm font-medium font-creato-display underline transition-colors"
             >
-              Back to Login
+              Back to login
             </Link>
           </div>
         </div>
