@@ -49,7 +49,7 @@ export function Navbar() {
           return "Challenges";
         }
         if (path.startsWith("/user/certificates/")) {
-          return "Certificate";
+          return "Certificates";
         }
         return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
     }

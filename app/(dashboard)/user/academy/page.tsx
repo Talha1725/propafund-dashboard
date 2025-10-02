@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import FilterDropdown from "@/components/common/filter-dropdown";
-import Tabs from "@/components/common/responsive-tabs";
+import CertificateTabs from "@/components/common/certificate-tabs";
 import VideoGrid from "@/components/academy-components/video-grid";
 import Pagination from "@/components/academy-components/pagination";
 import { VIDEOS, COURSE_TABS } from "@/lib/data/academy";
@@ -67,19 +67,23 @@ export default function Academy() {
     setCurrentPage(page);
   };
 
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId as CourseTabId);
+  };
+
   return (
     <div className="p-3 md:p-6 md:pb-4 space-y-5 xl:h-[85vh] overflow-auto relative">
     <div className="h-fit overflow-hidden pb-10 md:pb-0">
         <div className="space-y-6">
           <div className="flex md:flex-row flex-col md:justify-between md:items-center gap-4">
             <div className="flex flex-col md:flex-row md:items-center gap-4">
-              <Tabs
+              <CertificateTabs
                 tabs={COURSE_TABS.map((tab) => ({
-                  value: tab.id,
+                  id: tab.id,
                   label: tab.label,
                 }))}
-                defaultValue={activeTab}
-                onTabChange={(tabId: string) => setActiveTab(tabId as CourseTabId)}
+                activeTab={activeTab}
+                onTabChange={handleTabChange}
               />
             </div>
             <FilterDropdown
