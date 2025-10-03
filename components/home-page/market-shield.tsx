@@ -81,7 +81,7 @@ function LocalCard({
     <div
       className={`overflow-hidden relative w-full !p-0 flex-col flex justify-between transition-all duration-300 ease-in-out backdrop-blur-sm ${hover ? 'border-0' : 'border border-[#FFFFFF1A]'}`}
       style={{
-        background: hover ? '#FFFFFF' : "linear-gradient(90deg, rgba(0, 0, 0, 0.005) 30%, rgba(0, 0, 0, 0.07) 100%);",
+        background: hover ? '#FFFFFF' : "linear-gradient(90deg, rgba(0, 0, 0, 0.005) 30%, rgba(0, 0, 0, 0.07) 100%)",
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
