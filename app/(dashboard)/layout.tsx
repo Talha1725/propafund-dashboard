@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/common/app-sidebar";
 import { Navbar } from "@/components/common/dashboard_navbar";
-import { isAuthenticatedAtom } from '@/lib/store/atoms';
+import { isAuthenticatedAtom, authInitializedAtom } from '@/lib/store/atoms';
 import PageHeadings from "@/components/common/page-headings";
 
 export default function DashboardLayout({
@@ -16,20 +16,32 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const [isAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [authInitialized] = useAtom(authInitializedAtom);
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     router.push('/login');
-  //   }
-  // }, [isAuthenticated, router]);
+  useEffect(() => {
+    // Only redirect if auth is initialized and user is not authenticated
+    if (authInitialized && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isAuthenticated, authInitialized, router]);
 
-  // if (!isAuthenticated) {
-  //   return (
-  //     <div className="min-h-screen bg-dark flex items-center justify-center">
-  //       <div className="text-white text-lg">Loading...</div>
-  //     </div>
-  //   );
-  // }
+  // Show loading while auth is being initialized
+  if (!authInitialized) {
+    return (
+      <div className="min-h-screen bg-dark flex items-center justify-center">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  // Show loading if not authenticated (will redirect)
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-dark flex items-center justify-center">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-dark overflow-hidden">
