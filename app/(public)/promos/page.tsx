@@ -1,4 +1,3 @@
-import Container from "@/components/common/container";
 import HeroSection from "@/components/home-page/hero-section";
 import promoBg from "@/public/assets/promo-bg.svg";
 import OracleSection from "@/components/home-page/oracle-section";

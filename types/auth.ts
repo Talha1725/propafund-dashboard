@@ -1,4 +1,3 @@
-
 // Component props interfaces
 export interface AuthLayoutProps {
   children: React.ReactNode;
@@ -47,6 +46,7 @@ export interface ApiResponse<T = any> {
   error?: string;
 }
 
+// User interface
 export interface User {
   id: string;
   email: string;
@@ -58,6 +58,7 @@ export interface User {
   updatedAt?: string;
 }
 
+// API response interfaces
 export interface AuthResponse {
   status?: string;
   success?: boolean;
@@ -83,7 +84,6 @@ export interface AuthContextType {
 
 // Form data types (re-exported from schemas for convenience)
 export type { LoginData, RegisterData, ForgotPasswordData, ResetPasswordData } from '@/lib/schemas/auth';
-
 // Request interfaces
 export interface RegisterRequest {
   email: string;
@@ -114,6 +114,19 @@ export interface VerifyEmailRequest {
   token: string;
 }
 
+// Additional interfaces from HEAD version
+export interface Toast {
+  id: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  title?: string;
+  description?: string;
+  duration?: number;
+}
+
+export interface ToastProps {
+  toast: Toast;
+  onDismiss: (id: string) => void;
+}
+
 // Import types for use in interfaces
 import type { LoginData, RegisterData, ForgotPasswordData, ResetPasswordData } from '@/lib/schemas/auth';
-

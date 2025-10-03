@@ -38,3 +38,13 @@ export const resetPasswordSchema = z.object({
 });
 
 export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
+
+// Support form schema
+export const supportFormSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Please enter a valid email address'),
+  subject: z.string().min(1, 'Subject is required'),
+  message: z.string().min(10, 'Message must be at least 10 characters')
+});
+
+export type SupportFormData = z.infer<typeof supportFormSchema>;
