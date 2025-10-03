@@ -14,9 +14,12 @@ const apiClient = axios.create({
 // Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Only access localStorage on client side
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },
@@ -37,18 +40,22 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
       originalRequest._retry = true;
       try {
-        const refreshToken = localStorage.getItem('refresh_token');
-        const response = await apiClient.post('/auth/refresh', { refreshToken });
-        const { token } = response.data;
-        
-        localStorage.setItem('token', token);
-        originalRequest.headers.Authorization = `Bearer ${token}`;
-        
-        return apiClient(originalRequest);
+        if (typeof window !== 'undefined') {
+          const refreshToken = localStorage.getItem('refresh_token');
+          const response = await apiClient.post('/auth/refresh', { refreshToken });
+          const { token } = response.data;
+          
+          localStorage.setItem('token', token);
+          originalRequest.headers.Authorization = `Bearer ${token}`;
+          
+          return apiClient(originalRequest);
+        }
       } catch (refreshError) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refresh_token');
-        window.location.href = '/login';
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('token');
+          localStorage.removeItem('refresh_token');
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       }
     }

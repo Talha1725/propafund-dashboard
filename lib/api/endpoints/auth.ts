@@ -44,8 +44,11 @@ export const auth = {
 
   logout: async () => {
     // Client-side logout only - no server endpoint needed
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('refresh_token');
+    }
   },
 
   me: async () => {
