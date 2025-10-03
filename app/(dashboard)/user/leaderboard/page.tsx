@@ -6,7 +6,6 @@ import AccountSizeFilter from "@/components/common/account-size-filter";
 import SearchBar from "@/components/common/search-bar";
 import DataTable from "@/components/common/data-table";
 import { ProfileCard } from "@/components/cards/profile-card";
-import { FirstRank, SecondRank } from "@/components/common/icon";
 import { leaderboardData, leaderboardColumns } from "@/lib/data/leaderboard";
 
 export default function LeaderboardPage() {
@@ -76,7 +75,6 @@ export default function LeaderboardPage() {
               monthlyReturn="11.4%"
               monthlyReturnTrend="up"
               accountSize="$1,000,000"
-              icon={<FirstRank className="w-6 h-6" fill="#FFD700" />}
               cardType="first"
             />
           </div>
@@ -93,7 +91,6 @@ export default function LeaderboardPage() {
               monthlyReturn="10.2%"
               monthlyReturnTrend="up"
               accountSize="$1,000,000"
-              icon={<SecondRank className="w-6 h-6" fill="#C0C0C0" />}
               cardType="second"
             />
           </div>
@@ -110,7 +107,6 @@ export default function LeaderboardPage() {
               monthlyReturn="11.4%"
               monthlyReturnTrend="up"
               accountSize="$1,000,000"
-              icon={<FirstRank className="w-6 h-6" fill="#CD7F32" />}
               cardType="third"
             />
           </div>

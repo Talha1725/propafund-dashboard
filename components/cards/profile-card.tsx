@@ -16,7 +16,6 @@ interface ProfileCardProps {
   monthlyReturn: string;
   monthlyReturnTrend: "up" | "down";
   accountSize: string;
-  icon?: React.ReactNode;
   cardType?: "first" | "second" | "third";
 }
 
@@ -59,7 +58,6 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
   monthlyReturn,
   monthlyReturnTrend,
   accountSize,
-  icon,
   cardType = "first",
 }) => {
   const rankIcon = getRankIcon(rank);

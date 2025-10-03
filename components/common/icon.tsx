@@ -521,10 +521,8 @@ export function IconDownload({ variant = "light" }: IconDownloadProps) {
 
 export function FirstRank({
   className,
-  fill = "#FFD700",
 }: {
   className?: string;
-  fill?: string;
 }) {
   return (
     <svg
@@ -586,10 +584,8 @@ export function FirstRank({
 
 export function SecondRank({
   className,
-  fill = "#BEBEBE",
 }: {
   className?: string;
-  fill?: string;
 }) {
   return (
     <svg
@@ -651,10 +647,8 @@ export function SecondRank({
 
 export function ThirdRank({
   className,
-  fill = "#D4932A",
 }: {
   className?: string;
-  fill?: string;
 }) {
   return (
     <svg
