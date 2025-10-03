@@ -82,7 +82,7 @@ export interface AccountCardProps extends AccountCredentials {
   phase: string;
   tradesCount: number;
   daysTraded: number;
-  balance?: boolean;
+  balance?: boolean | number;
   isAddNewCard?: boolean;
 }
 

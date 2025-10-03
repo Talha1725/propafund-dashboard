@@ -707,3 +707,98 @@ export function ThirdRank({
     </svg>
   );
 }
+
+export function IconGraph({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      width="15"
+      height="14"
+      viewBox="0 0 15 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M1.75 0.25V12.25H13.75V13.75H0.25V0.25H1.75ZM13.2197 2.71975L14.2803 3.78025L10 8.0605L7.75 5.81125L4.53025 9.03025L3.46975 7.96975L7.75 3.6895L10 5.93875L13.2197 2.71975Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function GraphUpIcon({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <g clipPath="url(#clip0_2133_30020)">
+        <path
+          d="M1.5 8.9998C1.5 5.46427 1.5 3.6965 2.59835 2.59815C3.6967 1.4998 5.46447 1.4998 9 1.4998C12.5355 1.4998 14.3033 1.4998 15.4016 2.59815C16.5 3.6965 16.5 5.46427 16.5 8.9998C16.5 12.5353 16.5 14.3031 15.4016 15.4015C14.3033 16.4998 12.5355 16.4998 9 16.4998C5.46447 16.4998 3.6967 16.4998 2.59835 15.4015C1.5 14.3031 1.5 12.5353 1.5 8.9998Z"
+          stroke="currentColor"
+          strokeWidth="1.03846"
+        />
+        <path
+          d="M5.25 10.5L6.96967 8.78036C7.26256 8.48747 7.73744 8.48747 8.03033 8.78036L9.21967 9.9697C9.51256 10.2626 9.98744 10.2626 10.2803 9.9697L12.75 7.50003M12.75 7.50003V9.37503M12.75 7.50003H10.875"
+          stroke="currentColor"
+          strokeWidth="1.03846"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_2133_30020">
+          <rect width="18" height="18" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
+export function KeyIcon({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <g clipPath="url(#clip0_2133_30024)">
+        <path
+          d="M11.7606 10.94C14.3781 10.94 16.5 8.8267 16.5 6.21988C16.5 3.61305 14.3781 1.4998 11.7606 1.4998C9.14304 1.4998 7.02112 3.61305 7.02112 6.21988C7.02112 7.42734 7.57222 8.30549 7.57222 8.30549L1.8408 14.0135C1.58363 14.2696 1.22357 14.9356 1.8408 15.5503L2.50212 16.2089C2.75929 16.4284 3.40589 16.7358 3.93495 16.2089L4.70648 15.4405C5.47802 16.2089 6.35978 15.7698 6.69043 15.3307C7.24153 14.5623 6.58021 13.794 6.58021 13.794L6.80065 13.5744C7.85876 14.6282 8.78461 14.0135 9.11526 13.5744C9.66636 12.806 9.11526 12.0376 9.11526 12.0376C8.89482 11.5986 8.45397 11.5986 9.00504 11.0498L9.66639 10.3911C10.1954 10.8302 11.2829 10.94 11.7606 10.94Z"
+          stroke="currentColor"
+          strokeWidth="1.03846"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13.414 6.22016C13.414 7.12952 12.6738 7.8667 11.7607 7.8667C10.8476 7.8667 10.1074 7.12952 10.1074 6.22016C10.1074 5.3108 10.8476 4.57362 11.7607 4.57362C12.6738 4.57362 13.414 5.3108 13.414 6.22016Z"
+          stroke="currentColor"
+          strokeWidth="1.03846"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_2133_30024">
+          <rect width="18" height="18" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
