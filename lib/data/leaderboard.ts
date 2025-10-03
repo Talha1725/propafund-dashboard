@@ -164,13 +164,7 @@ export const leaderboardColumns = [
     label: "Rank",
     sortable: true,
     render: (value: string) => React.createElement('span', {
-      className: "text-white",
-      style: {
-        fontFamily: 'Creato Display',
-        fontWeight: 400,
-        fontStyle: 'Regular',
-        fontSize: '14px'
-      }
+      className: "text-white font-creato-display font-normal text-sm"
     }, value)
   },
   {
@@ -179,20 +173,10 @@ export const leaderboardColumns = [
     sortable: true,
     render: (value: string, row: { country: string; location: string }) => React.createElement('div', null,
       React.createElement('div', { 
-        className: "text-white",
-        style: {
-          fontFamily: 'Creato Display',
-          fontWeight: 400,
-          fontSize: '14px'
-        }
+        className: "text-white font-creato-display font-normal text-sm"
       }, value),
       React.createElement('div', { 
-        className: "flex items-center gap-2 text-white",
-        style: {
-          fontFamily: 'Creato Display',
-          fontWeight: 400,
-          fontSize: '12px'
-        }
+        className: "flex items-center gap-2 text-white font-creato-display font-normal text-xs"
       },    
         React.createElement('div', { className: "w-3 h-3 rounded-full overflow-hidden flex items-center justify-center" },
           React.createElement(ReactCountryFlag, { 
@@ -210,13 +194,7 @@ export const leaderboardColumns = [
     label: "Account Size",
     sortable: true,
     render: (value: string) => React.createElement('span', {
-      className: "text-white",
-      style: {
-        fontFamily: 'Creato Display',
-        fontWeight: 400,
-        fontStyle: 'Regular',
-        fontSize: '14px'
-      }
+      className: "text-white font-creato-display font-normal text-sm"
     }, value)
   },
   {
@@ -224,12 +202,7 @@ export const leaderboardColumns = [
     label: "Win Rate",
     sortable: true,
     render: (value: string) => React.createElement('span', {
-      className: "text-white",
-      style: {
-        fontFamily: 'Creato Display',
-        fontWeight: 400,
-        fontSize: '14px'
-      }
+      className: "text-white font-creato-display font-normal text-sm"
     }, value)
   },
   {
@@ -237,13 +210,7 @@ export const leaderboardColumns = [
     label: "Profit Factor",
     sortable: true,
     render: (value: string) => React.createElement('span', {
-      className: "text-white",
-      style: {
-        fontFamily: 'Creato Display',
-        fontWeight: 400,
-        fontStyle: 'Regular',
-        fontSize: '14px'
-      }
+      className: "text-white font-creato-display font-normal text-sm"
     }, value)
   },
   {
@@ -251,13 +218,7 @@ export const leaderboardColumns = [
     label: "Total Trades",
     sortable: true,
     render: (value: string) => React.createElement('span', {
-      className: "text-white",
-      style: {
-        fontFamily: 'Creato Display',
-        fontWeight: 400,
-        fontStyle: 'Regular',
-        fontSize: '14px'
-      }
+      className: "text-white font-creato-display font-normal text-sm"
     }, value)
   },
   {
@@ -265,12 +226,7 @@ export const leaderboardColumns = [
     label: "Monthly Returns",
     sortable: true,
     render: (value: string) => React.createElement('span', {
-      className: "text-white",
-      style: {
-        fontFamily: 'Creato Display',
-        fontWeight: 400,
-        fontSize: '14px'
-      }
+      className: "text-white font-creato-display font-normal text-sm"
     }, value)
   }
 ];

@@ -1,4 +1,6 @@
 
+import { CalendarIcon } from "@/components/common/calendar-icon-wrapper";
+
 export const COMMON_TABS = {
   certificates: [
     { id: "all", label: "All" },
@@ -36,7 +38,7 @@ export const COMMON_TABS = {
     { id: "tomorrow", label: "Tomorrow" },
     { id: "thisWeek", label: "This Week" },
     { id: "nextWeek", label: "Next Week" },
-    { id: "calendar", label: "Calendar" },
+    { id: "calendar", label: "Calendar", icon: CalendarIcon },
   ] as const,
 } as const;
 

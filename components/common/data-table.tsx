@@ -14,7 +14,6 @@ import {
   AccordionContent,
   AccordionItem,
 } from "@/components/ui/accordion";
-// import { Input } from "@/components/ui/input";
 import { ChevronUp, ChevronDown, Plus } from "lucide-react";
 import type { DataTableProps } from "@/types/common";
 
@@ -23,7 +22,6 @@ export default function DataTable({
   columns,
   className = "",
   responsive = true,
-  dateHeader,
   showDateHeaders = false,
 }: DataTableProps) {
   const [sortConfig, setSortConfig] = useState<{
@@ -33,7 +31,6 @@ export default function DataTable({
 
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [isResponsive, setIsResponsive] = useState(false);
-  const [visibleRows, setVisibleRows] = useState<number>(data.length);
   const [visibleColumns, setVisibleColumns] = useState<number>(columns.length);
   const [accordionValue, setAccordionValue] = useState<string | undefined>(
     undefined
@@ -41,13 +38,6 @@ export default function DataTable({
 
   // Check if screen size is below breakpoint for column responsiveness
   React.useEffect(() => {
-    // Auto-responsive logic for number of rows to show
-    const getVisibleRowsCount = () => {
-      if (!responsive) return data.length;
-
-      // Since pagination is commented out, show all rows on all screen sizes
-      return data.length;
-    };
 
     // Auto-responsive logic for number of columns to show
     const getVisibleColumnsCount = (width: number) => {
@@ -78,9 +68,6 @@ export default function DataTable({
         window.innerWidth < currentBreakpoint && hasHiddenColumns
       );
 
-      // Update visible rows count based on screen size
-      const newVisibleRows = getVisibleRowsCount();
-      setVisibleRows(newVisibleRows);
     };
 
     checkScreenSize();
@@ -111,9 +98,8 @@ export default function DataTable({
       });
     }
 
-    // Limit visible rows based on responsive settings
-    return sorted.slice(0, visibleRows);
-  }, [data, sortConfig, visibleRows]);
+    return sorted;
+  }, [data, sortConfig]);
 
   const handleSort = (key: string) => {
     setSortConfig((prev) => ({
@@ -138,12 +124,10 @@ export default function DataTable({
 
   return (
     <div className={`space-y-4 ${className}`}>
-      {/* Table */}
       <div>
         <Table>
           <TableHeader className="!border-b-0">
             <TableRow className="!border-b-0">
-              {/* Mobile expand button header */}
               {isResponsive && columns.length > visibleColumns && (
                 <TableHead className="w-12 p-2 bg-gradient-to-b from-white to-blue"></TableHead>
               )}
@@ -176,19 +160,6 @@ export default function DataTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {/* Date Header Row */}
-            {dateHeader && (
-              <TableRow className="!border-b-0 hover:!bg-white/5">
-                <TableCell
-                  colSpan={columns.length}
-                  className="px-6 py-3 dark-gradient border-b border-white/10 hover:!bg-white/5"
-                >
-                  <h2 className="text-white font-creato-display">
-                    {dateHeader}
-                  </h2>
-                </TableCell>
-              </TableRow>
-            )}
             
             {sortedData.length === 0 ? (
               <TableRow className="hover:bg-transparent">
@@ -206,17 +177,16 @@ export default function DataTable({
                 // Handle date header rows
                 if (showDateHeaders && rowData.type === 'date-header') {
                   return (
-                    <TableRow key={String(rowData.id)} className="!border-b-0 hover:!bg-white/5">
+                    <TableRow key={`date-header-${rowData.id}`} className="!border-b-0 hover:!bg-transparent">
                       <TableCell
                         colSpan={columns.length}
-                        className="px-4 py-3 dark-gradient border-b border-white/10 hover:!bg-white/5"
+                        className="px-4 py-3 border-b border-white/10 hover:!bg-transparent"
                       >
                         <h2 className="text-white font-creato-display">
                           {new Date(rowData.date as string).toLocaleDateString('en-US', {
                             weekday: 'long',
                             month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
+                            day: 'numeric'
                           })}
                         </h2>
                       </TableCell>
@@ -237,13 +207,15 @@ export default function DataTable({
                     <TableRow
                       className={`border-none transition-colors relative hover:bg-transparent
                        ${
-                        index !== sortedData.length - 1 ? "border-b border-white/10" : ""
+                        index !== sortedData.length - 1 ? 
+                          (rowData.id === 9 ? "border-b-2 border-white/20" : "border-b border-white/10") : ""
                       }`}
                     >
                       {/* Mobile expand button */}
                       {isResponsive && hiddenColumns.length > 0 && (
                         <TableCell
-                          className={`w-12 p-2 overflow-hidden relative z-10 bg-transparent ${index !== sortedData.length - 1 ? "border-b border-white/10" : ""}`}
+                          className={`w-12 p-2 overflow-hidden relative z-10 bg-transparent ${index !== sortedData.length - 1 ? 
+                            (rowData.id === 9 ? "border-b-2 border-white/20" : "border-b border-white/10") : ""}`}
                         >
                           <button
                             onClick={() => toggleRow(index)}
@@ -261,7 +233,8 @@ export default function DataTable({
                       {visibleColumnsList.map((column) => (
                         <TableCell
                           key={String(column.key)}
-                          className={`text-white py-2 md:py-3 pl-5 font-creato-display overflow-hidden relative z-10 bg-transparent ${index !== sortedData.length - 1 ? "border-b border-white/10" : ""}`}
+                          className={`text-white py-2 md:py-3 pl-5 font-creato-display overflow-hidden relative z-10 bg-transparent ${index !== sortedData.length - 1 ? 
+                            (rowData.id === 9 ? "border-b-2 border-white/20" : "border-b border-white/10") : ""}`}
                         >
                           {column.render
                             ? column.render(rowData[column.key], row)
@@ -303,7 +276,7 @@ export default function DataTable({
                               className="!border-none hover:!bg-transparent"
                             >
                               <AccordionContent
-                                className={`p-4 font-creato-display bg-[#ffffff06] backdrop-blur-2xl relative overflow-hidden border-0`}
+                                className={`p-4 font-creato-display relative overflow-hidden border-0`}
                               >
                                 <div className="absolute w-full h-full top-0 left-0 border border-white/10 pointer-events-none"></div>
                                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[95%] h-[3px] rounded-xl bg-gradient-to-b from-purple to-blue blur opacity-70 pointer-events-none"></div>

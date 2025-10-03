@@ -133,6 +133,20 @@ export function IconCalendar({ active }: { active: boolean }) {
   );
 }
 
+export function IconCalendarCustom({ active }: { active: boolean }) {
+  return (
+    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.4">
+        <path d="M12.75 1.41666V2.83333M4.25 1.41666V2.83333" stroke={active ? "#000" : "white"} strokeWidth="1.0625" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8.49715 9.20833H8.5035M8.49715 12.0417H8.5035M11.3273 9.20833H11.3337M5.66699 9.20833H5.67335M5.66699 12.0417H5.67335" stroke={active ? "#000" : "white"} strokeWidth="1.41667" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2.47949 5.66666H14.5212" stroke={active ? "#000" : "white"} strokeWidth="1.0625" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M1.77051 8.6723C1.77051 5.58587 1.77051 4.04266 2.65743 3.08383C3.54434 2.125 4.97181 2.125 7.82676 2.125H9.17259C12.0275 2.125 13.455 2.125 14.3419 3.08383C15.2288 4.04266 15.2288 5.58587 15.2288 8.6723V9.03604C15.2288 12.1225 15.2288 13.6657 14.3419 14.6245C13.455 15.5833 12.0275 15.5833 9.17259 15.5833H7.82676C4.97181 15.5833 3.54434 15.5833 2.65743 14.6245C1.77051 13.6657 1.77051 12.1225 1.77051 9.03604V8.6723Z" stroke={active ? "#000" : "white"} strokeWidth="1.0625" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2.125 5.66666H14.875" stroke={active ? "#000" : "white"} strokeWidth="1.0625" strokeLinecap="round" strokeLinejoin="round"/>
+      </g>
+    </svg>
+  );
+}
+
 export function IconBill({ active }: { active: boolean }) {
   return (
     <svg
