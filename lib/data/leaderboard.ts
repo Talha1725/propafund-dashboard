@@ -1,18 +1,5 @@
 import React from "react";
-import { TradeUp, TradeDown } from "@/components/common/icon";
-
-const COUNTRY_FLAGS: Record<string, string> = {
-  'IT': '🇮🇹',
-  'CA': '🇨🇦',
-  'PK': '🇵🇰',
-  'ES': '🇪🇸',
-  'ZA': '🇿🇦',
-  'FR': '🇫🇷',
-  'IN': '🇮🇳',
-  'BR': '🇧🇷',
-  'IE': '🇮🇪',
-  'JP': '🇯🇵'
-};
+import ReactCountryFlag from "react-country-flag";
 
 export const leaderboardData = [
   {
@@ -175,16 +162,45 @@ export const leaderboardColumns = [
   {
     key: "rank",
     label: "Rank",
-    sortable: true
+    sortable: true,
+    render: (value: string) => React.createElement('span', {
+      className: "text-white",
+      style: {
+        fontFamily: 'Creato Display',
+        fontWeight: 400,
+        fontStyle: 'Regular',
+        fontSize: '14px'
+      }
+    }, value)
   },
   {
     key: "trader",
     label: "Trader",
     sortable: true,
     render: (value: string, row: { country: string; location: string }) => React.createElement('div', null,
-      React.createElement('div', { className: "text-white font-medium" }, value),
-      React.createElement('div', { className: "flex items-center gap-2 text-gray-400 text-sm" },
-        React.createElement('span', null, COUNTRY_FLAGS[row.country] || '🏳️'),
+      React.createElement('div', { 
+        className: "text-white",
+        style: {
+          fontFamily: 'Creato Display',
+          fontWeight: 400,
+          fontSize: '14px'
+        }
+      }, value),
+      React.createElement('div', { 
+        className: "flex items-center gap-2 text-white",
+        style: {
+          fontFamily: 'Creato Display',
+          fontWeight: 400,
+          fontSize: '12px'
+        }
+      },    
+        React.createElement('div', { className: "w-3 h-3 rounded-full overflow-hidden flex items-center justify-center" },
+          React.createElement(ReactCountryFlag, { 
+            countryCode: row.country, 
+            svg: true,
+            className: "w-[12px] h-[12px] rounded-full object-cover"
+          })
+        ),
         React.createElement('span', null, row.location)
       )
     )
@@ -192,38 +208,69 @@ export const leaderboardColumns = [
   {
     key: "accountSize",
     label: "Account Size",
-    sortable: true
+    sortable: true,
+    render: (value: string) => React.createElement('span', {
+      className: "text-white",
+      style: {
+        fontFamily: 'Creato Display',
+        fontWeight: 400,
+        fontStyle: 'Regular',
+        fontSize: '14px'
+      }
+    }, value)
   },
   {
     key: "winRate",
     label: "Win Rate",
     sortable: true,
-    render: (value: string, row: { winRateTrend: string }) => React.createElement('div', { className: "flex items-center gap-2" },
-      React.createElement('span', { className: "text-white" }, value),
-      row.winRateTrend === "up" 
-        ? React.createElement(TradeUp, { className: "w-4 h-4", fill: "#00EB6E" })
-        : React.createElement(TradeDown, { className: "w-4 h-4" })
-    )
+    render: (value: string) => React.createElement('span', {
+      className: "text-white",
+      style: {
+        fontFamily: 'Creato Display',
+        fontWeight: 400,
+        fontSize: '14px'
+      }
+    }, value)
   },
   {
     key: "profitFactor",
     label: "Profit Factor",
-    sortable: true
+    sortable: true,
+    render: (value: string) => React.createElement('span', {
+      className: "text-white",
+      style: {
+        fontFamily: 'Creato Display',
+        fontWeight: 400,
+        fontStyle: 'Regular',
+        fontSize: '14px'
+      }
+    }, value)
   },
   {
     key: "totalTrades",
     label: "Total Trades",
-    sortable: true
+    sortable: true,
+    render: (value: string) => React.createElement('span', {
+      className: "text-white",
+      style: {
+        fontFamily: 'Creato Display',
+        fontWeight: 400,
+        fontStyle: 'Regular',
+        fontSize: '14px'
+      }
+    }, value)
   },
   {
     key: "monthlyReturns",
     label: "Monthly Returns",
     sortable: true,
-    render: (value: string, row: { monthlyReturnsTrend: string }) => React.createElement('div', { className: "flex items-center gap-2" },
-      React.createElement('span', { className: "text-white" }, value),
-      row.monthlyReturnsTrend === "up" 
-        ? React.createElement(TradeUp, { className: "w-4 h-4", fill: "#00EB6E" })
-        : React.createElement(TradeDown, { className: "w-4 h-4" })
-    )
+    render: (value: string) => React.createElement('span', {
+      className: "text-white",
+      style: {
+        fontFamily: 'Creato Display',
+        fontWeight: 400,
+        fontSize: '14px'
+      }
+    }, value)
   }
 ];

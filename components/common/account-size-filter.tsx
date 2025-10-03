@@ -29,13 +29,13 @@ export default function AccountSizeFilter({
       type="single"
       value={value}
       onValueChange={(newValue) => onChange(newValue || "all")}
-      className={`flex flex-wrap gap-2 ${className || ""}`}
+      className={`flex gap-2 overflow-x-auto pb-2 ${className || ""}`}
     >
       {ACCOUNT_SIZE_OPTIONS.map((option) => (
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+          className={`px-3 py-2 rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
             value === option.value
               ? 'text-black font-medium'
               : 'text-[oklch(0.556_0_0)]'
