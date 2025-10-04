@@ -71,7 +71,7 @@ export default function LoginPage() {
         if (userData && tokenData) {
           setUser(userData);
           setToken(tokenData);
-          toast.success("Welcome back! Login successful.");
+          toast.success("Logged in successfully");
           router.push("/user/dashboard");
         } else {
           toast.error("Login failed: No user data received");

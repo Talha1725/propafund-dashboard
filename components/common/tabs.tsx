@@ -113,14 +113,14 @@ const TabButton = memo<{
     } else {
       onClick(tab.id as string);
     }
-  }, [tab.id, tab.isCalendar, tab.onCalendarToggle, onClick]);
+  }, [tab, onClick]);
 
   const handleCalendarDateSelect = useCallback((date: Date | undefined) => {
     tab.onCalendarDateSelect?.(date);
     if (date) {
       onClick(tab.id);
     }
-  }, [tab.onCalendarDateSelect, tab.id, onClick]);
+  }, [tab, onClick]);
 
 
   return (
