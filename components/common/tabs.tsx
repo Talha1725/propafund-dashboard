@@ -2,6 +2,7 @@
 
 import { memo, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { CalendarPopup } from "@/components/ui/calendar-popup";
 
 /**
  * A reusable tabs component with multiple variants and sizes
@@ -29,6 +30,11 @@ export interface Tab {
   id: string;
   label: string;
   icon?: React.ComponentType<{ className?: string }>;
+  isCalendar?: boolean;
+  onCalendarDateSelect?: (date: Date | undefined) => void;
+  onCalendarToggle?: () => void;
+  selectedDate?: Date;
+  isCalendarOpen?: boolean;
 }
 
 export type TabId = string;
@@ -98,28 +104,58 @@ const TabButton = memo<{
   inactiveClassName?: string;
   size: "sm" | "md" | "lg";
 }>(({ tab, isActive, onClick, className, activeClassName, inactiveClassName, size }) => {
-  const handleClick = useCallback(() => onClick(tab.id as string), [tab.id, onClick]);
+  const handleClick = useCallback(() => {
+    if (tab.isCalendar) {
+      // Call the calendar toggle handler
+      if (tab.onCalendarToggle) {
+        tab.onCalendarToggle();
+      }
+    } else {
+      onClick(tab.id as string);
+    }
+  }, [tab.id, tab.isCalendar, tab.onCalendarToggle, onClick]);
+
+  const handleCalendarDateSelect = useCallback((date: Date | undefined) => {
+    tab.onCalendarDateSelect?.(date);
+    if (date) {
+      onClick(tab.id);
+    }
+  }, [tab.onCalendarDateSelect, tab.id, onClick]);
+
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-      className={cn(
-        "flex items-center justify-center transition-all duration-200",
-        "font-creato-display leading-none",
-        sizeClasses[size].tab,
-        isActive ? activeClassName : inactiveClassName,
-        className
+    <>
+      <button
+        type="button"
+        onClick={handleClick}
+        data-calendar-tab={tab.isCalendar}
+        className={cn(
+          "flex items-center justify-center transition-all duration-200",
+          "font-creato-display leading-none",
+          sizeClasses[size].tab,
+          isActive ? activeClassName : inactiveClassName,
+          className
+        )}
+        aria-pressed={isActive}
+        aria-label={`Filter by ${tab.label}`}
+      >
+        {tab.icon ? (
+          <tab.icon className={cn("w-5 h-5", isActive ? "text-black" : "text-white")} />
+        ) : (
+          tab.label
+        )}
+      </button>
+      
+      {tab.isCalendar && (
+        <div className="absolute top-full -left-2 z-[99999] mt-2 calendar-container">
+          <CalendarPopup
+            selectedDate={tab.selectedDate}
+            onDateSelect={handleCalendarDateSelect}
+            isOpen={tab.isCalendarOpen || false}
+          />
+        </div>
       )}
-      aria-pressed={isActive}
-      aria-label={`Filter by ${tab.label}`}
-    >
-      {tab.icon ? (
-        <tab.icon className={cn("w-5 h-5", isActive ? "text-black" : "text-white")} />
-      ) : (
-        tab.label
-      )}
-    </button>
+    </>
   );
 });
 

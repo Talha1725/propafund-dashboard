@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import DataTable from "@/components/common/data-table";
 import CertificateTabs from "@/components/common/certificate-tabs";
@@ -13,6 +13,8 @@ import IconFilter from "@/public/assets/filter-icon.svg";
 
 export default function EconomicCalender() {
   const [activeTab, setActiveTab] = useState<EconomicCalendarTabId>("today");
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [filterState, setFilterState] = useState<EconomicCalendarFilterState>({
     selectedCurrency: "all",
     selectedImpact: "all",
@@ -36,6 +38,40 @@ export default function EconomicCalender() {
     setActiveTab(tabId as EconomicCalendarTabId);
   };
 
+  const handleDateSelect = (date: Date | undefined) => {
+    setSelectedDate(date);
+    if (date) {
+      setActiveTab("calendar");
+      setIsCalendarOpen(false);
+    }
+  };
+
+  const handleCalendarToggle = () => {
+    setActiveTab("calendar");
+    setIsCalendarOpen(!isCalendarOpen);
+  };
+
+  // Close calendar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isCalendarOpen) {
+        const target = event.target as Element;
+        // Check if click is outside calendar container and not on calendar tab button
+        if (!target.closest('.calendar-container') && !target.closest('[data-calendar-tab]')) {
+          setIsCalendarOpen(false);
+        }
+      }
+    };
+
+    if (isCalendarOpen) {
+      document.addEventListener('click', handleClickOutside);
+      
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }
+  }, [isCalendarOpen]);
+
   const handleFilterChange = (groupId: string, value: string | string[] | boolean) => {
     setFilterState(prev => ({
       ...prev,
@@ -57,7 +93,13 @@ export default function EconomicCalender() {
           <div className={ECONOMIC_CALENDAR_STYLES.layout.tabsAndFilters}>
             <div className={ECONOMIC_CALENDAR_STYLES.layout.tabsContainer}>
               <CertificateTabs
-                tabs={getTabConfig("economic-calendar")}
+                tabs={getTabConfig("economic-calendar").map(tab => ({
+                  ...tab,
+                  onCalendarDateSelect: tab.isCalendar ? handleDateSelect : undefined,
+                  onCalendarToggle: tab.isCalendar ? handleCalendarToggle : undefined,
+                  selectedDate: tab.isCalendar ? selectedDate : undefined,
+                  isCalendarOpen: tab.isCalendar ? isCalendarOpen : undefined,
+                }))}
                 activeTab={activeTab}
                 onTabChange={handleTabChange}
               />

@@ -182,11 +182,12 @@ export default function DataTable({
                         colSpan={columns.length}
                         className="px-4 py-3 border-b border-white/10 hover:!bg-transparent"
                       >
-                        <h2 className="text-white font-creato-display">
+                        <h2 className="text-white font-creato-display font-bold text-sm">
                           {new Date(rowData.date as string).toLocaleDateString('en-US', {
                             weekday: 'long',
                             month: 'short',
-                            day: 'numeric'
+                            day: 'numeric',
+                            year: 'numeric'
                           })}
                         </h2>
                       </TableCell>
@@ -234,7 +235,7 @@ export default function DataTable({
                         <TableCell
                           key={String(column.key)}
                           className={`text-white py-2 md:py-3 pl-5 font-creato-display overflow-hidden relative z-10 bg-transparent ${index !== sortedData.length - 1 ? 
-                            (rowData.id === 9 ? "border-b-2 border-white/20" : "border-b border-white/10") : ""}`}
+                            (rowData.id === 9 && className?.includes('economic-calendar-table') ? "border-b-2 border-white/20" : "border-b border-white/10") : ""}`}
                         >
                           {column.render
                             ? column.render(rowData[column.key], row)

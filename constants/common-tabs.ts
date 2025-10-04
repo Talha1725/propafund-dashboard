@@ -38,7 +38,7 @@ export const COMMON_TABS = {
     { id: "tomorrow", label: "Tomorrow" },
     { id: "thisWeek", label: "This Week" },
     { id: "nextWeek", label: "Next Week" },
-    { id: "calendar", label: "Calendar", icon: CalendarIcon },
+    { id: "calendar", label: "Calendar", icon: CalendarIcon, isCalendar: true },
   ] as const,
 } as const;
 
@@ -50,18 +50,8 @@ export const ECONOMIC_CALENDAR_STYLES = {
   layout: {
     content: "pr-5 pl-2 py-2",
     tabsAndFilters: "flex md:flex-row flex-col md:justify-between md:items-center gap-4",
-    tabsContainer: "flex flex-col md:flex-row md:items-center gap-4",
+    tabsContainer: "flex flex-col md:flex-row md:items-center gap-4 relative",
     tableContainer: "border-t border-white/10 rounded-t-none"
-  },
-  table: {
-    header: "font-creato-display font-bold text-sm leading-none",
-    cell: "font-creato-display font-normal text-sm leading-none"
-  },
-  button: {
-    filter: "px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2 font-creato-display",
-    action: {
-      base: "w-[132px] h-[33px] px-[27px] py-2 rounded-md font-creato-display font-medium text-sm leading-none transition-colors flex items-center justify-center gap-[10px] bg-gradient-to-b from-white to-blue text-white hover:opacity-90 !text-white"
-    }
   }
 } as const;
 
