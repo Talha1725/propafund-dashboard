@@ -144,22 +144,45 @@ export const accountsDataAtom = atom<Account[]>((get) => {
   const rawData = get(accountsRawDataAtom);
   if (!rawData || Object.keys(rawData).length === 0) return [];
   
-  return Object.entries(rawData).map(([login, metaAccount]) => ({
-    id: login,
-    login: metaAccount.mtAccount.login,
-    password: metaAccount.mtAccount.password,
-    accountName: metaAccount.mtAccount.accountName,
-    brokerName: metaAccount.mtAccount.brokerName,
-    platform: metaAccount.mtAccount.platform,
-    balance: metaAccount.metaStats?.balance || metaAccount.mtAccount.balance,
-    challengeType: metaAccount.mtAccount.challengeType,
-    status: metaAccount.mtAccount.status,
-    equity: metaAccount.metaStats?.equity || metaAccount.mtAccount.balance,
-    profit: metaAccount.metaStats?.profit || 0,
-    trades: metaAccount.metaStats?.trades || 0,
-    paymentStatus: metaAccount.payment?.status || 'unknown',
-    accountProtectionUsed: metaAccount.payment?.accountProtectionUsed || false,
-  }));
+  return Object.entries(rawData).map(([login, metaAccount]) => {
+    // Calculate win/loss data from API
+    const lostPercent = metaAccount.metaStats?.lostTradesPercent || 0;
+    const winRatio = metaAccount.metaStats && metaAccount.metaStats.trades > 0 
+      ? (100 - lostPercent)  // Real calculation: 100 - lost trades %
+      : 0;
+    
+    const avgLoss = metaAccount.metaStats?.averageLoss || 0;
+    const expectancy = metaAccount.metaStats?.expectancy || 0;
+    const wonTrades = metaAccount.metaStats?.trades ? 
+      (metaAccount.metaStats.trades - (metaAccount.metaStats.lostTrades || 0)) : 0;
+    
+    // Calculate average win using expectancy
+    const averageWin = expectancy > 0 && avgLoss !== 0 
+      ? Math.abs(avgLoss * expectancy)  // Real calculation using expectancy
+      : wonTrades > 0 && metaAccount.metaStats?.profit 
+        ? metaAccount.metaStats.profit / wonTrades  // Fallback calculation
+        : 0;
+
+    return {
+      id: login,
+      login: metaAccount.mtAccount.login,
+      password: metaAccount.mtAccount.password,
+      accountName: metaAccount.mtAccount.accountName,
+      brokerName: metaAccount.mtAccount.brokerName,
+      platform: metaAccount.mtAccount.platform,
+      balance: metaAccount.metaStats?.balance || metaAccount.mtAccount.balance,
+      challengeType: metaAccount.mtAccount.challengeType,
+      status: metaAccount.mtAccount.status,
+      equity: metaAccount.metaStats?.equity || metaAccount.mtAccount.balance,
+      profit: metaAccount.metaStats?.profit || 0,
+      trades: metaAccount.metaStats?.trades || 0,
+      paymentStatus: metaAccount.payment?.status || 'unknown',
+      accountProtectionUsed: metaAccount.payment?.accountProtectionUsed || false,
+      winRatio,
+      averageWin,
+      averageLoss: Math.abs(avgLoss),
+    };
+  });
 });
 
 // Account loading and error states

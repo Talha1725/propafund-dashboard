@@ -56,9 +56,10 @@ export default function TradingAccountsPage() {
   // Extract data from current account
   const { metaStats, mtAccount } = currentAccountData;
   const accountBalance = metaStats?.balance || mtAccount.balance || 0;
-  const averageWin = metaStats?.bestTrade || 0;
-  const averageLoss = metaStats?.worstTrade || 0;
-  const winRatio = metaStats?.trades ? ((metaStats.trades - (metaStats.lostTrades || 0)) / metaStats.trades) * 100 : 0;
+  
+  const averageWin = currentAccount?.averageWin || 0;
+  const averageLoss = currentAccount?.averageLoss || 0;
+  const winRatio = currentAccount?.winRatio || 0;
   return (
     <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">

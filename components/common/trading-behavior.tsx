@@ -1,3 +1,5 @@
+"use client";
+
 import DashboardHeadings from "./dashboard-headings";
 import { calculateTradingBehavior } from "@/lib/utils/trading-behavior";
 import { useAccounts } from "@/lib/hooks/use-accounts";

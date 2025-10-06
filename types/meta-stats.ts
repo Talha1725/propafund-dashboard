@@ -21,6 +21,12 @@ export interface MetaStatsData {
       probabilityOfLoss: number;
     }>;
     lots?: number;
+    lostTradesPercent?: number;
+    averageLoss?: number;
+    expectancy?: number;
+    lostTrades?: number;
+    trades?: number;
+    profit?: number;
   }
   
   export interface AnalysisData {

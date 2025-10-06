@@ -13,4 +13,7 @@ export interface Account {
     trades: number;
     paymentStatus: string;
     accountProtectionUsed: boolean;
+    winRatio: number;
+    averageWin: number;
+    averageLoss: number;
   }

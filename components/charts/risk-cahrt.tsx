@@ -14,8 +14,8 @@ export default function RiskChart({
   risk = "Overall loss",
   maxValue = 5000,
 }: RiskChartProps) {
-  const [currentValue] = useState(value);
-  const [currentRisk] = useState(risk);
+  const currentValue = value;
+  const currentRisk = risk;
 
 
   // Calculate progress angle
