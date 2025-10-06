@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useAccounts } from "@/lib/hooks/use-accounts";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import CertificatesSection from "@/components/dashboard-components/certificates-section";
@@ -9,8 +11,19 @@ import StatsSection from "@/components/dashboard-components/stats-section";
 import StatusCardSection from "@/components/dashboard-components/status-card-section";
 
 export default function Dashboard() {
+  const searchParams = useSearchParams();
+  const accountId = searchParams.get('accountId');
+  
   // This will trigger data fetching when the component mounts
-  const { error } = useAccounts();
+  const { error, setSelectedAccount, accounts } = useAccounts();
+  useEffect(() => {
+    if (accountId && accounts.length > 0) {
+      const account = accounts.find(acc => acc.login === accountId);
+      if (account) {
+        setSelectedAccount(account.id);
+      }
+    }
+  }, [accountId, accounts, setSelectedAccount]);
 
   if (error) {
     return (

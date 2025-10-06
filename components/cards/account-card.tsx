@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image, { type StaticImageData } from "next/image";
 import profile from "../../public/assets/profile.svg";
 import graphUp from "../../public/assets/graph-up.svg";
@@ -23,11 +24,11 @@ export const AccountCard = memo<AccountCardProps>(({
 }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const handleGraphClick = () => {
-    if (!isAddNewCard) {
-      setIsClicked(true);
-      // Navigation disabled per new single-section layout
+    if (!isAddNewCard && accountId) {
+      router.push(`/user/dashboard?accountId=${accountId}`);
     }
   };
 

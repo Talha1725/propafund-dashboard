@@ -7,6 +7,7 @@ import AccountOverviewChart from "@/components/chart/account-overview-chart";
 import MetricCard from "@/components/common/metric-cards";
 import TradingBehaviorSection from "@/components/common/trading-behavior";
 import ChallengesOverview from "@/components/common/challenges-overview";
+import DashboardPageContainer from "@/components/common/dashboard-page-container";
 
 export default function TradingAccountsPage() {
   const { currentAccount, currentAccountData, loading, error } = useAccounts();
@@ -32,7 +33,8 @@ export default function TradingAccountsPage() {
 
   if (loading) {
     return (
-      <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
+      <div className="p-3 md:p-6 md:pb-4 xl:h-[85vh] relative outline-0">
+        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full h-[200px] bg-gradient-to-b from-blue to-blue/50 rotate-[14deg] blur-3xl opacity-20 z-0 pointer-events-none"></div>
         <div className="flex items-center justify-center h-64">
           <div className="text-white">Loading account data...</div>
         </div>
@@ -42,7 +44,8 @@ export default function TradingAccountsPage() {
 
   if (error || !currentAccount || !currentAccountData) {
     return (
-      <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
+      <div className="p-3 md:p-6 md:pb-4 xl:h-[85vh] relative outline-0">
+        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full h-[200px] bg-gradient-to-b from-blue to-blue/50 rotate-[14deg] blur-3xl opacity-20 z-0 pointer-events-none"></div>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <h2 className="text-xl font-semibold text-white mb-2">No Account Data</h2>
@@ -61,12 +64,13 @@ export default function TradingAccountsPage() {
   const averageLoss = currentAccount?.averageLoss || 0;
   const winRatio = currentAccount?.winRatio || 0;
   return (
-    <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-1 column-panel rounded-[14px] p-5 h-fit lg:h-full">
+    <div className="p-3 md:p-6 md:pb-4 xl:h-[85vh] relative outline-0">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full h-[200px] bg-gradient-to-b from-blue to-blue/50 rotate-[14deg] blur-3xl opacity-20 z-0 pointer-events-none"></div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 h-full">
+        <div className="lg:col-span-1 column-panel rounded-[14px] p-5 h-full overflow-auto">
           <CardSection />
         </div>
-        <div className="lg:col-span-2 h-fit lg:min-h-screen space-y-5">
+        <div className="lg:col-span-2 h-full overflow-auto space-y-5">
         <CardContainer 
                 title="Account Overview" 
                 subtitle={`#${currentAccount.login}`}

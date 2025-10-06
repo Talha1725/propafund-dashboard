@@ -58,8 +58,8 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
                   server={(creds?.server) ?? fallback.server}
                   platform={platform}
                   phase={account.challengeType === 'twoPhase' ? 'Two Phase' : 'Instant Funding'}
-                  tradesCount={account.tradesCount || 0}
-                  daysTraded={account.daysTraded || 0}
+                  tradesCount={account.trades || 0}
+                  daysTraded={0}
                   balance={isSelected}
                   isAddNewCard={false}
                 />
