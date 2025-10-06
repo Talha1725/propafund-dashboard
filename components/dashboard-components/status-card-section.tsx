@@ -56,8 +56,7 @@ export default function StatusCardSection() {
   
   const balance = metaStats?.balance || mtAccount.balance || 0;
   const deposits = metaStats?.deposits || 0;
-  const profit = metaStats?.profit || 0;
-  const totalPnL = profit; // Total P&L is the profit
+  const totalPnL = metaStats?.profit || 0;
   const passedChallenges = analysis?.[0]?.status ? 1 : 0;
 
 

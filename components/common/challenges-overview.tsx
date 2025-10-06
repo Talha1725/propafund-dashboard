@@ -1,6 +1,7 @@
 "use client";
 
 import { useAccounts } from "@/lib/hooks/use-accounts";
+import { calculateDashboardMetrics } from "@/lib/utils/dashboard-metrics";
 import ChallengeProgress from "./challenge-progress";
 import DashboardHeadings from "./dashboard-headings";
 
@@ -64,34 +65,31 @@ export default function ChallengesOverview({
     );
   }
 
-  // Extract data from currentAccountData
   const { metaStats, analysis, mtAccount } = currentAccountData;
   
-  const currentAnalysis = analysis?.[0];
-  const drawdown = currentAnalysis?.dailyLoss || 0;
-  const maxDrawdown = currentAnalysis?.maxDrawdown || 0;
-  const profitTarget = currentAnalysis?.fund || 0;
-  const totalPnL = metaStats?.profit || 0;
-  const currentPhase = mtAccount.challengePhase || 'Phase 1';
+  const dashboardMetrics = calculateDashboardMetrics(
+    metaStats || {},
+    analysis?.[0] || null,
+    mtAccount?.balance || null
+  );
 
+  const isTwoPhase = mtAccount?.challengeType === 'twoPhase';
+  const currentPhase = isTwoPhase ? 'Phase 1' : 'Status';
   
-  // Calculate remaining days (assuming 30-day challenge)
-  const phaseStartDate = mtAccount.phaseStartDate ? new Date(mtAccount.phaseStartDate) : new Date();
-  const daysElapsed = Math.floor((Date.now() - phaseStartDate.getTime()) / (1000 * 60 * 60 * 24));
-  const remainingDays = Math.max(0, 30 - daysElapsed);
-  
-  // Calculate win rate from trades
+  // Calculate trading days based on total trades
   const totalTrades = metaStats?.trades || 0;
+  const minTradingDays = isTwoPhase ? 2 : 0;
+  const maxTradingDays = isTwoPhase ? 10 : 5;
+  const estimatedTradingDays = Math.min(totalTrades, minTradingDays + 5);
+  const tradingDaysProgress = Math.min((estimatedTradingDays / maxTradingDays) * 100, 100);
+
   const winRate = totalTrades > 0 ? 
     ((metaStats?.periods?.today?.trades || 0) / totalTrades) * 100 : 0;
 
-  // Calculate phase progress
-  const phaseProgress = profitTarget > 0 ? (totalPnL / profitTarget) * 100 : 0;
-
-  // Determine completion status
-  const isPhaseCompleted = phaseProgress >= 100 || phaseCompleted;
-  const isDrawdownCompleted = drawdown <= maxDrawdown;
-  const isProfitTargetCompleted = totalPnL >= profitTarget;
+  const isDailyLossCompleted = parseFloat(dashboardMetrics.dailyLoss.progress) === 0;
+  const isMaxLossCompleted = parseFloat(dashboardMetrics.maxLoss.progress) === 0;
+  const isProfitTargetCompleted = parseFloat(dashboardMetrics.profitTarget.progress) >= 100;
+  const isTradingDaysCompleted = tradingDaysProgress >= 100;
 
   return (
     <div
@@ -101,35 +99,35 @@ export default function ChallengesOverview({
         <DashboardHeadings title="Challenge Stats Overview" />
         <div
           className={`border-white/10 border rounded-[10px] font-creato-display font-light py-2 px-3 text-sm ${
-            isPhaseCompleted
+            isProfitTargetCompleted
               ? "bg-gradient-to-b from-white to-blue border-b-0 text-black"
               : "gradient-dark-primary text-white"
           }`}
         >
-          <span className="opacity-70">{currentPhase}:</span> {isPhaseCompleted ? "Completed" : "In Progress"}
+          <span className="opacity-70">{currentPhase}:</span> {isProfitTargetCompleted ? "Completed" : "In Progress"}
         </div>
       </div>
 
       <div className="mt-5 space-y-4.5">
         <ChallengeProgress
-          challengeCompleted={isDrawdownCompleted}
-          title="Drawdown"
-          value={`${formatCurrency(drawdown)}/${formatCurrency(maxDrawdown)}`}
+          challengeCompleted={isDailyLossCompleted}
+          title="Daily Loss Limit"
+          value={`${formatCurrency(parseFloat(dashboardMetrics.dailyLoss.current))}/${formatCurrency(parseFloat(dashboardMetrics.dailyLoss.limit))}`}
+        />
+        <ChallengeProgress
+          challengeCompleted={isMaxLossCompleted}
+          title="Max Loss Limit"
+          value={`${formatCurrency(parseFloat(dashboardMetrics.maxLoss.current))}/${formatCurrency(parseFloat(dashboardMetrics.maxLoss.limit))}`}
+        />
+        <ChallengeProgress
+          challengeCompleted={isTradingDaysCompleted}
+          title="Trading Days"
+          value={`${estimatedTradingDays}/${maxTradingDays}`}
         />
         <ChallengeProgress
           challengeCompleted={isProfitTargetCompleted}
           title="Profit Target"
-          value={`${formatCurrency(totalPnL)}/${formatCurrency(profitTarget)}`}
-        />
-        <ChallengeProgress
-          challengeCompleted={remainingDays === 0}
-          title="Remaining Days"
-          value={`${remainingDays}/30`}
-        />
-        <ChallengeProgress
-          challengeCompleted={winRate >= 50}
-          title="Win Rate"
-          value={formatPercentage(winRate)}
+          value={`${formatCurrency(parseFloat(dashboardMetrics.profitTarget.current))}/${formatCurrency(parseFloat(dashboardMetrics.profitTarget.target))}`}
         />
       </div>
     </div>
