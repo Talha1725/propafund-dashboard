@@ -102,7 +102,7 @@ export default function TradingAccountsPage() {
               </CardContainer>
               
               <div className="mt-5">
-                <TradingBehaviorSection className="!w-full" />
+                <TradingBehaviorSection className="!w-full sm:!w-full lg:!w-full xl:!w-full min-[1308px]:!w-full" />
               </div>
               
               <CardContainer 

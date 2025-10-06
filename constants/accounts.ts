@@ -228,8 +228,8 @@ export const ACCOUNT_CARD_CONSTANTS = {
     server: "ICMarketsSC-Demo"
   },
   CARD_STYLES: {
-    clicked: "backdrop-blur-[52px] border-t-[#a0a0a0] border-l-[#A685E8] border-r-[#A685E8] border-b-[#A685E8]",
-    balance: "white-purple-gradient border-t-[#FFFFFF] border-b-[#4EB2E4] border-l-[#4eb2e483] border-r-[#4eb2e483]",
+    clicked: "backdrop-blur-[52px] border-t-[#a0a0a0] border-l-[#A685E8] border-r-[#A685E8] border-b-[#A685E8] bg-gradient-to-b from-[#13131505] to-[#FFFFFF0F]",
+    balance: "white-purple-gradient border-t-[#FFFFFF] border-b-[#4EB2E4] border-l-[#4eb2e483] border-r-[#4eb2e483] bg-gradient-to-b from-white to-blue",
     default: "bg-gradient-to-b from-[#13131505] to-[#FFFFFF0F] border-white/10"
   },
   STATS_CONFIG: [

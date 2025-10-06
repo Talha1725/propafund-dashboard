@@ -65,7 +65,7 @@ export const AccountCard = memo<AccountCardProps>(({
           {accountId}
         </span>
       </div>
-      <button className={`${isGradientCard ? "bg-[#0B0E121A] text-[#0B0E12]" : isInstantFunding ? "text-white bg-instant-funding" : "text-black white-purple-gradient"} font-lay-grotesk font-medium text-sm leading-[136%] tracking-[-2%] rounded px-3.5 py-1 h-[27px] whitespace-nowrap`}>
+      <button className={`${isGradientCard ? "bg-[#0B0E121A] text-[#0B0E12]" : "text-white bg-instant-funding"} font-lay-grotesk font-medium text-sm leading-[136%] tracking-[-2%] rounded px-3.5 py-1 h-[27px] whitespace-nowrap`}>
         {phase}
       </button>
     </div>
@@ -104,7 +104,7 @@ export const AccountCard = memo<AccountCardProps>(({
   return (
     <>
       <div 
-        className={`${isInstantFunding ? "" : "border"} rounded-[20px] p-5 sm:p-6 relative overflow-hidden max-h-[146px] hover:opacity-90 transition-all duration-200 ${getCardStyle()} ${isGradientCard ? "bg-gradient-to-b from-white to-blue" : isInstantFunding ? "bg-instant-funding text-white" : "bg-black"}`}
+        className={`border rounded-[20px] p-5 sm:p-6 relative overflow-hidden max-h-[146px] hover:opacity-90 transition-all duration-200 ${getCardStyle()}`}
       >        
         <ProfileSection />
         

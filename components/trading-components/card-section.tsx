@@ -1,11 +1,12 @@
 "use client";
 
-import { memo } from "react";
+import React, { memo } from "react";
 import { useRouter } from "next/navigation";
 import { ACCOUNT_DATA, ACCOUNT_CREDENTIALS_DATA, ACCOUNT_CARD_CONSTANTS } from "@/constants/accounts";
 import { getActiveChallenges, getCompletedChallenges } from "@/lib/data/challenges";
 import { AccountCard } from "@/components/cards/account-card";
 import { ChallengeCard } from "@/components/cards/challenge-card";
+import { useAccounts } from "@/lib/hooks/use-accounts";
 
 interface CardSectionProps {
   type?: 'accounts' | 'challenges';
@@ -15,35 +16,54 @@ interface CardSectionProps {
 
 export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTab = 'active', noBackground = false }) => {
   const router = useRouter();
+  const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
   
   // For challenges, get the appropriate data based on activeTab
   const challenges = type === 'challenges' 
     ? (activeTab === 'active' ? getActiveChallenges() : getCompletedChallenges())
     : [];
 
+  const handleAccountSelect = (accountId: string) => {
+    setSelectedAccount(accountId);
+  };
+
+  // Auto-select first account if none is selected and accounts are available
+  React.useEffect(() => {
+    if (type === 'accounts' && accounts.length > 0 && !selectedAccount) {
+      setSelectedAccount(accounts[0].id);
+    }
+  }, [accounts, selectedAccount, setSelectedAccount, type]);
+
   return (
     <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''}`}>
       {type === 'accounts' ? (
-        // Original accounts rendering
+        // Real accounts rendering with selection
         <>
-          {ACCOUNT_DATA.map((account, index) => {
+          {accounts.map((account, index) => {
+            const isSelected = selectedAccount === account.id;
             const fallback = ACCOUNT_CARD_CONSTANTS.DEFAULT_CREDENTIALS;
-            const creds = ACCOUNT_CREDENTIALS_DATA[account.accountId as keyof typeof ACCOUNT_CREDENTIALS_DATA];
+            const creds = ACCOUNT_CREDENTIALS_DATA[account.login as keyof typeof ACCOUNT_CREDENTIALS_DATA];
             const platform = creds && typeof creds === "object" && "platform" in creds ? (creds as { platform?: string }).platform : undefined;
+            
             return (
-              <AccountCard
-                key={index}
-                accountId={account.accountId}
-                username={(creds?.username) ?? account.accountId}
-                password={(creds?.password) ?? fallback.password}
-                server={(creds?.server) ?? fallback.server}
-                platform={platform}
-                phase={account.phase}
-                tradesCount={account.tradesCount}
-                daysTraded={account.daysTraded}
-                balance={!!(account as { isFirstCard?: boolean }).isFirstCard}
-                isAddNewCard={false}
-              />
+              <div 
+                key={account.id}
+                onClick={() => handleAccountSelect(account.id)}
+                className="cursor-pointer"
+              >
+                <AccountCard
+                  accountId={account.login}
+                  username={(creds?.username) ?? account.login}
+                  password={(creds?.password) ?? fallback.password}
+                  server={(creds?.server) ?? fallback.server}
+                  platform={platform}
+                  phase={account.challengeType === 'twoPhase' ? 'Two Phase' : 'Instant Funding'}
+                  tradesCount={account.tradesCount || 0}
+                  daysTraded={account.daysTraded || 0}
+                  balance={isSelected}
+                  isAddNewCard={false}
+                />
+              </div>
             );
           })}
           <AccountCard
