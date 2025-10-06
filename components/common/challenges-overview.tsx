@@ -7,10 +7,8 @@ import DashboardHeadings from "./dashboard-headings";
 
 export default function ChallengesOverview({
   className,
-  phaseCompleted,
 }: {
   className?: string;
-  phaseCompleted?: boolean;
 }) {
   const { currentAccountData, loading, error } = useAccounts();
 
@@ -23,9 +21,6 @@ export default function ChallengesOverview({
     }).format(amount);
   };
 
-  const formatPercentage = (value: number) => {
-    return `${value.toFixed(1)}%`;
-  };
 
   if (loading) {
     return (
@@ -83,8 +78,6 @@ export default function ChallengesOverview({
   const estimatedTradingDays = Math.min(totalTrades, minTradingDays + 5);
   const tradingDaysProgress = Math.min((estimatedTradingDays / maxTradingDays) * 100, 100);
 
-  const winRate = totalTrades > 0 ? 
-    ((metaStats?.periods?.today?.trades || 0) / totalTrades) * 100 : 0;
 
   const isDailyLossCompleted = parseFloat(dashboardMetrics.dailyLoss.progress) === 0;
   const isMaxLossCompleted = parseFloat(dashboardMetrics.maxLoss.progress) === 0;

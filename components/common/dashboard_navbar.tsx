@@ -1,6 +1,5 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 // import bell from "@/public/assets/bell.svg";
 import toggle from "@/public/assets/toggle-icon.svg";
 import Image from "next/image";
@@ -8,12 +7,6 @@ import logo from "@/public/assets/dashbaord-logo.svg";
 import { useSidebar } from "../ui/sidebar";
 import { usePathname } from "next/navigation";
 import { AccountSelector, AccountSelectorMobile } from "./account-selector";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 
 export function Navbar() {
   const { toggleSidebar } = useSidebar();

@@ -1,6 +1,6 @@
 "use client";
 
-import { Video, VideoGridProps } from "@/types/academy";
+import { VideoGridProps } from "@/types/academy";
 import { Clock } from "lucide-react";
 import Image from "next/image";
 import PlayIcon from "@/public/assets/polygon.svg";

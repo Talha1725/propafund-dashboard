@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Image from "next/image";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import DataTable from "@/components/common/data-table";
 import CertificateTabs from "@/components/common/certificate-tabs";
@@ -55,11 +54,7 @@ export default function BillingPage() {
     }
 
     if (filterState.selectedDate !== "all") {
-      const now = new Date();
-      const daysAgo = filterState.selectedDate === "last-7-days" ? 7 : 
-        filterState.selectedDate === "last-30-days" ? 30 : 90;
-      const cutoffDate = new Date(now.getTime() - (daysAgo * 24 * 60 * 60 * 1000));
-      filtered = filtered.filter(order => {
+      filtered = filtered.filter(() => {
         return true;
       });
     }

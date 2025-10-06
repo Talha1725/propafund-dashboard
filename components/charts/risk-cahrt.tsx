@@ -1,7 +1,7 @@
 "use client";
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { useState, ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface RiskChartProps {
   value?: number;

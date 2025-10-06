@@ -10,7 +10,7 @@ import StatusCardSection from "@/components/dashboard-components/status-card-sec
 
 export default function Dashboard() {
   // This will trigger data fetching when the component mounts
-  const { loading, error } = useAccounts();
+  const { error } = useAccounts();
 
   if (error) {
     return (

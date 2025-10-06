@@ -305,6 +305,7 @@ export const clearGlobalLoadingAtom = atom(
   (get, set, key: string) => {
     const current = get(globalLoadingAtom);
     const { [key]: removed, ...rest } = current;
+    void removed; // Suppress unused variable warning
     set(globalLoadingAtom, rest);
   }
 );

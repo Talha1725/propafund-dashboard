@@ -6,6 +6,11 @@ export interface TradingBehaviorItem {
   readonly value: string;
 }
 
+interface AccountData {
+  metaStats?: MetaStatsData | null;
+  trades?: Trade[];
+}
+
 // Default trading behavior when no data is available
 export function getDefaultTradingBehavior(): TradingBehaviorItem[] {
   return [
@@ -151,12 +156,17 @@ function calculateWinningStreak(trades: Trade[]): string {
 }
 
 // Main function to calculate trading behavior
-export function calculateTradingBehavior(accountData: any): TradingBehaviorItem[] {
+export function calculateTradingBehavior(accountData: AccountData): TradingBehaviorItem[] {
   if (!accountData) {
     return getDefaultTradingBehavior();
   }
   
   const { metaStats, trades = [] } = accountData;
+  
+  if (!metaStats) {
+    return getDefaultTradingBehavior();
+  }
+  
   const realTrades = trades.filter((t: Trade) => t.type !== 'DEAL_TYPE_BALANCE');
   const hasTraded = realTrades.length > 0;
   
