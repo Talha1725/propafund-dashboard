@@ -39,23 +39,11 @@ export default function LeaderboardPage() {
                   boxShadow: '0px 0px 6px 6px #4EB2E440'
                 }}
               />
-              <span 
-                className="text-white whitespace-nowrap text-sm md:text-base"
-                style={{
-                  fontFamily: 'Creato Display',
-                  fontWeight: 400
-                }}
-              >
+              <span className="text-white whitespace-nowrap text-sm md:text-base font-creato-display font-normal">
                 {currentTime}
               </span>
             </div>
-            <span 
-              className="text-white whitespace-nowrap text-sm md:text-base"
-              style={{
-                fontFamily: 'Creato Display',
-                fontWeight: 400
-              }}
-            >
+            <span className="text-white whitespace-nowrap text-sm md:text-base font-creato-display font-normal">
               Last refreshed: {lastRefreshed}
             </span>
           </div>

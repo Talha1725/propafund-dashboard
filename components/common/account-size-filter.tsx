@@ -35,9 +35,9 @@ export default function AccountSizeFilter({
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          className={`px-3 py-2 rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+          className={`px-3 py-2 rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0 font-creato-display font-medium text-sm ${
             value === option.value
-              ? 'text-black font-medium'
+              ? 'text-black'
               : 'text-[oklch(0.556_0_0)]'
           }`}
           style={{
@@ -45,11 +45,7 @@ export default function AccountSizeFilter({
               ? 'linear-gradient(180deg, #FFFFFF 0%, #4EB2E4 100%)'
               : 'transparent',
             border: 'none',
-            boxShadow: 'none',
-            fontFamily: 'Creato Display',
-            fontWeight: 500,
-            fontStyle: 'normal',
-            fontSize: '14px'
+            boxShadow: 'none'
           }}
         >
           {option.label}
