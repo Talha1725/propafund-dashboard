@@ -5,11 +5,35 @@ export interface MetaStatsData {
     highestBalance?: number;
     maxBalance?: number;
     dailyGrowth?: Array<{ date: string; profit?: number }>;
+    averageTradeLengthInMilliseconds?: number;
+    currencySummary?: Array<{
+      currency: string;
+      total: { trades: number };
+    }>;
+    openTradesByHour?: Array<{
+      hour: number;
+      trades: number;
+    }>;
+    bestTrade?: number;
+    worstTrade?: number;
+    riskOfRuin?: Array<{
+      lossSize: number;
+      probabilityOfLoss: number;
+    }>;
+    lots?: number;
   }
   
   export interface AnalysisData {
     startingBalance?: number;
     updatedAt?: string;
+  }
+
+  export interface Trade {
+    type: string;
+    profit?: number;
+    volume?: number;
+    openTime?: string;
+    closeTime?: string;
   }
   
   export interface DashboardMetrics {
