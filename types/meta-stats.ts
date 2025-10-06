@@ -35,11 +35,22 @@ export interface MetaStatsData {
   }
 
   export interface Trade {
+    _id: string;
+    accountId: string;
+    closeTime: string;
+    openTime: string;
+    profit: number;
     type: string;
-    profit?: number;
+    symbol?: string;
     volume?: number;
-    openTime?: string;
-    closeTime?: string;
+    closePrice?: number;
+    openPrice?: number;
+    pips?: number;
+    success?: string;
+    gain?: number;
+    marketValue?: number;
+    positionId?: string;
+    durationInMinutes?: number;
   }
   
   export interface DashboardMetrics {
