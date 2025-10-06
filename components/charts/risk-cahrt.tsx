@@ -1,7 +1,7 @@
 "use client";
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { useState, ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface RiskChartProps {
   value?: number;
@@ -14,8 +14,8 @@ export default function RiskChart({
   risk = "Overall loss",
   maxValue = 5000,
 }: RiskChartProps) {
-  const [currentValue] = useState(value);
-  const [currentRisk] = useState(risk);
+  const currentValue = value;
+  const currentRisk = risk;
 
 
   // Calculate progress angle

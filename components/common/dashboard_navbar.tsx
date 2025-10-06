@@ -1,18 +1,12 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 // import bell from "@/public/assets/bell.svg";
 import toggle from "@/public/assets/toggle-icon.svg";
 import Image from "next/image";
 import logo from "@/public/assets/dashbaord-logo.svg";
 import { useSidebar } from "../ui/sidebar";
 import { usePathname } from "next/navigation";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+import { AccountSelector, AccountSelectorMobile } from "./account-selector";
 
 export function Navbar() {
   const { toggleSidebar } = useSidebar();
@@ -85,18 +79,15 @@ export function Navbar() {
             <Image src={bell} alt="bell" className="w-4 h-4" />
           </button> */}
 
-          <DropdownMenu>
-            <DropdownMenuTrigger className="md:w-[117px] h-10 border border-white/10 rounded-lg md:px-2 px-3 light-white-gradient hover:opacity-50 cursor-pointer bg-gradient-to-b from-white/5 to-transparent flex gap-2 items-center justify-center outline-0">
-              <span className="md:block hidden text-white font-creato-display text-sm">
-                #2138931
-              </span>
-              <ChevronDown className="w-4 h-4 text-white" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-dark border border-white/10 outline-0">
-              <DropdownMenuItem className="text-white">#2138932</DropdownMenuItem>
-              <DropdownMenuItem className="text-white">#2138933</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Desktop Account Selector */}
+          <div className="hidden md:block">
+            <AccountSelector />
+          </div>
+          
+          {/* Mobile Account Selector */}
+          <div className="md:hidden block">
+            <AccountSelectorMobile />
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronRight, Calendar, User } from "lucide-react";
+import { ChevronRight, Calendar } from "lucide-react";
 import { IconGraph, GraphUpIcon, KeyIcon } from "../common/icon";
 import profile from "../../public/assets/profile.svg";
 import { Button } from "../ui/button";

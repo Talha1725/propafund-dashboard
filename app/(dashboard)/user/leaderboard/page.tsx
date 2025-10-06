@@ -50,7 +50,7 @@ export default function LeaderboardPage() {
         </div>
         
         <div className="flex flex-col lg:flex-row justify-between mb-6 px-4 gap-4 md:gap-[21px]">
-          <div className="flex justify-center md:block mt-0 relative">
+          <div className="flex justify-center md:block mt-0">
             <ProfileCard
               name="Olivia Carter"
               location="New York, USA"
@@ -66,7 +66,7 @@ export default function LeaderboardPage() {
               cardType="first"
             />
           </div>
-          <div className="flex justify-center md:block mt-0 md:mt-14 relative">
+          <div className="flex justify-center md:block mt-0 md:mt-14">
             <ProfileCard
               name="Daniel Ahmed"
               location="London, United Kingdom"
@@ -82,7 +82,7 @@ export default function LeaderboardPage() {
               cardType="second"
             />
           </div>
-          <div className="flex justify-center md:block mt-0 md:mt-24 relative">
+          <div className="flex justify-center md:block mt-0 md:mt-24">
             <ProfileCard
               name="Sophia Müller"
               location="Berlin, Germany"
