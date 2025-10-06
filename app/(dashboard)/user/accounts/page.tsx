@@ -1,3 +1,6 @@
+"use client";
+
+import { useAccounts } from "@/lib/hooks/use-accounts";
 import { CardSection } from "@/components/trading-components/card-section";
 import CardContainer from "@/components/common/card-container";
 import AccountOverviewChart from "@/components/chart/account-overview-chart";
@@ -6,6 +9,56 @@ import TradingBehaviorSection from "@/components/common/trading-behavior";
 import ChallengesOverview from "@/components/common/challenges-overview";
 
 export default function TradingAccountsPage() {
+  const { currentAccount, currentAccountData, loading, error } = useAccounts();
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-white">Loading account data...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !currentAccount || !currentAccountData) {
+    return (
+      <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold text-white mb-2">No Account Data</h2>
+            <p className="text-gray-400">{error || "Please select an account"}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Extract data from current account
+  const { metaStats, mtAccount } = currentAccountData;
+  const accountBalance = metaStats?.balance || mtAccount.balance || 0;
+  const averageWin = metaStats?.bestTrade || 0;
+  const averageLoss = metaStats?.worstTrade || 0;
+  const winRatio = metaStats?.trades ? ((metaStats.trades - (metaStats.lostTrades || 0)) / metaStats.trades) * 100 : 0;
   return (
     <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -15,7 +68,7 @@ export default function TradingAccountsPage() {
         <div className="lg:col-span-2 h-fit lg:min-h-screen space-y-5">
         <CardContainer 
                 title="Account Overview" 
-                subtitle="#274178"
+                subtitle={`#${currentAccount.login}`}
                 className="h-fit"
                 customHeader={
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-3">
@@ -24,12 +77,12 @@ export default function TradingAccountsPage() {
                         Account Overview
                       </h2>
                       <p className="font-lay-grotesk font-medium text-lg mt-[3px] md:mt-[5px]" style={{ color: '#FFFFFF80' }}>
-                      #274178
+                      #{currentAccount.login}
                       </p>
                     </div>
                     <div className="w-full md:w-fit h-[36px] md:h-[40px] sm:h-[42px] bg-gradient-to-b from-white/[0.07] to-white/[0.03] px-[10px] md:px-[14px] py-[8px] md:py-[10px] flex items-center">
                       <p className="text-white font-lay-grotesk font-medium text-base leading-[136%] tracking-[-2%] whitespace-nowrap">
-                        Created: August 29, 2025 9:30 PM
+                        Created: {formatDate(mtAccount.createdAt)}
                       </p>
                     </div>
                   </div>
@@ -40,10 +93,10 @@ export default function TradingAccountsPage() {
                 </div>
                 
                 <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-2">
-                  <MetricCard label="Account balance" value="$52,300" valueColor="white" />
-                  <MetricCard label="Average win" value="$129.34" valueColor="green" />
-                  <MetricCard label="Average loss" value="$155.23" valueColor="red" />
-                  <MetricCard label="Win ratio" value="82.23%" valueColor="white" />
+                  <MetricCard label="Account balance" value={formatCurrency(accountBalance)} valueColor="white" />
+                  <MetricCard label="Average win" value={formatCurrency(averageWin)} valueColor="green" />
+                  <MetricCard label="Average loss" value={formatCurrency(averageLoss)} valueColor="red" />
+                  <MetricCard label="Win ratio" value={`${winRatio.toFixed(2)}%`} valueColor="white" />
                 </div>
               </CardContainer>
               

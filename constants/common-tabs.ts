@@ -32,12 +32,6 @@ export const COMMON_TABS = {
     { id: "notifications", label: "Notifications" },
   ] as const,
 
-  billing: [
-    { id: "all", label: "All" },
-    { id: "paid", label: "Paid" },
-    { id: "unpaid", label: "Unpaid" },
-  ] as const,
-
   "economic-calendar": [
     { id: "yesterday", label: "Yesterday" },
     { id: "today", label: "Today" },
