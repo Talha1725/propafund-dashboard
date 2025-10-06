@@ -63,7 +63,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
   const rankIcon = getRankIcon(rank);
   
   return (
-    <div className="flex flex-col items-center relative">
+    <div className="flex flex-col items-center">
       {rankIcon && (
         <div className="relative flex items-center w-full h-12" >
           <div 
@@ -78,7 +78,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
         </div>
       )}
       
-      <div className="text-white font-creato-display font-medium text-lg mb-3">
+      <div className="text-white font-creato-display font-medium text-lg mb-3 text-center">
         Ranked {rank}
       </div>
       
