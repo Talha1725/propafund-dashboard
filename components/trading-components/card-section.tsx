@@ -2,7 +2,6 @@
 
 import React, { memo } from "react";
 import { useRouter } from "next/navigation";
-import { ACCOUNT_CREDENTIALS_DATA, ACCOUNT_CARD_CONSTANTS } from "@/constants/accounts";
 import { getActiveChallenges, getCompletedChallenges } from "@/lib/data/challenges";
 import { AccountCard } from "@/components/cards/account-card";
 import { ChallengeCard } from "@/components/cards/challenge-card";
@@ -84,9 +83,8 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
         <>
           {accounts.map((account, index) => {
             const isSelected = selectedAccount === account.id;
-            const fallback = ACCOUNT_CARD_CONSTANTS.DEFAULT_CREDENTIALS;
-            const creds = ACCOUNT_CREDENTIALS_DATA[account.login as keyof typeof ACCOUNT_CREDENTIALS_DATA];
-            const platform = creds && typeof creds === "object" && "platform" in creds ? (creds as { platform?: string }).platform : undefined;
+            const accountData = accountsData?.[account.login];
+            const mtAccount = accountData?.mtAccount;
             
             return (
               <div 
@@ -96,10 +94,10 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
               >
                 <AccountCard
                   accountId={account.login}
-                  username={(creds?.username) ?? account.login}
-                  password={(creds?.password) ?? fallback.password}
-                  server={(creds?.server) ?? fallback.server}
-                  platform={platform}
+                  username={mtAccount?.login || account.login}
+                  password={mtAccount?.password || ''}
+                  server={mtAccount?.server || ''}
+                  platform={mtAccount?.platform}
                   phase={account.challengeType === 'twoPhase' ? 'Two Phase' : 'Instant Funding'}
                   tradesCount={account.trades || 0}
                   daysTraded={calculateDaysTraded(account.login)}
