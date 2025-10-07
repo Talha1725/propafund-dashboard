@@ -3,6 +3,7 @@ import { creatoDisplay, romanica } from "@/lib/fonts";
 import { Toaster } from "@/components/ui/sonner";
 import JotaiProvider from "@/lib/providers/jotai-provider";
 import AuthProvider from "@/lib/providers/auth-provider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,8 +23,14 @@ export default function RootLayout({
       >
         <JotaiProvider>
           <AuthProvider>
-            {children}
-            <Toaster />
+            {process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ? (
+              <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+                {children}
+              </GoogleOAuthProvider>
+            ) : (
+              <>{children}</>
+            )}
+            <Toaster theme="dark" />
           </AuthProvider>
         </JotaiProvider>
       </body>
