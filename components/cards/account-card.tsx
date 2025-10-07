@@ -22,7 +22,7 @@ export const AccountCard = memo<AccountCardProps>(({
   isAddNewCard = false,
   ...credentials
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
@@ -45,7 +45,6 @@ export const AccountCard = memo<AccountCardProps>(({
   };
 
   const isGradientCard = balance;
-  const isInstantFunding = phase === "Instant Funding";
 
   const AddNewCard = () => {
     return (

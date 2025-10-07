@@ -21,7 +21,7 @@ const AccountOverviewChart = memo<AccountOverviewChartProps>(({ className = "" }
     
   
     if (dailyGrowth.length > 0) {
-      return dailyGrowth.map((day: any, index: number) => ({
+      return dailyGrowth.map((day: { date: string; balance?: number }) => ({
         date: new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
         value: day.balance || startingBalance
       }));
@@ -34,10 +34,10 @@ const AccountOverviewChart = memo<AccountOverviewChartProps>(({ className = "" }
     const tradesByDate: { [key: string]: number } = {};
     
     const actualTrades = trades
-      .filter((trade: any) => trade.type !== 'DEAL_TYPE_BALANCE')
-      .sort((a: any, b: any) => new Date(a.closeTime || '').getTime() - new Date(b.closeTime || '').getTime());
+      .filter((trade: { type: string }) => trade.type !== 'DEAL_TYPE_BALANCE')
+      .sort((a: { closeTime?: string }, b: { closeTime?: string }) => new Date(a.closeTime || '').getTime() - new Date(b.closeTime || '').getTime());
     
-    actualTrades.forEach((trade: any) => {
+    actualTrades.forEach((trade: { closeTime?: string; profit?: number }) => {
       const tradeDate = new Date(trade.closeTime || '').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       if (!tradesByDate[tradeDate]) {
         tradesByDate[tradeDate] = 0;

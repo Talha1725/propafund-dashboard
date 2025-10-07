@@ -33,7 +33,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
     const activeAccountData = accountsData?.[accountLogin];
     if (!activeAccountData?.metaStats) return 0;
     
-    const metaStats = activeAccountData.metaStats as any;
+    const metaStats = activeAccountData.metaStats as { trades?: number; daysSinceTradingStarted?: number; tradingStartBrokerTime?: string };
     
     if (metaStats.trades && metaStats.trades > 0) {
       if (metaStats.daysSinceTradingStarted && metaStats.daysSinceTradingStarted > 0) {
@@ -81,7 +81,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
       {type === 'accounts' ? (
         // Real accounts rendering with selection
         <>
-          {accounts.map((account, index) => {
+          {accounts.map((account) => {
             const isSelected = selectedAccount === account.id;
             const accountData = accountsData?.[account.login];
             const mtAccount = accountData?.mtAccount;
