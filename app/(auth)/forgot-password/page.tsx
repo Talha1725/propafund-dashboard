@@ -104,6 +104,7 @@ export default function ForgotPasswordPage() {
         onSubmit={handleSubmit(onSubmit)}
         buttonText={isSubmitting ? "Sending..." : "Send reset link"}
         isSubmitting={isSubmitting}
+        showSocialLogin={false}
         linkText="Remember your password?"
         linkHref="/login"
         linkLabel="Back to Login"

@@ -190,6 +190,7 @@ function ResetPasswordContent() {
         onSubmit={handleSubmit(onSubmit)}
         buttonText={isSubmitting ? "Resetting..." : "Reset Password"}
         isSubmitting={isSubmitting}
+        showSocialLogin={false}
         linkText="Remember your password?"
         linkHref="/login"
         linkLabel="Back to Login"
