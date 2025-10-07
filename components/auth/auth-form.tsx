@@ -56,6 +56,9 @@ export function AuthForm({
                         } else if (typeof response.data === 'object' && 'existingUser' in response.data) {
                             userData = response.data.existingUser;
                             tokenData = response.data.token;
+                        } else if (typeof response.data === 'object' && 'newUser' in response.data) {
+                            userData = response.data.newUser;
+                            tokenData = response.data.token;
                         }
                     }
                     
