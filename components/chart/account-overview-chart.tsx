@@ -63,7 +63,7 @@ const AccountOverviewChart = memo<AccountOverviewChartProps>(({ className = "" }
   const chartData = generateChartData();
   
   if (chartData.length === 0) {
-    return <div className={`w-full h-[200px] flex items-center justify-center text-white/60 ${className}`}>No data available</div>;
+    return <div className={`w-full h-[200px] flex items-center justify-center text-white/60 ${className}`}>--</div>;
   }
   
   const allBalances = chartData.map(d => d.value);

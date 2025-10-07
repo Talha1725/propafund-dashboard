@@ -167,7 +167,7 @@ export default function DataTable({
                   colSpan={columns.length}
                   className="text-center text-gray-400 py-8"
                 >
-                  No data found
+                  --
                 </TableCell>
               </TableRow>
             ) : (

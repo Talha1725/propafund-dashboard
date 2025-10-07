@@ -47,14 +47,14 @@ export default function ChallengesOverview({
         <div className="flex flex-col xl:flex-row items-start gap-2 xl:justify-between xl:items-center">
           <DashboardHeadings title="Challenge Stats Overview" />
           <div className="border-white/10 border rounded-[10px] font-creato-display font-light py-2 px-3 text-sm gradient-dark-primary text-white">
-            <span className="opacity-70">No Data</span>
+            <span className="opacity-70">--</span>
           </div>
         </div>
         <div className="mt-5 space-y-4.5">
-          <ChallengeProgress challengeCompleted={false} title="Drawdown" value="No Data" />
-          <ChallengeProgress challengeCompleted={false} title="Profit Target" value="No Data" />
-          <ChallengeProgress challengeCompleted={false} title="Remaining Days" value="No Data" />
-          <ChallengeProgress challengeCompleted={false} title="Win Rate" value="No Data" />
+          <ChallengeProgress challengeCompleted={false} title="Drawdown" value="--" />
+          <ChallengeProgress challengeCompleted={false} title="Profit Target" value="--" />
+          <ChallengeProgress challengeCompleted={false} title="Remaining Days" value="--" />
+          <ChallengeProgress challengeCompleted={false} title="Win Rate" value="--" />
         </div>
       </div>
     );
@@ -79,6 +79,10 @@ export default function ChallengesOverview({
   const tradingDaysProgress = Math.min((estimatedTradingDays / maxTradingDays) * 100, 100);
 
 
+  // For daily loss and max loss, progress should be inverted (countdown style)
+  const dailyLossProgress = 100 - parseFloat(dashboardMetrics.dailyLoss.progress);
+  const maxLossProgress = 100 - parseFloat(dashboardMetrics.maxLoss.progress);
+  
   const isDailyLossCompleted = parseFloat(dashboardMetrics.dailyLoss.progress) >= 100;
   const isMaxLossCompleted = parseFloat(dashboardMetrics.maxLoss.progress) >= 100; 
   const isProfitTargetCompleted = parseFloat(dashboardMetrics.profitTarget.progress) >= 100;
@@ -106,13 +110,13 @@ export default function ChallengesOverview({
           challengeCompleted={isDailyLossCompleted}
           title="Daily Loss Limit"
           value={`${formatCurrency(parseFloat(dashboardMetrics.dailyLoss.current))}/${formatCurrency(parseFloat(dashboardMetrics.dailyLoss.limit))}`}
-          progress={parseFloat(dashboardMetrics.dailyLoss.progress)}
+          progress={dailyLossProgress}
         />
         <ChallengeProgress
           challengeCompleted={isMaxLossCompleted}
           title="Max Loss Limit"
           value={`${formatCurrency(parseFloat(dashboardMetrics.maxLoss.current))}/${formatCurrency(parseFloat(dashboardMetrics.maxLoss.limit))}`}
-          progress={parseFloat(dashboardMetrics.maxLoss.progress)}
+          progress={maxLossProgress}
         />
         <ChallengeProgress
           challengeCompleted={isTradingDaysCompleted}
