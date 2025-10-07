@@ -79,8 +79,8 @@ export default function ChallengesOverview({
   const tradingDaysProgress = Math.min((estimatedTradingDays / maxTradingDays) * 100, 100);
 
 
-  const isDailyLossCompleted = parseFloat(dashboardMetrics.dailyLoss.progress) === 0;
-  const isMaxLossCompleted = parseFloat(dashboardMetrics.maxLoss.progress) === 0;
+  const isDailyLossCompleted = parseFloat(dashboardMetrics.dailyLoss.progress) >= 100;
+  const isMaxLossCompleted = parseFloat(dashboardMetrics.maxLoss.progress) >= 100; 
   const isProfitTargetCompleted = parseFloat(dashboardMetrics.profitTarget.progress) >= 100;
   const isTradingDaysCompleted = tradingDaysProgress >= 100;
 
@@ -106,21 +106,25 @@ export default function ChallengesOverview({
           challengeCompleted={isDailyLossCompleted}
           title="Daily Loss Limit"
           value={`${formatCurrency(parseFloat(dashboardMetrics.dailyLoss.current))}/${formatCurrency(parseFloat(dashboardMetrics.dailyLoss.limit))}`}
+          progress={parseFloat(dashboardMetrics.dailyLoss.progress)}
         />
         <ChallengeProgress
           challengeCompleted={isMaxLossCompleted}
           title="Max Loss Limit"
           value={`${formatCurrency(parseFloat(dashboardMetrics.maxLoss.current))}/${formatCurrency(parseFloat(dashboardMetrics.maxLoss.limit))}`}
+          progress={parseFloat(dashboardMetrics.maxLoss.progress)}
         />
         <ChallengeProgress
           challengeCompleted={isTradingDaysCompleted}
           title="Trading Days"
-          value={`${estimatedTradingDays}/${maxTradingDays}`}
+          value={`${estimatedTradingDays}`}
+          progress={tradingDaysProgress}
         />
         <ChallengeProgress
           challengeCompleted={isProfitTargetCompleted}
           title="Profit Target"
           value={`${formatCurrency(parseFloat(dashboardMetrics.profitTarget.current))}/${formatCurrency(parseFloat(dashboardMetrics.profitTarget.target))}`}
+          progress={parseFloat(dashboardMetrics.profitTarget.progress)}
         />
       </div>
     </div>

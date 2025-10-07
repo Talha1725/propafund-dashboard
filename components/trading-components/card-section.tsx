@@ -2,7 +2,7 @@
 
 import React, { memo } from "react";
 import { useRouter } from "next/navigation";
-import { ACCOUNT_DATA, ACCOUNT_CREDENTIALS_DATA, ACCOUNT_CARD_CONSTANTS } from "@/constants/accounts";
+import { ACCOUNT_CREDENTIALS_DATA, ACCOUNT_CARD_CONSTANTS } from "@/constants/accounts";
 import { getActiveChallenges, getCompletedChallenges } from "@/lib/data/challenges";
 import { AccountCard } from "@/components/cards/account-card";
 import { ChallengeCard } from "@/components/cards/challenge-card";
@@ -12,9 +12,11 @@ interface CardSectionProps {
   type?: 'accounts' | 'challenges';
   activeTab?: 'active' | 'completed';
   noBackground?: boolean;
+  showAddCard?: boolean;
+  className?: string;
 }
 
-export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTab = 'active', noBackground = false }) => {
+export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTab = 'active', noBackground = false, showAddCard = true, className = '' }) => {
   const router = useRouter();
   const { accounts, selectedAccount, setSelectedAccount, accountsData, error } = useAccounts();
   
@@ -76,7 +78,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
   }
 
   return (
-    <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''}`}>
+    <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''} ${className}`}>
       {type === 'accounts' ? (
         // Real accounts rendering with selection
         <>
@@ -107,16 +109,18 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
               </div>
             );
           })}
-          <AccountCard
-            accountId=""
-            username=""
-            password=""
-            server=""
-            phase=""
-            tradesCount={0}
-            daysTraded={0}
-            isAddNewCard
-          />
+          {showAddCard && (
+            <AccountCard
+              accountId=""
+              username=""
+              password=""
+              server=""
+              phase=""
+              tradesCount={0}
+              daysTraded={0}
+              isAddNewCard
+            />
+          )}
         </>
       ) : (
         // Challenges rendering
