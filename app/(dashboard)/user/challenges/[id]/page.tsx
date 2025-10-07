@@ -7,7 +7,7 @@ import ChallengeStats from "@/components/challenges-components/challenge-stats";
 import Credentials from "@/components/challenges-components/credentials";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import StatsSection from "@/components/dashboard-components/stats-section";
-import { getChallengeById } from "@/lib/data/challenges";
+import { getChallengeById, type ChallengeData } from "@/lib/data/challenges";
 import { notFound } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -19,7 +19,7 @@ interface ChallengeDetailPageProps {
 
 export default function ChallengeDetailPage({ params }: ChallengeDetailPageProps) {
   const [challengeId, setChallengeId] = useState<string>("");
-  const [challenge, setChallenge] = useState<any>(null);
+  const [challenge, setChallenge] = useState<ChallengeData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

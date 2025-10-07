@@ -33,15 +33,15 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
     const activeAccountData = accountsData?.[accountLogin];
     if (!activeAccountData?.metaStats) return 0;
     
-    const metaStats = activeAccountData.metaStats as any;
+    const metaStats = activeAccountData.metaStats as Record<string, unknown>;
     
-    if (metaStats.trades && metaStats.trades > 0) {
-      if (metaStats.daysSinceTradingStarted && metaStats.daysSinceTradingStarted > 0) {
-        return Math.ceil(metaStats.daysSinceTradingStarted);
+    if (metaStats.trades && typeof metaStats.trades === 'number' && metaStats.trades > 0) {
+      if (metaStats.daysSinceTradingStarted && typeof metaStats.daysSinceTradingStarted === 'number' && metaStats.daysSinceTradingStarted > 0) {
+        return Math.ceil(metaStats.daysSinceTradingStarted as number);
       }
       
-      if (metaStats.tradingStartBrokerTime) {
-        return calculateDaysFromStartTime(metaStats.tradingStartBrokerTime);
+      if (metaStats.tradingStartBrokerTime && typeof metaStats.tradingStartBrokerTime === 'string') {
+        return calculateDaysFromStartTime(metaStats.tradingStartBrokerTime as string);
       }
     }
     
@@ -81,7 +81,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
       {type === 'accounts' ? (
         // Real accounts rendering with selection
         <>
-          {accounts.map((account, index) => {
+          {accounts.map((account) => {
             const isSelected = selectedAccount === account.id;
             const accountData = accountsData?.[account.login];
             const mtAccount = accountData?.mtAccount;
