@@ -16,7 +16,7 @@ interface CardSectionProps {
 
 export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTab = 'active', noBackground = false }) => {
   const router = useRouter();
-  const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
+  const { accounts, selectedAccount, setSelectedAccount, accountsData, loading, error } = useAccounts();
   
   // For challenges, get the appropriate data based on activeTab
   const challenges = type === 'challenges' 
@@ -27,12 +27,67 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
     setSelectedAccount(accountId);
   };
 
+  // Calculate days traded for a specific account
+  const calculateDaysTraded = (accountLogin: string): number => {
+    const activeAccountData = accountsData?.[accountLogin];
+    if (!activeAccountData?.metaStats) return 0;
+    
+    const metaStats = activeAccountData.metaStats as any;
+    
+    if (metaStats.trades && metaStats.trades > 0) {
+      if (metaStats.daysSinceTradingStarted && metaStats.daysSinceTradingStarted > 0) {
+        return Math.ceil(metaStats.daysSinceTradingStarted);
+      }
+      
+      if (metaStats.tradingStartBrokerTime) {
+        return calculateDaysFromStartTime(metaStats.tradingStartBrokerTime);
+      }
+    }
+    
+    return 0;
+  };
+
+  const calculateDaysFromStartTime = (startTime: string): number => {
+    const startDate = new Date(startTime);
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - startDate.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
   // Auto-select first account if none is selected and accounts are available
   React.useEffect(() => {
     if (type === 'accounts' && accounts.length > 0 && !selectedAccount) {
       setSelectedAccount(accounts[0].id);
     }
   }, [accounts, selectedAccount, setSelectedAccount, type]);
+
+  // Loading state (following same pattern as other components)
+  if (loading) {
+    return (
+      <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''}`}>
+        <div className="flex items-center justify-center h-32">
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+            <span className="text-white/70 text-sm">Loading accounts...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''}`}>
+        <div className="flex items-center justify-center h-32">
+          <div className="text-center">
+            <div className="text-red-400 text-sm">Error loading accounts</div>
+            <div className="text-white/50 text-xs mt-1">{error}</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''}`}>
@@ -59,7 +114,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
                   platform={platform}
                   phase={account.challengeType === 'twoPhase' ? 'Two Phase' : 'Instant Funding'}
                   tradesCount={account.trades || 0}
-                  daysTraded={0}
+                  daysTraded={calculateDaysTraded(account.login)}
                   balance={isSelected}
                   isAddNewCard={false}
                 />
