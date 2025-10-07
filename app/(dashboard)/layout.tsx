@@ -8,6 +8,7 @@ import { AppSidebar } from "@/components/common/app-sidebar";
 import { Navbar } from "@/components/common/dashboard_navbar";
 import { isAuthenticatedAtom, authInitializedAtom } from '@/lib/store/atoms';
 import PageHeadings from "@/components/common/page-headings";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function DashboardLayout({
   children,
@@ -25,20 +26,18 @@ export default function DashboardLayout({
     }
   }, [isAuthenticated, authInitialized, router]);
 
-  // Show loading while auth is being initialized
   if (!authInitialized) {
     return (
       <div className="min-h-screen bg-dark flex items-center justify-center">
-        <div className="text-white text-lg">Loading...</div>
+        <Spinner variant="ring" className="h-8 w-8 text-white" />
       </div>
     );
   }
 
-  // Show loading if not authenticated (will redirect)
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-dark flex items-center justify-center">
-        <div className="text-white text-lg">Loading...</div>
+        <Spinner variant="ring" className="h-8 w-8 text-white" />
       </div>
     );
   }

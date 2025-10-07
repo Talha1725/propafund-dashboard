@@ -3,6 +3,7 @@
 import CertificateGrid from "@/components/certificates-components/certificate-grid";
 import { USER_CERTIFICATES_DATA, UNLOCKABLE_CERTIFICATES_DATA } from "../../../../lib/data/certificates";
 import { useState, useEffect, Suspense, useMemo } from "react";
+import { Spinner } from "@/components/ui/spinner";
 import { useSearchParams } from "next/navigation";
 import CertificateIcon from "@/public/assets/crtificat.svg";
 import Image from "next/image";
@@ -204,7 +205,11 @@ function CertificatesContent() {
 
 export default function Certificates() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen bg-dark flex items-center justify-center">
+        <Spinner variant="ring" className="h-8 w-8 text-white" />
+      </div>
+    }>
       <CertificatesContent />
     </Suspense>
   );

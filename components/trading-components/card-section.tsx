@@ -16,7 +16,7 @@ interface CardSectionProps {
 
 export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTab = 'active', noBackground = false }) => {
   const router = useRouter();
-  const { accounts, selectedAccount, setSelectedAccount, accountsData, loading, error } = useAccounts();
+  const { accounts, selectedAccount, setSelectedAccount, accountsData, error } = useAccounts();
   
   // For challenges, get the appropriate data based on activeTab
   const challenges = type === 'challenges' 
@@ -60,20 +60,6 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
       setSelectedAccount(accounts[0].id);
     }
   }, [accounts, selectedAccount, setSelectedAccount, type]);
-
-  // Loading state (following same pattern as other components)
-  if (loading) {
-    return (
-      <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''}`}>
-        <div className="flex items-center justify-center h-32">
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-            <span className="text-white/70 text-sm">Loading accounts...</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // Error state
   if (error) {

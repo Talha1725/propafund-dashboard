@@ -8,6 +8,7 @@ import MetricCard from "@/components/common/metric-cards";
 import TradingBehaviorSection from "@/components/common/trading-behavior";
 import ChallengesOverview from "@/components/common/challenges-overview";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function TradingAccountsPage() {
   const { currentAccount, currentAccountData, loading, error } = useAccounts();
@@ -33,11 +34,12 @@ export default function TradingAccountsPage() {
 
   if (loading) {
     return (
-      <div className="p-3 md:p-6 md:pb-4 xl:h-[85vh] relative outline-0">
-        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full h-[200px] bg-gradient-to-b from-blue to-blue/50 rotate-[14deg] blur-3xl opacity-20 z-0 pointer-events-none"></div>
-        <div className="flex items-center justify-center h-64">
-          <div className="text-white">Loading account data...</div>
-        </div>
+      <div className="h-screen overflow-hidden pb-10 md:pb-0">
+        <DashboardPageContainer>
+          <div className="h-full flex items-center justify-center">
+            <Spinner variant="ring" className="h-8 w-8 text-white" />
+          </div>
+        </DashboardPageContainer>
       </div>
     );
   }

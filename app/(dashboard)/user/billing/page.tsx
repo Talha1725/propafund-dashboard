@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import DataTable from "@/components/common/data-table";
 import CertificateTabs from "@/components/common/certificate-tabs";
@@ -10,15 +10,23 @@ import { getTabConfig, BILLING_STYLES } from "@/constants/common-tabs";
 import { getBillingFilterGroups } from "@/lib/utils/billing-filters";
 import { BillingTabId, BillingFilterState } from "@/types/billing";
 import IconFilter from "@/public/assets/filter-icon.svg";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function BillingPage() {
   const [activeTab, setActiveTab] = useState<BillingTabId>("all");
+  const [loading, setLoading] = useState(true);
   const [filterState, setFilterState] = useState<BillingFilterState>({
     selectedStatus: "all",
     selectedPlatform: "all",
     selectedAmount: "all",
     selectedDate: "all",
   });
+
+  // Simulate loading for billing data
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredData = useMemo(() => {
     let filtered = billingData;
@@ -81,6 +89,18 @@ export default function BillingPage() {
       selectedDate: "all",
     });
   };
+
+  if (loading) {
+    return (
+      <div className="h-screen overflow-hidden pb-10 md:pb-0">
+        <DashboardPageContainer>
+          <div className="h-full flex items-center justify-center">
+            <Spinner variant="ring" className="h-8 w-8 text-white" />
+          </div>
+        </DashboardPageContainer>
+      </div>
+    );
+  }
 
   return (
     <DashboardPageContainer>
