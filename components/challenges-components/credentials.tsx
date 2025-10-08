@@ -1,4 +1,4 @@
-import { Copy, ExternalLink } from "lucide-react";
+import { Copy } from "lucide-react";
 import DashboardHeadings from "../common/dashboard-headings";
 import StatusCard from "../common/status-card";
 import { useAccounts } from "@/lib/hooks/use-accounts";
