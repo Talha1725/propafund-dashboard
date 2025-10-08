@@ -25,13 +25,25 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', noBackgr
   // Calculate days traded for a specific account
   const calculateDaysTraded = (accountLogin: string): number => {
     const activeAccountData = accountsData?.[accountLogin];
-    if (!activeAccountData?.mtAccount) return 0;
+    if (!activeAccountData?.metaStats) return 0;
     
-    // Use account creation date to calculate days since account was created
-    const createdAt = activeAccountData.mtAccount.createdAt;
-    if (!createdAt) return 0;
+    const metaStats = activeAccountData.metaStats as Record<string, unknown>;
     
-    const startDate = new Date(createdAt);
+    if (metaStats.trades && typeof metaStats.trades === 'number' && metaStats.trades > 0) {
+      if (metaStats.daysSinceTradingStarted && typeof metaStats.daysSinceTradingStarted === 'number' && metaStats.daysSinceTradingStarted > 0) {
+        return Math.ceil(metaStats.daysSinceTradingStarted as number);
+      }
+      
+      if (metaStats.tradingStartBrokerTime && typeof metaStats.tradingStartBrokerTime === 'string') {
+        return calculateDaysFromStartTime(metaStats.tradingStartBrokerTime as string);
+      }
+    }
+    
+    return 0;
+  };
+
+  const calculateDaysFromStartTime = (startTime: string): number => {
+    const startDate = new Date(startTime);
     const now = new Date();
     const diffTime = Math.abs(now.getTime() - startDate.getTime());
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
