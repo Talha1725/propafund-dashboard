@@ -12,6 +12,7 @@ export function SocialLoginButtons({
   return (
     <div className={`flex gap-3 justify-center w-full max-w-[392px] mx-auto px-4 ${className}`}>
       <button
+        type="button"
         onClick={onAppleLogin}
         className="w-full max-w-[190px] h-[48px] flex items-center justify-center bg-gradient-to-r from-white/5 to-white/2 border border-white/10 hover:opacity-80 transition-opacity"
         style={{
@@ -32,6 +33,7 @@ export function SocialLoginButtons({
       </button>
 
       <button
+        type="button"
         onClick={onGoogleLogin}
         disabled={googleLoading}
         className="w-full max-w-[190px] h-[48px] flex items-center justify-center bg-gradient-to-r from-white/5 to-white/2 border border-white/10 hover:opacity-80 transition-opacity disabled:opacity-50"

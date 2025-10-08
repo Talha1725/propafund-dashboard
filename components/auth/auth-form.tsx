@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useGoogleLogin } from "@react-oauth/google";
 import { useAtom } from "jotai";
+import { useGoogleLogin } from "@react-oauth/google";
 import { toast } from "sonner";
 import { AuthFormProps } from "@/types/auth";
 import { Button } from "@/components/ui/button";
