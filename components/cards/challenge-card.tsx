@@ -1,11 +1,13 @@
 "use client";
 
+import { useState, MouseEvent } from "react";
 import Image from "next/image";
 import { ChevronRight, Calendar } from "lucide-react";
 import { IconGraph, GraphUpIcon, KeyIcon } from "../common/icon";
 import profile from "../../public/assets/profile.svg";
 import { Button } from "../ui/button";
 import { ChallengeCardProps } from "../../types/challenge";
+import { CredentialsDialog } from "../common/credentials-dialog";
 
 
 export function ChallengeCard({
@@ -20,8 +22,22 @@ export function ChallengeCard({
   equity,
   unrealizedPnL,
   onGraphClick,
-  onKeyClick,
+  username = "",
+  password = "",
+  server = "",
+  platform = "",
 }: ChallengeCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleKeyClick = (e:MouseEvent) => {
+    e.stopPropagation(); 
+    setIsModalOpen(true);
+  };
+
+  const handleGraphClick = (e:MouseEvent) => {
+    e.stopPropagation(); 
+    onGraphClick();
+  };
   return (
     <div
       className={`border rounded-[20px] p-4 relative overflow-hidden z-[999] border-white/10 gradient-dark-primary  font-creato-display`}
@@ -68,13 +84,13 @@ export function ChallengeCard({
 
          <div className="flex gap-2.5">
            <button
-             onClick={onGraphClick}
+             onClick={handleGraphClick}
              className="flex items-center justify-center rounded-lg w-[38px] h-[38px] p-1.5 cursor-pointer hover:opacity-90 transition-opacity border border-white/10 bg-gradient-to-b from-[#FFFFFF12] to-[#FFFFFF08]"
            >
              <GraphUpIcon className="w-4 h-4 text-white" />
            </button>
            <button
-             onClick={onKeyClick}
+             onClick={handleKeyClick}
              className="flex items-center justify-center rounded-lg w-[38px] h-[38px] p-1.5 cursor-pointer hover:opacity-90 transition-opacity border border-white/10 bg-gradient-to-b from-[#FFFFFF12] to-[#FFFFFF08]"
            >
              <KeyIcon className="w-4 h-4 text-white" />
@@ -127,6 +143,21 @@ export function ChallengeCard({
           </p>
         </div>
       </div>
+
+      <CredentialsDialog
+        accountId={challengeId}
+        isOpen={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        username={username}
+        password={password}
+        server={server}
+        platform={platform}
+        showDeleteButton={true}
+        onDelete={() => {
+          console.log("Delete account clicked");
+          setIsModalOpen(false);
+        }}
+      />
     </div>
   );
 }
