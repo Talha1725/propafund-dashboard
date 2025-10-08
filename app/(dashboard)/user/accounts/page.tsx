@@ -68,8 +68,8 @@ export default function TradingAccountsPage() {
   const winRatio = currentAccount?.winRatio || 0;
   return (
     <DashboardPageContainer>
-       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 h-full">
-          <div className="lg:col-span-1 column-panel rounded-[14px] px-5 pt-5 overflow-y-auto mb-4 relative">
+       <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 h-full">
+          <div className="xl:col-span-1 column-panel rounded-[14px] px-5 pt-5 overflow-y-auto mb-4 relative">
             <CardSection showAddCard={false} className="max-h-[94%] overflow-auto" />
             <div className="sticky bottom-0 -mx-5 px-5 pt-4 bg-inherit">
               <div className="p-2 relative outline-0 rounded-[14px]">
@@ -86,7 +86,7 @@ export default function TradingAccountsPage() {
               </div>
             </div>
           </div>
-         <div className="lg:col-span-2 space-y-5 pb-4">
+         <div className="xl:col-span-2 space-y-5 pb-4">
         <CardContainer 
                 title="Account Overview" 
                 subtitle={`#${currentAccount.login}`}

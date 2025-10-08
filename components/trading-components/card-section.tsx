@@ -35,13 +35,13 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
     
     const metaStats = activeAccountData.metaStats as { trades?: number; daysSinceTradingStarted?: number; tradingStartBrokerTime?: string };
     
-    if (metaStats.trades && metaStats.trades > 0) {
-      if (metaStats.daysSinceTradingStarted && metaStats.daysSinceTradingStarted > 0) {
-        return Math.ceil(metaStats.daysSinceTradingStarted);
+    if (metaStats.trades && typeof metaStats.trades === 'number' && metaStats.trades > 0) {
+      if (metaStats.daysSinceTradingStarted && typeof metaStats.daysSinceTradingStarted === 'number' && metaStats.daysSinceTradingStarted > 0) {
+        return Math.ceil(metaStats.daysSinceTradingStarted as number);
       }
       
-      if (metaStats.tradingStartBrokerTime) {
-        return calculateDaysFromStartTime(metaStats.tradingStartBrokerTime);
+      if (metaStats.tradingStartBrokerTime && typeof metaStats.tradingStartBrokerTime === 'string') {
+        return calculateDaysFromStartTime(metaStats.tradingStartBrokerTime as string);
       }
     }
     
