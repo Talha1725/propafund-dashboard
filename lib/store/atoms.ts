@@ -73,17 +73,32 @@ export const setTokenAtom = atom(
 export const clearAuthAtom = atom(
   null,
   (get, set) => {
+    // Clear authentication state
     set(userAtom, null);
     set(tokenAtom, null);
     set(authErrorAtom, null);
     set(authLoadingAtom, false);
     set(loginLoadingAtom, false);
     set(registerLoadingAtom, false);
+    set(signupEmailAtom, "");
+    
+    // Clear account data
+    set(accountsRawDataAtom, {});
+    set(selectedAccountAtom, null);
+    set(accountsLoadingAtom, false);
+    set(accountsErrorAtom, null);
+    set(accountsLastFetchAtom, null);
+    
+    // Clear global loading states
+    set(globalLoadingAtom, {});
     
     // Clear localStorage
     if (typeof window !== 'undefined') {
       localStorage.removeItem('userData');
       localStorage.removeItem('token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('selected_account');
+      localStorage.removeItem('signup_email');
     }
   }
 );

@@ -43,10 +43,10 @@ export default function StatusCardSection() {
   if (!currentAccountData) {
     return (
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatusCard active={false} title="Balance" value="No Data" />
-        <StatusCard active={false} title="Deposits" value="No Data" />
-        <StatusCard active={false} title="Total P&L" value="No Data" />
-        <StatusCard active={false} title="Passed Challenges" value="No Data" />
+        <StatusCard active={false} title="Balance" value="--" />
+        <StatusCard active={false} title="Deposits" value="--" />
+        <StatusCard active={false} title="Total P&L" value="--" />
+        <StatusCard active={false} title="Passed Challenges" value="--" />
       </div>
     );
   }

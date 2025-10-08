@@ -45,7 +45,6 @@ export const AccountCard = memo<AccountCardProps>(({
   };
 
   const isGradientCard = balance;
-  // const isInstantFunding = phase === "Instant Funding";
 
   const AddNewCard = () => {
     return (

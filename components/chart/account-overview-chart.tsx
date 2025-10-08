@@ -21,7 +21,7 @@ const AccountOverviewChart = memo<AccountOverviewChartProps>(({ className = "" }
     
   
     if (dailyGrowth.length > 0) {
-      return dailyGrowth.map((day: { date: string; balance: number }) => ({
+      return dailyGrowth.map((day: { date: string; balance?: number }) => ({
         date: new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
         value: day.balance || startingBalance
       }));
@@ -37,7 +37,7 @@ const AccountOverviewChart = memo<AccountOverviewChartProps>(({ className = "" }
       .filter((trade: { type: string }) => trade.type !== 'DEAL_TYPE_BALANCE')
       .sort((a: { closeTime?: string }, b: { closeTime?: string }) => new Date(a.closeTime || '').getTime() - new Date(b.closeTime || '').getTime());
     
-    actualTrades.forEach((trade: { closeTime?: string; profit: number }) => {
+    actualTrades.forEach((trade: { closeTime?: string; profit?: number }) => {
       const tradeDate = new Date(trade.closeTime || '').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       if (!tradesByDate[tradeDate]) {
         tradesByDate[tradeDate] = 0;
@@ -63,7 +63,7 @@ const AccountOverviewChart = memo<AccountOverviewChartProps>(({ className = "" }
   const chartData = generateChartData();
   
   if (chartData.length === 0) {
-    return <div className={`w-full h-[200px] flex items-center justify-center text-white/60 ${className}`}>No data available</div>;
+    return <div className={`w-full h-[200px] flex items-center justify-center text-white/60 ${className}`}>--</div>;
   }
   
   const allBalances = chartData.map(d => d.value);

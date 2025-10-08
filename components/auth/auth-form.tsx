@@ -1,8 +1,15 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAtom } from "jotai";
+import { useGoogleLogin } from "@react-oauth/google";
+import { toast } from "sonner";
 import { AuthFormProps } from "@/types/auth";
 import { Button } from "@/components/ui/button";
 import { SocialLoginButtons } from "./social-login-buttons";
+import { auth } from "@/lib/api/endpoints/auth";
+import { setUserAtom, setTokenAtom } from "@/lib/store/atoms";
 import Link from "next/link";
 
 export function AuthForm({
@@ -20,6 +27,66 @@ export function AuthForm({
     className = "",
     titleClassName = "",
 }: AuthFormProps) {
+    const router = useRouter();
+    const [, setUser] = useAtom(setUserAtom);
+    const [, setToken] = useAtom(setTokenAtom);
+    const [googleLoading, setGoogleLoading] = useState(false);
+
+    const googleOAuthLogin = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+            const loadingToastId = toast.loading("Signing you in with Google...");
+            setGoogleLoading(true);
+            
+            try {
+                const response = await auth.googleAuth({ 
+                    access_token: tokenResponse.access_token 
+                });
+
+                if (response && (response.success !== false && response.status !== 'failed')) {
+                    let userData = response.user;
+                    let tokenData = response.token;
+                    
+                    if (response.data) {
+                        if (typeof response.data === 'object' && 'userData' in response.data) {
+                            userData = response.data.userData;
+                            tokenData = response.data.token;
+                        } else if (typeof response.data === 'object' && 'user' in response.data) {
+                            userData = response.data.user;
+                            tokenData = response.data.token;
+                        } else if (typeof response.data === 'object' && 'existingUser' in response.data) {
+                            userData = response.data.existingUser;
+                            tokenData = response.data.token;
+                        } else if (typeof response.data === 'object' && 'newUser' in response.data) {
+                            userData = response.data.newUser;
+                            tokenData = response.data.token;
+                        }
+                    }
+                    
+                    if (userData && tokenData) {
+                        setUser(userData);
+                        setToken(tokenData);
+                        toast.success("Google login successful!");
+                        router.push("/user/dashboard");
+                    } else {
+                        toast.error("Google login failed: No user data received");
+                    }
+                } else {
+                    const errorMessage = response?.message || response?.error || 'Google login failed';
+                    toast.error(errorMessage);
+                }
+            } catch (error) {
+                console.error('Google login error:', error);
+                toast.error("Google login failed");
+            } finally {
+                setGoogleLoading(false);
+                toast.dismiss(loadingToastId);
+            }
+        },
+        onError: () => {
+            setGoogleLoading(false);
+            toast.error("Google login failed. Please try again.");
+        },
+    });
     return (
         <div className={`w-full ${className}`}>
             <div className="text-center mb-6">
@@ -35,8 +102,8 @@ export function AuthForm({
                 {showSocialLogin && (
                     <SocialLoginButtons
                         onAppleLogin={() => console.log("Apple login")}
-                        onGoogleLogin={() => console.log("Google login")}
-                        googleLoading={false}
+                        onGoogleLogin={googleOAuthLogin}
+                        googleLoading={googleLoading}
                     />
                 )}
 

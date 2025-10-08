@@ -33,7 +33,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
     const activeAccountData = accountsData?.[accountLogin];
     if (!activeAccountData?.metaStats) return 0;
     
-    const metaStats = activeAccountData.metaStats as Record<string, unknown>;
+    const metaStats = activeAccountData.metaStats as { trades?: number; daysSinceTradingStarted?: number; tradingStartBrokerTime?: string };
     
     if (metaStats.trades && typeof metaStats.trades === 'number' && metaStats.trades > 0) {
       if (metaStats.daysSinceTradingStarted && typeof metaStats.daysSinceTradingStarted === 'number' && metaStats.daysSinceTradingStarted > 0) {
