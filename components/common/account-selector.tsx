@@ -44,15 +44,7 @@ export function AccountSelector() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center gap-2 px-3 py-2 border border-white/10 rounded-lg">
-        <User className="w-4 h-4 text-white/50" />
-        <div className="flex flex-col">
-          <div className="h-4 w-20 bg-white/20 rounded animate-pulse"></div>
-          <div className="h-3 w-16 bg-white/20 rounded animate-pulse mt-1"></div>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   if (!currentAccount || accounts.length === 0) {
@@ -66,7 +58,7 @@ export function AccountSelector() {
 
   return (
     <Select value={selectedAccount || ''} onValueChange={handleAccountSelection}>
-      <SelectTrigger className="sm:!h-12 !h-9 sm:min-w-[220px] min-w-[120px] sm:border-2 border border-white/10 bg-transparent sm:bg-transparent bg-white/5 text-white hover:opacity-80 transition-opacity font-lay-grotesk">
+      <SelectTrigger className="sm:!h-12 !h-9 sm:min-w-[220px] min-w-[120px] sm:border-2 border border-white/10 sm:bg-transparent bg-white/5 text-white hover:opacity-80 transition-opacity font-lay-grotesk">
         <div className="flex items-center gap-2 w-full">
           <User className="w-4 h-4 text-white/80" />
           <div className="flex flex-col items-start text-left flex-1">

@@ -176,8 +176,6 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', noBackgr
           return (
             <div 
               key={account.id}
-              onClick={() => handleAccountSelect(account.id)}
-              className="cursor-pointer"
             >
               <ChallengeCard
                 challengeId={account.login}

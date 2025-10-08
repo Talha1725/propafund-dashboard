@@ -11,7 +11,7 @@ export default function ChallengeStats() {
     if (!currentAccountData) {
       return {
         todayPermittedLoss: "--",
-        totalAmountPaid: "--",
+        totalAmountPaid: "$0.00",
         totalPayouts: "--"
       };
     }
@@ -23,18 +23,18 @@ export default function ChallengeStats() {
     const todayPermittedLoss = balance > 0 ? `$${(balance * 0.05).toLocaleString()}` : "--";
     
     // Calculate total amount paid from payment add-ons
-    let totalAmountPaid = "--";
+    let totalAmountPaid = "$0.00";
     if (payment?.addOns) {
       const addOns = payment.addOns as Record<string, unknown>;
       if (addOns.addonDetails && Array.isArray(addOns.addonDetails)) {
         const total = addOns.addonDetails.reduce((sum: number, addon: Record<string, unknown>) => {
           return sum + (parseFloat(addon.amount as string) || 0);
         }, 0);
-        totalAmountPaid = total > 0 ? `$${total.toLocaleString()}` : "--";
+        totalAmountPaid = `$${total.toFixed(2)}`;
       }
     }
     
-    // Calculate total payouts (number of successful trades)
+    // Calculate total payouts
     const totalPayouts = metaStats?.trades || 0;
     
     return {
