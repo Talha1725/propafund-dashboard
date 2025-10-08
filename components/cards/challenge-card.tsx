@@ -65,7 +65,7 @@ export function ChallengeCard({
             <p className="text-white/60 text-base font-normal">
               No. of Trades
             </p>
-            <p className="text-white text-lg font-medium leading-tight">
+            <p className="text-white text-xs font-normal md:text-lg md:font-medium leading-tight">
               {numberOfTrades}
             </p>
           </div>
@@ -76,7 +76,7 @@ export function ChallengeCard({
             <p className="text-white/60 text-base font-normal">
               Days traded
             </p>
-            <p className="text-white text-lg font-medium leading-tight">
+            <p className="text-white text-xs font-normal md:text-lg md:font-medium leading-tight">
               {daysTraded}
             </p>
           </div>
