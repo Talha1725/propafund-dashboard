@@ -6,7 +6,7 @@ import Image from "next/image";
 import logo from "@/public/assets/dashbaord-logo.svg";
 import { useSidebar } from "../ui/sidebar";
 import { usePathname } from "next/navigation";
-import { AccountSelector, AccountSelectorMobile } from "./account-selector";
+import { AccountSelector } from "./account-selector";
 
 export function Navbar() {
   const { toggleSidebar } = useSidebar();
@@ -79,15 +79,8 @@ export function Navbar() {
             <Image src={bell} alt="bell" className="w-4 h-4" />
           </button> */}
 
-          {/* Desktop Account Selector */}
-          <div className="hidden md:block">
-            <AccountSelector />
-          </div>
-          
-          {/* Mobile Account Selector */}
-          <div className="md:hidden block">
-            <AccountSelectorMobile />
-          </div>
+          {/* Responsive Account Selector */}
+          <AccountSelector />
         </div>
       </div>
     </div>

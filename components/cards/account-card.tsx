@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image, { type StaticImageData } from "next/image";
 import profile from "../../public/assets/profile.svg";
 import graphUp from "../../public/assets/graph-up.svg";
@@ -21,13 +22,13 @@ export const AccountCard = memo<AccountCardProps>(({
   isAddNewCard = false,
   ...credentials
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const handleGraphClick = () => {
-    if (!isAddNewCard) {
-      setIsClicked(true);
-      // Navigation disabled per new single-section layout
+    if (!isAddNewCard && accountId) {
+      router.push(`/user/dashboard?accountId=${accountId}`);
     }
   };
 
@@ -44,7 +45,7 @@ export const AccountCard = memo<AccountCardProps>(({
   };
 
   const isGradientCard = balance;
-  const isInstantFunding = phase === "Instant Funding";
+  // const isInstantFunding = phase === "Instant Funding";
 
   const AddNewCard = () => {
     return (
@@ -65,7 +66,7 @@ export const AccountCard = memo<AccountCardProps>(({
           {accountId}
         </span>
       </div>
-      <button className={`${isGradientCard ? "bg-[#0B0E121A] text-[#0B0E12]" : isInstantFunding ? "text-white bg-instant-funding" : "text-black white-purple-gradient"} font-lay-grotesk font-medium text-sm leading-[136%] tracking-[-2%] rounded px-3.5 py-1 h-[27px] whitespace-nowrap`}>
+      <button className={`${isGradientCard ? "bg-[#0B0E121A] text-[#0B0E12]" : "text-white bg-instant-funding"} font-lay-grotesk font-medium text-sm leading-[136%] tracking-[-2%] rounded px-3.5 py-1 h-[27px] whitespace-nowrap`}>
         {phase}
       </button>
     </div>
@@ -104,7 +105,7 @@ export const AccountCard = memo<AccountCardProps>(({
   return (
     <>
       <div 
-        className={`${isInstantFunding ? "" : "border"} rounded-[20px] p-5 sm:p-6 relative overflow-hidden max-h-[146px] hover:opacity-90 transition-all duration-200 ${getCardStyle()} ${isGradientCard ? "bg-gradient-to-b from-white to-blue" : isInstantFunding ? "bg-instant-funding text-white" : "bg-black"}`}
+        className={`border rounded-[20px] p-5 sm:p-6 relative overflow-hidden max-h-[146px] hover:opacity-90 transition-all duration-200 ${getCardStyle()}`}
       >        
         <ProfileSection />
         

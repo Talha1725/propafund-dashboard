@@ -4,6 +4,7 @@ import { AuthLayout } from "@/components/auth/auth-layout";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useCallback, useRef, Suspense } from "react";
+import { Spinner } from "@/components/ui/spinner";
 import { useSearchParams } from "next/navigation";
 import { handleApiError } from "@/lib/utils/apiUtils";
 import { auth } from "@/lib/api/endpoints/auth";
@@ -125,10 +126,7 @@ export default function CongratsSignupPage() {
     <Suspense fallback={
       <AuthLayout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading...</p>
-          </div>
+          <Spinner variant="ring" className="h-8 w-8 text-white" />
         </div>
       </AuthLayout>
     }>

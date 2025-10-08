@@ -66,58 +66,59 @@ export function AccountSelector() {
 
   return (
     <Select value={selectedAccount || ''} onValueChange={handleAccountSelection}>
-      <SelectTrigger className="w-auto min-w-[200px] border-white/10 bg-transparent text-white hover:bg-white/5">
-        <div className="flex items-center gap-2">
-          <User className="w-4 h-4" />
-          <div className="flex flex-col items-start">
-            <div className="flex items-center gap-1">
-              <span className="text-sm font-medium">
-                #{currentAccount.login}
-              </span>
-              <span className="text-xs text-white/70">
-                • {formatChallengeType(currentAccount.challengeType)}
+      <SelectTrigger className="sm:!h-12 !h-9 sm:min-w-[220px] min-w-[120px] sm:border-2 border border-white/10 bg-transparent sm:bg-transparent bg-white/5 text-white hover:opacity-80 transition-opacity font-lay-grotesk">
+        <div className="flex items-center gap-2 w-full">
+          <User className="w-4 h-4 text-white/80" />
+          <div className="flex flex-col items-start text-left flex-1">
+            <div className="flex items-center gap-2">
+              <span className="text-white font-lay-grotesk sm:text-sm text-xs">
+                #{currentAccount.login}<span className="sm:inline hidden"> • {formatChallengeType(currentAccount.challengeType)}</span>
               </span>
               {currentAccount.status === 'failed' && (
-                <span className="text-xs bg-red-500/20 text-red-400 px-1 rounded">
+                <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-red-600 text-white">
                   FAILED
                 </span>
               )}
             </div>
-            <span className="text-xs text-white/60">
+            <span className="text-white/60 font-lay-grotesk text-xs sm:block hidden">
               {formatCurrency(currentAccount.balance)} Balance
             </span>
           </div>
         </div>
       </SelectTrigger>
-      <SelectContent className="bg-dark border-white/10">
+      <SelectContent className="bg-black border-gray-600 text-white w-[var(--radix-select-trigger-width)] z-[9999]" position="popper">
         {accounts.map((account) => (
           <SelectItem 
             key={account.id} 
             value={account.id}
-            className="text-white hover:bg-white/10 focus:bg-white/10"
+            className="focus:bg-gray-800 focus:text-white cursor-pointer"
           >
-            <div className="flex items-center justify-between w-full">
-              <div className="flex flex-col items-start">
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">#{account.login}</span>
-                  <span className="text-xs text-white/70">
-                    {formatChallengeType(account.challengeType)}
+            <div className="flex items-center justify-between w-full gap-4">
+              <div className="flex items-center gap-3">
+                <User className="w-4 h-4 text-gray-300" />
+                <div className="flex flex-col items-start">
+                  <span className="text-white font-lay-grotesk text-sm">
+                    #{account.login}
                   </span>
-                  {account.status === 'failed' && (
-                    <span className="text-xs bg-red-500/20 text-red-400 px-1 rounded">
-                      FAILED
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-400 font-lay-grotesk text-xs">
+                      {formatChallengeType(account.challengeType)}
                     </span>
-                  )}
+                    {account.status === 'failed' && (
+                      <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-red-600 text-white">
+                        FAILED
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <span className="text-xs text-white/60">
-                  {account.accountName} • {account.brokerName}
-                </span>
               </div>
-              <div className="flex flex-col items-end">
-                <span className="text-sm font-medium">
+              <div className="text-right sm:block hidden">
+                <div className="text-white font-lay-grotesk text-sm">
                   {formatCurrency(account.balance)}
-                </span>
-                <span className="text-xs text-white/60">Balance</span>
+                </div>
+                <div className="text-gray-400 font-lay-grotesk text-xs">
+                  Balance
+                </div>
               </div>
             </div>
           </SelectItem>
@@ -127,85 +128,3 @@ export function AccountSelector() {
   );
 }
 
-// Mobile version for smaller screens
-export function AccountSelectorMobile() {
-  const { accounts, currentAccount, selectedAccount, setSelectedAccount, loading } = useAccounts();
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const formatChallengeType = (type: string) => {
-    switch (type) {
-      case 'twoPhase': return 'Two Phase';
-      case 'instantFund': return 'Instant Fund';
-      default: return type;
-    }
-  };
-
-  const handleAccountSelection = (accountId: string) => {
-    setSelectedAccount(accountId);
-    
-    if (pathname === '/user/account-details') {
-      const selectedAccountData = accounts.find(account => account.id === accountId);
-      if (selectedAccountData) {
-        router.push(`/user/account-details?accountId=${selectedAccountData.login}`);
-      }
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center gap-1 px-2 py-1 border border-white/10 rounded">
-        <User className="w-4 h-4 text-white/50" />
-        <div className="h-4 w-16 bg-white/20 rounded animate-pulse"></div>
-      </div>
-    );
-  }
-
-  if (!currentAccount || accounts.length === 0) {
-    return (
-      <div className="flex items-center gap-1 px-2 py-1 border border-white/10 rounded">
-        <User className="w-4 h-4 text-white/50" />
-        <span className="text-white/50 text-xs">No Accounts</span>
-      </div>
-    );
-  }
-
-  return (
-    <Select value={selectedAccount || ''} onValueChange={handleAccountSelection}>
-      <SelectTrigger className="w-auto min-w-[120px] border-white/10 bg-transparent text-white hover:bg-white/5">
-        <div className="flex items-center gap-1">
-          <User className="w-4 h-4" />
-          <span className="text-sm font-medium">
-            #{currentAccount.login}
-          </span>
-          {currentAccount.status === 'failed' && (
-            <span className="text-xs bg-red-500/20 text-red-400 px-1 rounded">
-              FAILED
-            </span>
-          )}
-        </div>
-      </SelectTrigger>
-      <SelectContent className="bg-dark border-white/10">
-        {accounts.map((account) => (
-          <SelectItem 
-            key={account.id} 
-            value={account.id}
-            className="text-white hover:bg-white/10 focus:bg-white/10"
-          >
-            <div className="flex items-center gap-2">
-              <span className="font-medium">#{account.login}</span>
-              <span className="text-xs text-white/70">
-                {formatChallengeType(account.challengeType)}
-              </span>
-              {account.status === 'failed' && (
-                <span className="text-xs bg-red-500/20 text-red-400 px-1 rounded">
-                  FAILED
-                </span>
-              )}
-            </div>
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-}

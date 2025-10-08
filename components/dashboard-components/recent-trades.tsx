@@ -5,6 +5,7 @@ import DataTable from "@/components/common/data-table";
 import DashboardHeadings from "../common/dashboard-headings";
 import { useAccounts } from "@/lib/hooks/use-accounts";
 import type { Trade } from "@/types/meta-stats";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function RecentTrades() {
   const [viewMode, setViewMode] = useState<"less" | "more">("less");
@@ -99,8 +100,8 @@ export default function RecentTrades() {
         <div className="flex md:flex-row flex-col justify-between md:items-center gap-4 px-4">
           <DashboardHeadings title="Recent Trades" />
         </div>
-        <div className="mt-5 p-4">
-          <div className="text-white/50 text-center">Loading trades...</div>
+        <div className="mt-5 p-4 flex items-center justify-center">
+          <Spinner variant="ring" size={32} className="text-white" />
         </div>
       </div>
     );

@@ -7,6 +7,9 @@ import AccountOverviewChart from "@/components/chart/account-overview-chart";
 import MetricCard from "@/components/common/metric-cards";
 import TradingBehaviorSection from "@/components/common/trading-behavior";
 import ChallengesOverview from "@/components/common/challenges-overview";
+import DashboardPageContainer from "@/components/common/dashboard-page-container";
+import { Spinner } from "@/components/ui/spinner";
+import { AccountCard } from "@/components/cards/account-card";
 
 export default function TradingAccountsPage() {
   const { currentAccount, currentAccountData, loading, error } = useAccounts();
@@ -32,17 +35,20 @@ export default function TradingAccountsPage() {
 
   if (loading) {
     return (
-      <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
-        <div className="flex items-center justify-center h-64">
-          <div className="text-white">Loading account data...</div>
-        </div>
+      <div className="h-screen overflow-hidden pb-10 md:pb-0">
+        <DashboardPageContainer>
+          <div className="h-full flex items-center justify-center">
+            <Spinner variant="ring" className="h-8 w-8 text-white" />
+          </div>
+        </DashboardPageContainer>
       </div>
     );
   }
 
   if (error || !currentAccount || !currentAccountData) {
     return (
-      <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
+      <div className="p-3 md:p-6 md:pb-4 xl:h-[85vh] relative outline-0">
+        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full h-[200px] bg-gradient-to-b from-blue to-blue/50 rotate-[14deg] blur-3xl opacity-20 z-0 pointer-events-none"></div>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <h2 className="text-xl font-semibold text-white mb-2">No Account Data</h2>
@@ -61,12 +67,26 @@ export default function TradingAccountsPage() {
   const averageLoss = currentAccount?.averageLoss || 0;
   const winRatio = currentAccount?.winRatio || 0;
   return (
-    <div className="p-3 md:p-6 md:pb-4 space-y-5 min-h-screen overflow-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-1 column-panel rounded-[14px] p-5 h-fit lg:h-full">
-          <CardSection />
-        </div>
-        <div className="lg:col-span-2 h-fit lg:min-h-screen space-y-5">
+    <DashboardPageContainer>
+       <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 h-full">
+          <div className="xl:col-span-1 column-panel rounded-[14px] px-5 pt-5 overflow-y-auto mb-4 relative">
+            <CardSection showAddCard={false} className="max-h-[94%] overflow-auto" />
+            <div className="sticky bottom-0 -mx-5 px-5 pt-4 bg-inherit">
+              <div className="p-2 relative outline-0 rounded-[14px]">
+                <AccountCard
+                  accountId=""
+                  username=""
+                  password=""
+                  server=""
+                  phase=""
+                  tradesCount={0}
+                  daysTraded={0}
+                  isAddNewCard
+                />
+              </div>
+            </div>
+          </div>
+         <div className="xl:col-span-2 space-y-5 pb-4">
         <CardContainer 
                 title="Account Overview" 
                 subtitle={`#${currentAccount.login}`}
@@ -102,7 +122,7 @@ export default function TradingAccountsPage() {
               </CardContainer>
               
               <div className="mt-5">
-                <TradingBehaviorSection className="!w-full" />
+                <TradingBehaviorSection className="!w-full sm:!w-full lg:!w-full xl:!w-full min-[1308px]:!w-full" />
               </div>
               
               <CardContainer 
@@ -122,6 +142,6 @@ export default function TradingAccountsPage() {
               <ChallengesOverview className="!w-full" />
         </div>
       </div>
-    </div>
+    </DashboardPageContainer>
   );
 }

@@ -8,6 +8,7 @@ import NotificationSection from "@/components/setting-components/notification-se
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 function SettingsContent() {
   const searchParams = useSearchParams();
@@ -58,7 +59,11 @@ function SettingsContent() {
 
 export default function SettingsPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen bg-dark flex items-center justify-center">
+        <Spinner variant="ring" className="h-8 w-8 text-white" />
+      </div>
+    }>
       <SettingsContent />
     </Suspense>
   );

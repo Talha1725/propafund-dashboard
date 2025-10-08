@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
+import { Spinner } from "@/components/ui/spinner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordSchema, type ResetPasswordData } from "@/lib/schemas/auth";
@@ -230,10 +231,7 @@ export default function ResetPasswordPage() {
     <Suspense fallback={
       <AuthLayout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading...</p>
-          </div>
+          <Spinner variant="ring" className="h-8 w-8 text-white" />
         </div>
       </AuthLayout>
     }>
