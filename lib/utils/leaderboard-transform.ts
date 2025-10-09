@@ -1,4 +1,4 @@
-import type { LeaderboardUser, LeaderboardTableData } from '@/types/leaderboard';
+import type { LeaderboardUser } from '@/types/leaderboard';
 
 const getCountryCode = (flag: string): string => {
   const countryMap: Record<string, string> = {
@@ -73,15 +73,6 @@ export const transformTopThreeTraders = (apiData: LeaderboardUser[]) => {
   }));
 };
 
-const getOrdinalSuffix = (num: number): string => {
-  if (num > 3 && num < 21) return 'th';
-  switch (num % 10) {
-    case 1: return 'st';
-    case 2: return 'nd';
-    case 3: return 'rd';
-    default: return 'th';
-  }
-};
 
 /**
  * Filter leaderboard data by account size

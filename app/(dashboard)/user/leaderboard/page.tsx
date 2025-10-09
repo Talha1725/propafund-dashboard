@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import AccountSizeFilter from "@/components/common/account-size-filter";
 import SearchBar from "@/components/common/search-bar";
 import DataTable from "@/components/common/data-table";
 import { ProfileCard } from "@/components/cards/profile-card";
+import { Spinner } from "@/components/ui/spinner";
 import { leaderboardColumns } from "@/lib/data/leaderboard";
 import { useLeaderboardData } from "@/lib/hooks/use-leaderboard-data";
 import { useLeaderboardState } from "@/lib/hooks/use-leaderboard-state";
@@ -85,12 +86,8 @@ export default function LeaderboardPage() {
         
         {/* Top 3 Trader Cards */}
         {loading ? (
-          <div className="flex flex-col lg:flex-row justify-between mb-6 px-4 gap-4 md:gap-[21px]">
-            {[1, 2, 3].map((index) => (
-              <div key={index} className="flex justify-center md:block mt-0">
-                <div className="w-full max-w-[370px] h-[250px] rounded-[20px] bg-white/5 animate-pulse" />
-              </div>
-            ))}
+          <div className="flex justify-center items-center h-64 mb-6">
+            <Spinner variant="ring" className="h-8 w-8 text-white" />
           </div>
         ) : error ? (
           <div className="flex justify-center items-center h-64">
