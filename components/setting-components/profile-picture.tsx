@@ -2,7 +2,7 @@
 import Image, { StaticImageData } from "next/image";
 import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
-import { userAtom, setUserAtom } from "@/lib/store/atoms";
+import { userAtom } from "@/lib/store/atoms";
 import { profile } from "@/lib/api/endpoints/profile";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
