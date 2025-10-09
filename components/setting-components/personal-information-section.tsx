@@ -15,13 +15,26 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { personalInformationFormSchema, PersonalInformationFormData } from "@/lib/schemas/personal-information";
 import ProfilePicture from "@/components/setting-components/profile-picture";
+import { profile } from "@/lib/api/endpoints/profile";
+import { useAtom } from "jotai";
+import { userAtom, setUserAtom } from "@/lib/store/atoms";
+import { useEffect, useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
 
 export default function PersonalInformationSection() {
+  const [user] = useAtom(userAtom);
+  const [, setUser] = useAtom(setUserAtom);
+  const [isLoading, setIsLoading] = useState(true);
+  const [profileData, setProfileData] = useState<any>(null);
+  const [currentUsername, setCurrentUsername] = useState(user?.userName || "");
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    reset,
   } = useForm<PersonalInformationFormData>({
     resolver: zodResolver(personalInformationFormSchema),
     defaultValues: {
@@ -44,19 +57,119 @@ export default function PersonalInformationSection() {
     },
   });
 
+  // Load profile data on component mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        setIsLoading(true);
+        
+        if (!user?.email) {
+          throw new Error("User not logged in or email not available");
+        }
+        
+        // Get profile using the user's email from context
+        const response = await profile.get(user.email);
+        if (response.success && response.data.profile) {
+          const data = response.data.profile;
+          setProfileData(data);
+          
+          reset({
+            profile: {
+              profileImage: data.profilePicture || "",
+            },
+            personal: {
+              firstName: data.firstName || "",
+              lastName: data.lastName || "",
+              gender: data.gender ? (data.gender as "male" | "female" | "other") : undefined,
+            },
+            contact: {
+              contactNumber: data.phone || "",
+              emailAddress: user.email,
+              country: data.country || "",
+              city: data.town || "",
+              address: data.apartment || "",
+              postalCode: data.postalCode || "",
+            },
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        toast.error("Failed to load profile data");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (user?.email && !profileData) {
+      fetchProfile();
+    }
+  }, [user?.email, profileData, reset]);
+
   const onSubmit = async (data: PersonalInformationFormData) => {
     try {
-      console.log("Form data:", data);
-      // Here you would typically send the data to your API
-      // await updatePersonalInformation(data);
+      // Update username if changed
+      if (currentUsername && currentUsername !== user?.userName) {
+        const usernameResponse = await profile.updateUsername(currentUsername);
+        if (usernameResponse.success && usernameResponse.data?.user && user) {
+          // Update user with complete user data
+          const updatedUser = {
+            ...user,
+            userName: usernameResponse.data.user.userName,
+          };
+          setUser(updatedUser);
+          toast.success("Username updated successfully!");
+        }
+      }
+
+      // Map form data to API format
+      const updateData = {
+        email: user?.email || "",
+        firstName: data.personal.firstName,
+        lastName: data.personal.lastName,
+        gender: data.personal.gender,
+        country: data.contact.country,
+        city: data.contact.city,
+        apartment: data.contact.address,
+        postalCode: data.contact.postalCode,
+        phone: data.contact.contactNumber,
+      };
+
+      const response = await profile.update(updateData);
+      
+      if (response.success) {
+        setProfileData(response.data.profile);
+        toast.success("Profile updated successfully!");
+      } else {
+        throw new Error(response.message || "Failed to update profile");
+      }
     } catch (error) {
-      console.error("Error updating personal information:", error);
+      console.error("Error updating profile:", error);
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 
   const handleImageChange = (imageUrl: string) => {
     setValue("profile.profileImage", imageUrl);
+    
+    // Update profile data state
+    if (profileData) {
+      setProfileData({
+        ...profileData,
+        profilePicture: imageUrl
+      });
+    }
   };
+
+  // Show loading spinner while fetching data
+  if (isLoading) {
+    return (
+      <div className="flex-1">
+        <div className="h-96 flex items-center justify-center">
+          <Spinner variant="ring" className="h-12 w-12 text-white" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1">
@@ -65,7 +178,10 @@ export default function PersonalInformationSection() {
         <ComponentContainer>
           <div className="settings-heading text-white text-lg font-normal">Profile Picture</div>
           <div className="mt-3 sm:mt-4">
-            <ProfilePicture onImageChange={handleImageChange} />
+            <ProfilePicture 
+              onImageChange={handleImageChange} 
+              initialImage={profileData?.profilePicture || user?.picture || ""}
+            />
           </div>
         </ComponentContainer>
 
