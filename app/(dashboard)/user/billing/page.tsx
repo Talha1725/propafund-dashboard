@@ -5,15 +5,18 @@ import DashboardPageContainer from "@/components/common/dashboard-page-container
 import DataTable from "@/components/common/data-table";
 import CertificateTabs from "@/components/common/certificate-tabs";
 import FilterDropdown from "@/components/common/filter-dropdown";
-import { billingColumns } from "@/lib/data/billing";
 import { getTabConfig, BILLING_STYLES } from "@/constants/common-tabs";
 import { getBillingFilterGroups } from "@/lib/utils/billing-filters";
-import { BillingTabId, BillingFilterState, PaymentHistoryFilters } from "@/types/billing";
+import { BillingTabId, BillingFilterState, PaymentHistoryFilters, BillingItem } from "@/types/billing";
 import IconFilter from "@/public/assets/filter-icon.svg";
 import { Spinner } from "@/components/ui/spinner";
 import { usePaymentHistory } from "@/lib/hooks/use-payment-history";
 import { transformPaymentHistoryToBilling } from "@/lib/utils/payment-transform";
 import BillingPagination from "@/components/billing/billing-pagination";
+import { generateInvoicePDF } from "@/lib/utils/invoice-pdf";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import download from "@/public/assets/download.svg";
 
 export default function BillingPage() {
   const [activeTab, setActiveTab] = useState<BillingTabId>("all");
@@ -50,6 +53,98 @@ export default function BillingPage() {
   const billingData = useMemo(() => {
     if (!paymentHistory) return [];
     return transformPaymentHistoryToBilling(paymentHistory);
+  }, [paymentHistory]);
+
+  // Create dynamic columns with download invoice functionality
+  const dynamicBillingColumns = useMemo(() => {
+    return [
+      {
+        key: "orderNumber" as keyof BillingItem,
+        label: "Order Number",
+        sortable: true,
+        render: (value: string) => (
+          <div className="text-white">{value}</div>
+        )
+      },
+      {
+        key: "challenge" as keyof BillingItem,
+        label: "Challenge",
+        sortable: true,
+        render: (value: string) => (
+          <div className="text-white">{value}</div>
+        )
+      },
+      {
+        key: "status" as keyof BillingItem,
+        label: "Status",
+        sortable: true,
+        render: (value: string) => {
+          const statusClass = value === "paid" 
+            ? "bg-gradient-to-b from-[#00EB6E] to-[#00853E] bg-clip-text text-transparent"
+            : "bg-gradient-to-b from-[#FF0633] to-[#C40023] bg-clip-text text-transparent";
+          
+          return (
+            <div className={statusClass}>
+              {value.toUpperCase()}
+            </div>
+          );
+        }
+      },
+      {
+        key: "date" as keyof BillingItem,
+        label: "Date",
+        sortable: true,
+        render: (value: string) => (
+          <div className="text-white">{value}</div>
+        )
+      },
+      {
+        key: "amount" as keyof BillingItem,
+        label: "Amount",
+        sortable: true,
+        render: (value: string) => (
+          <div className="text-white">{value}</div>
+        )
+      },
+      {
+        key: "platform" as keyof BillingItem,
+        label: "Platform",
+        sortable: true,
+        render: (value: string) => (
+          <div className="text-white">{value}</div>
+        )
+      },
+      {
+        key: "action" as keyof BillingItem,
+        label: "Action",
+        sortable: false,
+        render: (_: unknown, row: BillingItem) => {
+          const isPaid = row.status === "paid";
+          
+          const handleDownloadInvoice = () => {
+            // Find the original payment data using the billing ID
+            const originalPayment = paymentHistory.find(p => p.id.toString() === row.id);
+            if (originalPayment) {
+              generateInvoicePDF(originalPayment);
+            }
+          };
+          
+          return (
+            <Button
+              variant="gradient"
+              disabled={!isPaid}
+              onClick={handleDownloadInvoice}
+              className="sm:h-10 h-9 flex items-center justify-center rounded-lg hover:opacity-50 cursor-pointer relative overflow-visible px-2.5 xl:px-4"
+            >
+              <Image src={download} alt="download" className="w-4 h-4 filter brightness-0" />
+              <p className="font-lay-grotesk lg:block hidden">
+                Download Invoice
+              </p>
+            </Button>
+          );
+        }
+      }
+    ];
   }, [paymentHistory]);
 
   // Apply tab filtering to transformed data
@@ -183,7 +278,7 @@ export default function BillingPage() {
             <div className={BILLING_STYLES.layout.tableContainer}>
               <DataTable
                 data={paginatedData}
-                columns={billingColumns}
+                columns={dynamicBillingColumns}
                 className="billing-table"
                 responsive={true}
               />
