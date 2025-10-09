@@ -13,7 +13,14 @@ export interface Account {
     trades: number;
     paymentStatus: string;
     accountProtectionUsed: boolean;
+    createdAt: string;
+    updatedAt: string;
+    startingBalance: number;
     winRatio: number;
     averageWin: number;
     averageLoss: number;
-  }
+    dailyGrowth: Array<{
+        date: string;
+        balance: number;
+    }>;
+}

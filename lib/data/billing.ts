@@ -1,5 +1,5 @@
 import React from "react";
-import { BillingOrder, BillingTableColumn } from "@/types/billing";
+import { BillingOrder, BillingTableColumn, BillingItem } from "@/types/billing";
 
 export const billingData: BillingOrder[] = [
   {
@@ -68,16 +68,11 @@ const createActionButton = (value: string, onClick: () => void) =>
     onClick
   }, value);
 
+// Updated columns for new BillingItem structure
 export const billingColumns: BillingTableColumn[] = [
   {
     key: "orderNumber",
     label: "Order Number",
-    sortable: true,
-    render: (value: string) => createTableCell("text-white", value)
-  },
-  {
-    key: "date",
-    label: "Date",
     sortable: true,
     render: (value: string) => createTableCell("text-white", value)
   },
@@ -88,8 +83,26 @@ export const billingColumns: BillingTableColumn[] = [
     render: (value: string) => createTableCell("text-white", value)
   },
   {
-    key: "addons",
-    label: "Addons",
+    key: "status",
+    label: "Status",
+    sortable: true,
+    render: (value: string) => {
+      const statusClass = value === "paid" 
+        ? "bg-gradient-to-b from-[#00EB6E] to-[#00853E] bg-clip-text text-transparent"
+        : "bg-gradient-to-b from-[#FF0633] to-[#C40023] bg-clip-text text-transparent";
+      
+      return createTableCell(statusClass, value.toUpperCase());
+    }
+  },
+  {
+    key: "date",
+    label: "Date",
+    sortable: true,
+    render: (value: string) => createTableCell("text-white", value)
+  },
+  {
+    key: "amount",
+    label: "Amount",
     sortable: true,
     render: (value: string) => createTableCell("text-white", value)
   },
@@ -100,33 +113,18 @@ export const billingColumns: BillingTableColumn[] = [
     render: (value: string) => createTableCell("text-white", value)
   },
   {
-    key: "amount",
-    label: "Amount",
-    sortable: true,
-    render: (value: number) => createTableCell("text-white", `$${value.toFixed(2)}`)
-  },
-  {
-    key: "status",
-    label: "Status",
-    sortable: true,
-    render: (value: string) => {
-      const statusClass = value === "Paid" 
-        ? "bg-gradient-to-b from-[#00EB6E] to-[#00853E] bg-clip-text text-transparent"
-        : "bg-gradient-to-b from-[#FF0633] to-[#C40023] bg-clip-text text-transparent";
-      
-      return createTableCell(statusClass, value);
-    }
-  },
-  {
     key: "action",
     label: "Action",
     sortable: false,
-    render: (value: string) => createActionButton(value, () => {
-      if (value === "View Invoice") {
-        console.log("View Invoice clicked");
-      } else if (value === "Pay Now") {
-        console.log("Pay Now clicked");
-      }
-    })
+    render: (value: unknown, row: BillingItem) => {
+      const actionText = row.status === "paid" ? "View Invoice" : "Pay Now";
+      return createActionButton(actionText, () => {
+        if (actionText === "View Invoice") {
+          console.log("View Invoice clicked for:", row.id);
+        } else if (actionText === "Pay Now") {
+          console.log("Pay Now clicked for:", row.id);
+        }
+      });
+    }
   }
 ];

@@ -10,6 +10,61 @@ export interface BillingOrder {
   action: "View Invoice" | "Pay Now";
 }
 
+// API Types
+export interface PaymentHistoryItem {
+  id: number;
+  orderNumber: string;
+  createdAt: string;
+  challenge: string;
+  addons: string;
+  platform: string;
+  amount: number;
+  status: "Paid" | "Unpaid";
+  balance: number;
+  trackId: string;
+  method?: string;
+}
+
+export interface PaymentHistoryFilters {
+  status?: string[];
+  platform?: string[];
+  method?: string[];
+  challenge?: string[];
+  [key: string]: string[] | undefined;
+}
+
+export interface PaymentHistoryRequest {
+  userId?: string;
+  page?: number;
+  size?: number;
+  filters?: PaymentHistoryFilters;
+}
+
+export interface PaymentHistoryResponse {
+  success: boolean;
+  data: {
+    list: PaymentHistoryItem[];
+    meta: {
+      page: number;
+      last_page: number;
+      total: number;
+      per_page: number;
+    };
+  };
+  message: string;
+}
+
+// Transformed UI Types
+export interface BillingItem {
+  id: string;
+  orderNumber: string;
+  challenge: string;
+  status: "paid" | "unpaid";
+  date: string;
+  amount: string;
+  platform: string;
+}
+
 export interface BillingData {
   orders: BillingOrder[];
 }
@@ -27,10 +82,10 @@ export interface BillingPageProps {
 }
 
 export interface BillingTableColumn {
-  key: keyof BillingOrder;
+  key: keyof BillingItem;
   label: string;
   sortable: boolean;
-  render: (value: any, row: BillingOrder) => React.ReactElement;
+  render: (value: any, row: BillingItem) => React.ReactElement;
 }
 
 export interface BillingFilterState {
