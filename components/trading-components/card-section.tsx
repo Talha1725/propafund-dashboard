@@ -96,6 +96,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', noBackgr
                   daysTraded={calculateDaysTraded(account.login)}
                   balance={isSelected}
                   isAddNewCard={false}
+                  status={account.status}
                 />
               </div>
             );

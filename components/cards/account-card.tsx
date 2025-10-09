@@ -20,6 +20,7 @@ export const AccountCard = memo<AccountCardProps>(({
   daysTraded,
   balance = false,
   isAddNewCard = false,
+  status,
   ...credentials
 }) => {
   const [isClicked] = useState(false);
@@ -64,6 +65,11 @@ export const AccountCard = memo<AccountCardProps>(({
         <span className={`${isGradientCard ? "text-[#0B0E12]" : "text-white"} font-lay-grotesk font-medium text-lg leading-none tracking-tight text-center`}>
           {accountId}
         </span>
+        {status === 'failed' && (
+          <span className={`${isGradientCard ? "text-red-600" : "text-red-400"} font-lay-grotesk font-medium text-sm leading-none tracking-tight ml-2`}>
+            Failed
+          </span>
+        )}
       </div>
       <button className={`${isGradientCard ? "bg-[#0B0E121A] text-[#0B0E12]" : "text-white bg-instant-funding"} font-lay-grotesk font-medium text-sm leading-[136%] tracking-[-2%] rounded px-3.5 py-1 h-[27px] whitespace-nowrap`}>
         {phase}
