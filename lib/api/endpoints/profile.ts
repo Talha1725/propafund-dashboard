@@ -73,10 +73,11 @@ export interface ChangePasswordResponse {
 export interface UploadProfilePictureResponse {
   success: boolean;
   data: {
-    profilePicture: string;
+    imageUrl: string;
   };
   message?: string;
 }
+
 
 export const profile = {
   // Get user profile data
@@ -100,6 +101,7 @@ export const profile = {
     });
     return response.data;
   },
+
 
   // Change password
   changePassword: async (data: ChangePasswordData): Promise<ChangePasswordResponse> => {

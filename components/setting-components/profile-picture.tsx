@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { userAtom, setUserAtom } from "@/lib/store/atoms";
 import { profile } from "@/lib/api/endpoints/profile";
 import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 import avatarImage from "@/public/assets/avatar-2.svg";
 
 interface ProfilePictureProps {
@@ -79,7 +80,7 @@ export default function ProfilePicture({
         // Update user data in global state
         if (user) {
           setUser({ ...user, picture: newImageUrl });
-          localStorage.setItem('userData', JSON.stringify({ ...user, picture: newImageUrl }));
+          localStorage.setItem('user', JSON.stringify({ ...user, picture: newImageUrl }));
         }
         
         toast.success("Profile picture updated successfully");
@@ -143,6 +144,16 @@ export default function ProfilePicture({
               target.src = avatarImage.src;
             }}
           />
+          {/* Loading overlay with spinner */}
+          {isUploading && (
+            <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm">
+              <Spinner 
+                variant="ring" 
+                className="h-6 w-6 text-white" 
+                size={24}
+              />
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-3">
           <div className="">
@@ -160,9 +171,17 @@ export default function ProfilePicture({
             <button
               type="button"
               onClick={() => document.getElementById('profile-image')?.click()}
-              className="flex items-center justify-center gap-[10px] w-[142px] h-[39px] px-[42px] py-[11px] rounded-[10px] border border-white bg-[#0B0E1233] backdrop-blur-[44px] font-creato-display font-medium text-sm leading-[100%] text-white hover:bg-white/10 transition-colors"
+              disabled={isUploading}
+              className="flex items-center justify-center gap-[10px] w-[142px] h-[39px] px-[42px] py-[11px] rounded-[10px] border border-white bg-[#0B0E1233] backdrop-blur-[44px] font-creato-display font-medium text-sm leading-[100%] text-white hover:bg-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Change
+              {isUploading ? (
+                <>
+                  <Spinner variant="default" className="h-4 w-4" size={16} />
+                  Uploading...
+                </>
+              ) : (
+                "Change"
+              )}
             </button>
             {/* <button
               type="button"

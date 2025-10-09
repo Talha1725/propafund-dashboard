@@ -128,8 +128,8 @@ export default function PersonalInformationSection() {
         lastName: data.personal.lastName,
         gender: data.personal.gender,
         country: data.contact.country,
-        city: data.contact.city,
-        apartment: data.contact.address,
+        town: data.contact.city,  
+        apartment: data.contact.address, 
         postalCode: data.contact.postalCode,
         phone: data.contact.contactNumber,
       };
@@ -220,11 +220,23 @@ export default function PersonalInformationSection() {
                 )}
               </div>
               <div className="flex flex-col gap-2">
+                <Label htmlFor="username" className="settings-label">Username</Label>
+                <Input
+                  type="text"
+                  id="username"
+                  value={currentUsername}
+                  onChange={(e) => setCurrentUsername(e.target.value)}
+                  placeholder="Enter your username"
+                  className="h-10 settings-input"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="gender" className="settings-label">Gender</Label>
                 <Select
+                  value={profileData?.gender || ""}
                   onValueChange={(value) => setValue("personal.gender", value as "male" | "female" | "other")}
                 >
-                    <SelectTrigger className="w-full settings-select-trigger">
+                  <SelectTrigger className="w-full settings-select-trigger">
                     <SelectValue placeholder="Select your gender" />
                   </SelectTrigger>
                     <SelectContent className="settings-select-content">
@@ -270,7 +282,10 @@ export default function PersonalInformationSection() {
                   id="emailAddress"
                   placeholder="Enter your email address"
                   className="h-10 settings-input"
+                  readOnly
+                  disabled
                 />
+                <span className="text-white/50 text-xs">Email cannot be changed</span>
                 {errors.contact?.emailAddress && (
                   <span className="text-red-400 text-xs">
                     {errors.contact.emailAddress.message}
@@ -280,10 +295,20 @@ export default function PersonalInformationSection() {
               <div className="flex flex-col gap-2">
                 <Label htmlFor="country" className="settings-label">Country of Residence</Label>
                 <Select
+                  value={profileData?.country || ""}
                   onValueChange={(value) => setValue("contact.country", value)}
                 >
-                    <SelectTrigger className="w-full settings-select-trigger">
-                    <SelectValue placeholder="Select your country" />
+                  <SelectTrigger className="w-full settings-select-trigger">
+                    <SelectValue placeholder="Select your country">
+                      {profileData?.country ? (
+                        profileData.country === "united-states" ? "United States" :
+                        profileData.country === "canada" ? "Canada" :
+                        profileData.country === "united-kingdom" ? "United Kingdom" :
+                        profileData.country === "germany" ? "Germany" :
+                        profileData.country === "france" ? "France" :
+                        profileData.country
+                      ) : "Select your country"}
+                    </SelectValue>
                   </SelectTrigger>
                     <SelectContent className="settings-select-content">
                       <SelectItem value="united-states" className="settings-select-item">United States</SelectItem>
@@ -302,10 +327,20 @@ export default function PersonalInformationSection() {
               <div className="flex flex-col gap-2">
                 <Label htmlFor="city" className="settings-label">City</Label>
                 <Select
+                  value={profileData?.town || ""}
                   onValueChange={(value) => setValue("contact.city", value)}
                 >
-                    <SelectTrigger className="w-full settings-select-trigger">
-                    <SelectValue placeholder="Select your city" />
+                  <SelectTrigger className="w-full settings-select-trigger">
+                    <SelectValue placeholder="Select your city">
+                      {profileData?.town ? (
+                        profileData.town === "new-york" ? "New York" :
+                        profileData.town === "los-angeles" ? "Los Angeles" :
+                        profileData.town === "chicago" ? "Chicago" :
+                        profileData.town === "houston" ? "Houston" :
+                        profileData.town === "phoenix" ? "Phoenix" :
+                        profileData.town
+                      ) : "Select your city"}
+                    </SelectValue>
                   </SelectTrigger>
                     <SelectContent className="settings-select-content">
                       <SelectItem value="new-york" className="settings-select-item">New York</SelectItem>
