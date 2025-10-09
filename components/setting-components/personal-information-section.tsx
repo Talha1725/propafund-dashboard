@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { personalInformationFormSchema, PersonalInformationFormData } from "@/lib/schemas/personal-information";
+import ProfilePicture from "@/components/setting-components/profile-picture";
 
 export default function PersonalInformationSection() {
   const {
@@ -24,6 +25,9 @@ export default function PersonalInformationSection() {
   } = useForm<PersonalInformationFormData>({
     resolver: zodResolver(personalInformationFormSchema),
     defaultValues: {
+      profile: {
+        profileImage: "",
+      },
       personal: {
         firstName: "",
         lastName: "",
@@ -50,10 +54,22 @@ export default function PersonalInformationSection() {
     }
   };
 
+  const handleImageChange = (imageUrl: string) => {
+    setValue("profile.profileImage", imageUrl);
+  };
+
   return (
     <div className="flex-1">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ComponentContainer className="h-fit">
+        {/* Profile Picture Section */}
+        <ComponentContainer>
+          <div className="settings-heading text-white text-lg font-normal">Profile Picture</div>
+          <div className="mt-3 sm:mt-4">
+            <ProfilePicture onImageChange={handleImageChange} />
+          </div>
+        </ComponentContainer>
+
+        <ComponentContainer className="mt-5 h-fit">
           <div className="settings-heading text-white text-lg font-normal">Personal Information</div>
           <div className="mt-4 h-fit">
             <div className="grid sm:grid-cols-2 gap-4">
