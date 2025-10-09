@@ -105,7 +105,7 @@ export default function LeaderboardPage() {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col lg:flex-row justify-between mb-6 px-4 gap-4 md:gap-[21px]">
+          <div className="flex flex-col lg:flex-row justify-between mb-6 px-2 gap-2 md:gap-[21px]">
             {topThreeTraders.map((trader, index) => (
               <div key={trader.name} className={`flex justify-center md:block mt-0 ${index === 1 ? 'md:mt-14' : index === 2 ? 'md:mt-24' : ''}`}>
                 <ProfileCard
