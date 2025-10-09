@@ -206,8 +206,12 @@ function CertificatesContent() {
 export default function Certificates() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-dark flex items-center justify-center">
-        <Spinner variant="ring" className="h-8 w-8 text-white" />
+      <div className="h-screen overflow-hidden pb-10 md:pb-0">
+        <DashboardPageContainer fullHeight={true}>
+          <div className="h-full flex items-center justify-center">
+            <Spinner variant="ring" className="h-8 w-8 text-white" />
+          </div>
+        </DashboardPageContainer>
       </div>
     }>
       <CertificatesContent />

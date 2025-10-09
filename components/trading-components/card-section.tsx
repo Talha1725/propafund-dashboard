@@ -2,7 +2,6 @@
 
 import React, { memo } from "react";
 import { useRouter } from "next/navigation";
-import { getActiveChallenges, getCompletedChallenges } from "@/lib/data/challenges";
 import { AccountCard } from "@/components/cards/account-card";
 import { ChallengeCard } from "@/components/cards/challenge-card";
 import { useAccounts } from "@/lib/hooks/use-accounts";
@@ -15,14 +14,9 @@ interface CardSectionProps {
   className?: string;
 }
 
-export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTab = 'active', noBackground = false, showAddCard = true, className = '' }) => {
+export const CardSection = memo<CardSectionProps>(({ type = 'accounts', noBackground = false, showAddCard = true, className = '' }) => {
   const router = useRouter();
   const { accounts, selectedAccount, setSelectedAccount, accountsData, error } = useAccounts();
-  
-  // For challenges, get the appropriate data based on activeTab
-  const challenges = type === 'challenges' 
-    ? (activeTab === 'active' ? getActiveChallenges() : getCompletedChallenges())
-    : [];
 
   const handleAccountSelect = (accountId: string) => {
     setSelectedAccount(accountId);
@@ -33,7 +27,7 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
     const activeAccountData = accountsData?.[accountLogin];
     if (!activeAccountData?.metaStats) return 0;
     
-    const metaStats = activeAccountData.metaStats as { trades?: number; daysSinceTradingStarted?: number; tradingStartBrokerTime?: string };
+    const metaStats = activeAccountData.metaStats as Record<string, unknown>;
     
     if (metaStats.trades && typeof metaStats.trades === 'number' && metaStats.trades > 0) {
       if (metaStats.daysSinceTradingStarted && typeof metaStats.daysSinceTradingStarted === 'number' && metaStats.daysSinceTradingStarted > 0) {
@@ -79,7 +73,6 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
   return (
     <div className={`w-full ${type === 'challenges' ? 'grid grid-cols-1 md:grid-cols-2 gap-5' : 'grid grid-cols-1 gap-5'} ${noBackground ? 'bg-transparent' : ''} ${className}`}>
       {type === 'accounts' ? (
-        // Real accounts rendering with selection
         <>
           {accounts.map((account) => {
             const isSelected = selectedAccount === account.id;
@@ -121,30 +114,107 @@ export const CardSection = memo<CardSectionProps>(({ type = 'accounts', activeTa
           )}
         </>
       ) : (
-        // Challenges rendering
-        challenges.map((challenge) => (
-          <ChallengeCard
-            key={challenge.id}
-            challengeId={challenge.id}
-            phase={challenge.phase}
-            numberOfTrades={challenge.tradesCount}
-            daysTraded={challenge.daysTraded}
-            balance={`$${challenge.balance.toLocaleString()}`}
-            endDate={challenge.endDate || "N/A"}
-            result={challenge.result}
-            todaysProfit={`$${challenge.todayProfit.toLocaleString()}`}
-            equity={`$${challenge.equity.toLocaleString()}`}
-            unrealizedPnL={challenge.unrealizedPnL}
-            onGraphClick={() => {
-              // Navigate to challenge detail page
-              router.push(`/user/challenges/${challenge.id}`);
-            }}
-            onKeyClick={() => {
-              // Handle key click - could open credentials modal
-              console.log('Key clicked for challenge:', challenge.id);
-            }}
-          />
-        ))
+        // Challenges rendering - use real account data instead of static challenges
+        accounts.map((account) => {
+          const accountData = accountsData?.[account.login];
+          const mtAccount = accountData?.mtAccount;
+          const metaStats = accountData?.metaStats;
+          
+          const getStatusDisplay = (status: string): string => {
+            switch (status) {
+              case 'active':
+                return 'Ongoing';
+              case 'failed':
+                return 'Failed';
+              case 'completed':
+                return 'Completed';
+              default:
+                return status;
+            }
+          };
+
+          const getTodaysProfit = () => {
+            if (!metaStats) return "$0.00";
+            if (metaStats.periods?.today?.trades) {
+              const todayTrades = metaStats.periods.today.trades;
+              const avgProfitPerTrade = metaStats.trades > 0 ? metaStats.profit / metaStats.trades : 0;
+              const todayProfit = todayTrades * avgProfitPerTrade;
+              return `$${todayProfit.toFixed(2)}`;
+            }
+            
+            // Fallback: try to get from dailyGrowth array
+            if (metaStats.dailyGrowth && metaStats.dailyGrowth.length > 0) {
+              const today = new Date().toISOString().split('T')[0];
+              const todayData = metaStats.dailyGrowth.find(day => day.date === today);
+              if (todayData) {
+                const yesterdayData = metaStats.dailyGrowth[metaStats.dailyGrowth.length - 2];
+                if (yesterdayData) {
+                  const profit = todayData.balance - yesterdayData.balance;
+                  return `$${profit.toFixed(2)}`;
+                }
+              }
+            }
+            
+            return "$0.00";
+          };
+
+          const getUnrealizedPnL = () => {
+            if (!metaStats) return "$0.00";
+            const equity = metaStats.equity || 0;
+            const balance = metaStats.balance || 0;
+            const unrealized = equity - balance;
+            if (unrealized === 0) return "$0.00";
+            return unrealized > 0 ? `+$${unrealized.toFixed(2)}` : `-$${Math.abs(unrealized).toFixed(2)}`;
+          };
+
+          const getEndDate = () => {
+            if (!mtAccount) return "N/A";
+            const createdAt = new Date(mtAccount.createdAt);
+            let endDate: Date;
+            
+            if (mtAccount.challengeType === 'twoPhase') {
+              endDate = new Date(createdAt.getTime() + (60 * 24 * 60 * 60 * 1000));
+            } else {
+              endDate = new Date(createdAt.getTime() + (30 * 24 * 60 * 60 * 1000));
+            }
+            
+            const month = (endDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = endDate.getDate().toString().padStart(2, '0');
+            const year = endDate.getFullYear();
+            
+            return `${month}/${day}/${year}`;
+          };
+
+          return (
+            <div 
+              key={account.id}
+            >
+              <ChallengeCard
+                challengeId={account.login}
+                phase={account.challengeType === 'twoPhase' ? 'Two Phase' : 'Instant Funding'}
+                numberOfTrades={account.trades || 0}
+                daysTraded={calculateDaysTraded(account.login)}
+                balance={`$${(metaStats?.balance || mtAccount?.balance || 0).toFixed(2)}`}
+                endDate={getEndDate()}
+                result={getStatusDisplay(mtAccount?.status || 'active')}
+                todaysProfit={getTodaysProfit()}
+                equity={`$${(metaStats?.equity || mtAccount?.balance || 0).toFixed(2)}`}
+                unrealizedPnL={getUnrealizedPnL()}
+                onGraphClick={() => {
+                  // Navigate to challenge detail page
+                  router.push(`/user/challenges/${account.login}`);
+                }}
+                onKeyClick={() => {
+                  // This will be handled by the ChallengeCard component itself
+                }}
+                username={mtAccount?.login || account.login}
+                password={mtAccount?.password || ''}
+                server={mtAccount?.server || ''}
+                platform={mtAccount?.platform || ''}
+              />
+            </div>
+          );
+        })
       )}
     </div>
   );

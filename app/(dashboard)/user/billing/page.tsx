@@ -93,7 +93,7 @@ export default function BillingPage() {
   if (loading) {
     return (
       <div className="h-screen overflow-hidden pb-10 md:pb-0">
-        <DashboardPageContainer>
+        <DashboardPageContainer fullHeight={true}>
           <div className="h-full flex items-center justify-center">
             <Spinner variant="ring" className="h-8 w-8 text-white" />
           </div>

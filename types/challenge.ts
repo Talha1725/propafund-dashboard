@@ -11,4 +11,8 @@ export interface ChallengeCardProps {
   unrealizedPnL: string;
   onGraphClick: () => void;
   onKeyClick: () => void;
+  username?: string;
+  password?: string;
+  server?: string;
+  platform?: string;
 }

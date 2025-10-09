@@ -10,6 +10,7 @@ import ChallengesOverview from "@/components/common/challenges-overview";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import { Spinner } from "@/components/ui/spinner";
 import { AccountCard } from "@/components/cards/account-card";
+import { calculateOverallDetails } from "@/lib/utils/overall-details";
 
 export default function TradingAccountsPage() {
   const { currentAccount, currentAccountData, loading, error } = useAccounts();
@@ -36,7 +37,7 @@ export default function TradingAccountsPage() {
   if (loading) {
     return (
       <div className="h-screen overflow-hidden pb-10 md:pb-0">
-        <DashboardPageContainer>
+        <DashboardPageContainer fullHeight={true}>
           <div className="h-full flex items-center justify-center">
             <Spinner variant="ring" className="h-8 w-8 text-white" />
           </div>
@@ -66,6 +67,8 @@ export default function TradingAccountsPage() {
   const averageWin = currentAccount?.averageWin || 0;
   const averageLoss = currentAccount?.averageLoss || 0;
   const winRatio = currentAccount?.winRatio || 0;
+
+  const overallDetailsDisplay = calculateOverallDetails(currentAccountData);
   return (
     <DashboardPageContainer>
        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 h-full">
@@ -130,12 +133,14 @@ export default function TradingAccountsPage() {
                 className="h-fit"
               >
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
-                  <MetricCard label="Total challenges bought" value="50" valueColor="white" />
-                  <MetricCard label="Total amount paid" value="$292,321.23" valueColor="white" />
-                  <MetricCard label="Total payouts" value="140" valueColor="white" />
-                  <MetricCard label="Total funded accounts" value="14" valueColor="white" />
-                  <MetricCard label="Total amount spent" value="$22,321.23" valueColor="white" />
-                  <MetricCard label="Payout ratio" value="13.1r" valueColor="white" />
+                  {overallDetailsDisplay.map((detail, index) => (
+                    <MetricCard 
+                      key={index}
+                      label={detail.label} 
+                      value={detail.value} 
+                      valueColor={detail.valueColor} 
+                    />
+                  ))}
                 </div>
               </CardContainer>
               
