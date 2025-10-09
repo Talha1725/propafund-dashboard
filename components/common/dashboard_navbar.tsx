@@ -67,7 +67,7 @@ export function Navbar() {
           <div className="xl:hidden block">
             <Image
               src={logo}
-              alt="FX Utopia"
+              alt="Propa Fund"
               width={165}
               height={45}
               className="w-[150px] sm:w-full h-full object-cover"
