@@ -33,6 +33,17 @@ const getRankIcon = (rank: string) => {
   }
 };
 
+const getOrdinalSuffix = (num: number): string => {
+  if (num > 3 && num < 21) return 'th';
+  switch (num % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
+};
+
+
 const getCardBackground = (cardType: "first" | "second" | "third") => {
   switch (cardType) {
     case "first":
@@ -79,11 +90,11 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
       )}
       
       <div className="text-white font-creato-display font-medium text-lg mb-3 text-center">
-        Ranked {rank}
+        Ranked {rank}{getOrdinalSuffix(parseInt(rank))}
       </div>
       
       <div 
-        className="relative overflow-hidden w-full max-w-[370px] h-[250px] rounded-[20px] p-5"
+        className="relative overflow-hidden w-[360px] md:w-[380px] h-[230px] rounded-[20px] p-5"
         style={{
           background: getCardBackground(cardType),
           border: 'none',
@@ -98,7 +109,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
           className="absolute top-0 left-1/2 transform -translate-x-1/2"
           style={{
             width: '85%',
-            height: '0.5px',
+            height: '1px',
             background: 'linear-gradient(90deg, rgba(78, 178, 228, 0) 0%, rgba(78, 178, 228, 1) 30%, rgba(78, 178, 228, 1) 70%, rgba(78, 178, 228, 0) 100%)'
           }}
         />
@@ -106,7 +117,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
           className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
           style={{
             width: '85%',
-            height: '0.5px',
+            height: '1px',
             background: 'linear-gradient(90deg, rgba(78, 178, 228, 0) 0%, rgba(78, 178, 228, 1) 30%, rgba(78, 178, 228, 1) 70%, rgba(78, 178, 228, 0) 100%)'
           }}
         />
@@ -130,7 +141,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
         <div className="w-full h-px bg-white/10 mb-5" />
 
         <div className="space-y-1">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             <div className="flex flex-col">
               <div className="text-white/60 font-medium text-sm">
                 Profit Factor
@@ -139,7 +150,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
                 {profitFactor}
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col ml-1 sm:ml-2">
               <div className="text-white/60 font-medium text-sm">
                 Total Trades
               </div>
@@ -147,19 +158,21 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
                 {totalTrades}
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col ml-2 sm:ml-4">
               <div className="text-white/60 font-medium text-sm">
                 Win Rate
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between">
                 <span className="text-white font-creato-display font-medium text-base">
                   {winRate}
                 </span>
-                {winRateTrend === "up" ? (
-                  <TradeUp className="w-23 h-7" fill="#00EB6E" />
-                ) : (
-                  <TradeDownRight className="w-23 h-7" fill="#E13E3E" />
-                )}
+                <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+                  {winRateTrend === "up" ? (
+                    <TradeUp className="w-6 h-6 flex-shrink-0" fill="#00EB6E" />
+                  ) : (
+                    <TradeDownRight className="w-6 h-6 flex-shrink-0" fill="#E13E3E" />
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -169,15 +182,17 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
               <div className="text-white/60 font-medium text-sm">
                 Monthly Return
               </div>
-              <div className="flex items-center gap-0 ml-auto">
+              <div className="flex items-center justify-between ml-auto">
                 <span className="text-white font-creato-display font-medium text-base">
                   {monthlyReturn}
                 </span>
-                {monthlyReturnTrend === "up" ? (
-                  <TradeUp className="w-10 h-7" fill="#00EB6E" />
-                ) : (
-                  <TradeDownRight className="w-23 h-7" fill="#E13E3E" />
-                )}
+                <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+                  {monthlyReturnTrend === "up" ? (
+                    <TradeUp className="w-6 h-6 flex-shrink-0" fill="#00EB6E" />
+                  ) : (
+                    <TradeDownRight className="w-6 h-6 flex-shrink-0" fill="#E13E3E" />
+                  )}
+                </div>
               </div>
             </div>
             <div className="flex items-center">
