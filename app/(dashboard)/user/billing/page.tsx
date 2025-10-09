@@ -13,6 +13,7 @@ import IconFilter from "@/public/assets/filter-icon.svg";
 import { Spinner } from "@/components/ui/spinner";
 import { usePaymentHistory } from "@/lib/hooks/use-payment-history";
 import { transformPaymentHistoryToBilling } from "@/lib/utils/payment-transform";
+import BillingPagination from "@/components/billing/billing-pagination";
 
 export default function BillingPage() {
   const [activeTab, setActiveTab] = useState<BillingTabId>("all");
@@ -22,6 +23,8 @@ export default function BillingPage() {
     selectedAmount: "all",
     selectedDate: "all",
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   // Convert filter state to API filters
   const apiFilters = useMemo((): PaymentHistoryFilters => {
@@ -79,8 +82,19 @@ export default function BillingPage() {
     return filtered;
   }, [billingData, activeTab, filterState]);
 
+  // Calculate paginated data
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredData.slice(startIndex, endIndex);
+  }, [filteredData, currentPage, itemsPerPage]);
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  // Reset to first page when filters change
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId as BillingTabId);
+    setCurrentPage(1);
   };
 
   const handleFilterChange = (groupId: string, value: string | string[] | boolean) => {
@@ -88,6 +102,7 @@ export default function BillingPage() {
       ...prev,
       [groupId]: value
     }));
+    setCurrentPage(1); 
   };
 
   const handleClearAllFilters = () => {
@@ -97,6 +112,16 @@ export default function BillingPage() {
       selectedAmount: "all",
       selectedDate: "all",
     });
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (newItemsPerPage: number) => {
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(1); 
   };
 
   if (loading) {
@@ -153,15 +178,29 @@ export default function BillingPage() {
               />
             </div>
             </div>
+            
+            {/* Table Section */}
             <div className={BILLING_STYLES.layout.tableContainer}>
               <DataTable
-                data={filteredData}
+                data={paginatedData}
                 columns={billingColumns}
                 className="billing-table"
                 responsive={true}
               />
             </div>
           </div>
+          
+          {filteredData.length > 0 && (
+            <div className="mt-6 px-4">
+              <BillingPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                itemsPerPage={itemsPerPage}
+                onItemsPerPageChange={handleItemsPerPageChange}
+              />
+            </div>
+          )}
     </DashboardPageContainer>
   );
 }

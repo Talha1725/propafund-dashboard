@@ -13,16 +13,38 @@ export interface BillingOrder {
 // API Types
 export interface PaymentHistoryItem {
   id: number;
-  orderNumber: string;
-  createdAt: string;
-  challenge: string;
-  addons: string;
-  platform: string;
-  amount: number;
-  status: "Paid" | "Unpaid";
-  balance: number;
   trackId: string;
-  method?: string;
+  amount: number;
+  currency: string | null;
+  status: "Paid" | "pending";
+  method: string;
+  platform: string;
+  balance: number;
+  challenge: string;
+  accountId: string | null;
+  createdAt: string;
+  addOns: {
+    totalAddons: number;
+    addonDetails: any[];
+    secondAccount: boolean;
+    accountProtection: boolean;
+  } | null;
+  user: {
+    email: string;
+    name: string;
+  };
+  mtAccount: {
+    accountId: string;
+    accountName: string;
+    brokerName: string;
+    platform: string;
+    server: string;
+    login: string;
+    balance: number;
+    challengeType: string;
+    status: string;
+    challengePhase: number | null;
+  } | null;
 }
 
 export interface PaymentHistoryFilters {
@@ -63,6 +85,7 @@ export interface BillingItem {
   date: string;
   amount: string;
   platform: string;
+  action?: string; // Optional action field for table rendering
 }
 
 export interface BillingData {

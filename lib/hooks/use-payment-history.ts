@@ -13,7 +13,7 @@ interface UsePaymentHistoryOptions {
 }
 
 export function usePaymentHistory(options: UsePaymentHistoryOptions = {}) {
-  const { page = 1, perPage = 10, filters } = options;
+  const { perPage = 10, filters } = options;
   const [user] = useAtom(userAtom);
   
   const [data, setData] = useState<PaymentHistoryItem[]>([]);
@@ -33,30 +33,58 @@ export function usePaymentHistory(options: UsePaymentHistoryOptions = {}) {
       setLoading(true);
       setError(null);
       
-      const response = await paymentApi.getPaymentHistory({
-        userId: user.id.toString(), // Ensure userId is a string
-        page,
+      // First, get the first page to know total pages
+      const firstResponse = await paymentApi.getPaymentHistory({
+        userId: user.id.toString(),
+        page: 1,
         size: perPage,
         filters
       });
 
-      if (response.success) {
-        setData(response.data.list);
-        setPagination({
-          page: response.data.meta.page,
-          lastPage: response.data.meta.last_page,
-          total: response.data.meta.total,
-          perPage: response.data.meta.per_page
-        });
-      } else {
+      if (!firstResponse.success) {
         setError('Failed to fetch payment history');
+        return;
       }
+
+      const totalPages = firstResponse.data.meta.last_page;
+      let allData = [...firstResponse.data.list];
+
+      // If there are more pages, fetch all of them
+      if (totalPages > 1) {
+        const remainingPages = Array.from({ length: totalPages - 1 }, (_, i) => i + 2);
+        
+        const remainingResponses = await Promise.all(
+          remainingPages.map(pageNum => 
+            paymentApi.getPaymentHistory({
+              userId: user.id.toString(),
+              page: pageNum,
+              size: perPage,
+              filters
+            })
+          )
+        );
+
+        // Combine all data
+        remainingResponses.forEach(response => {
+          if (response.success) {
+            allData = [...allData, ...response.data.list];
+          }
+        });
+      }
+
+      setData(allData);
+      setPagination({
+        page: 1, // We're showing all data as one "page"
+        lastPage: 1,
+        total: allData.length,
+        perPage: allData.length
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
-  }, [user?.id, page, perPage, filters]);
+  }, [user?.id, user?.email, perPage, filters]);
 
   useEffect(() => {
     fetchPaymentHistory();
