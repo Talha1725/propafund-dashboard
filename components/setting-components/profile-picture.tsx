@@ -20,12 +20,10 @@ export default function ProfilePicture({
   className = ""
 }: ProfilePictureProps) {
   const [user, setUser] = useAtom(userAtom);
-  const [, setUserState] = useAtom(setUserAtom);
   const [profileImage, setProfileImage] = useState<StaticImageData | string>(
     initialImage || user?.picture || avatarImage
   );
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadError, setUploadError] = useState<string | null>(null);
 
   // Update profile image when user data changes
   useEffect(() => {
@@ -59,7 +57,6 @@ export default function ProfilePicture({
     }
 
     setIsUploading(true);
-    setUploadError(null);
 
     // Show preview immediately
     const reader = new FileReader();
@@ -89,7 +86,6 @@ export default function ProfilePicture({
       }
     } catch (error) {
       console.error("Upload error:", error);
-      setUploadError("Failed to upload image");
       setProfileImage(user?.picture || avatarImage);
       
       // Type guard for axios error

@@ -93,11 +93,16 @@ export function AppSidebar() {
           <ThunderIcon className="absolute bottom-[-69px] xl:bottom-[-57px] right-[-150px] -z-10 " />
           <div className="w-full h-full pt-6 flex flex-col xl:rounded-l-[20px] gradient-white xl:border border-white/10">
             <div className="px-6 w-full border-b border-white/10 flex items-center justify-center max-h-14 pb-5 mb-6">
-              <Image
-                src={logo}
-                alt="FX Utopia"
-                className="w-full h-full object-contain"
-              />
+              <button
+                onClick={() => router.push('/')}
+                className="w-full h-full flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
+              >
+                <Image
+                  src={logo}
+                  alt="Propa Fund"
+                  className="w-full h-full object-contain"
+                />
+              </button>
             </div>
 
             <div className="flex flex-col flex-1 px-6">

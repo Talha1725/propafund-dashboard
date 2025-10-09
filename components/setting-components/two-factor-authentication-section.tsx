@@ -169,7 +169,7 @@ export default function TwoFactorAuthenticationSection() {
               <div className="mb-4 text-center">
                 <p className="text-white/70 text-sm mb-2">Scan this QR code with your authenticator app:</p>
                 <div className="bg-white p-2 rounded inline-block">
-                  <img src={qrCode} alt="QR Code" className="w-32 h-32" />
+                  <Image src={qrCode} alt="QR Code" width={128} height={128} className="w-32 h-32" unoptimized />
                 </div>
                 {manualKey && (
                   <p className="text-white/70 text-xs mt-2">

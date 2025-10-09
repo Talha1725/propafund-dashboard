@@ -46,7 +46,7 @@ export default function StatusCardSection() {
         <StatusCard active={false} title="Balance" value="--" />
         <StatusCard active={false} title="Deposits" value="--" />
         <StatusCard active={false} title="Total P&L" value="--" />
-        <StatusCard active={false} title="Passed Challenges" value="--" />
+        <StatusCard active={false} title="Total Trades" value="--" />
       </div>
     );
   }
@@ -82,7 +82,7 @@ export default function StatusCardSection() {
       />
       <StatusCard 
         active={false} 
-        title="Passed Challenges" 
+        title="Total Trades" 
         value={passedChallenges.toString()}
         tradeUp={passedChallenges > 0}
         challenges={true}

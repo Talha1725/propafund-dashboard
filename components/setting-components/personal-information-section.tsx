@@ -26,7 +26,23 @@ export default function PersonalInformationSection() {
   const [user] = useAtom(userAtom);
   const [, setUser] = useAtom(setUserAtom);
   const [isLoading, setIsLoading] = useState(true);
-  const [profileData, setProfileData] = useState<any>(null);
+  const [profileData, setProfileData] = useState<{
+    id?: string;
+    email?: string;
+    userName?: string;
+    firstName?: string;
+    lastName?: string;
+    gender?: 'male' | 'female' | 'other';
+    phone?: string;
+    country?: string;
+    state?: string;
+    town?: string;
+    apartment?: string;
+    postalCode?: string;
+    profilePicture?: string;
+    createdAt?: string;
+    updatedAt?: string;
+  } | null>(null);
   const [currentUsername, setCurrentUsername] = useState(user?.userName || "");
 
   const {
