@@ -1,254 +1,44 @@
-import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
-import type { User } from '@/types/auth';
-import type { Account } from '@/types/accounts';
-import type { MetaAccount } from '@/lib/api/endpoints/meta';
+import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
+import type { User } from "@/types/auth";
+import type { MetaAccount } from "@/lib/api/endpoints/meta";
+import type { Account } from "@/types/accounts";
 
-// ============================================================================
-// AUTHENTICATION ATOMS
-// ============================================================================
-
-// User state
+// Auth atoms
 export const userAtom = atom<User | null>(null);
-
-// Authentication state
 export const isAuthenticatedAtom = atom((get) => !!get(userAtom));
-
-// Loading states
-export const authLoadingAtom = atom(false);
-export const loginLoadingAtom = atom(false);
-export const registerLoadingAtom = atom(false);
-export const authInitializedAtom = atom(false);
-
-// Error states
-export const authErrorAtom = atom<string | null>(null);
-
-// Token management
-export const tokenAtom = atom<string | null>(null);
-
-// Derived atoms
-export const userEmailAtom = atom((get) => get(userAtom)?.email || '');
-export const userNameAtom = atom((get) => get(userAtom)?.fullName || '');
-
-// Signup email for verification (with persistence)
 export const signupEmailAtom = atomWithStorage<string>("signup_email", "");
 
-// Actions
-export const setUserAtom = atom(
-  null,
-  (get, set, user: User | null) => {
-    set(userAtom, user);
-    if (user) {
-      // Store user data in localStorage
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('userData', JSON.stringify(user));
-      }
-    } else {
-      // Clear user data from localStorage
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('userData');
-      }
-    }
-  }
-);
 
-export const setTokenAtom = atom(
-  null,
-  (get, set, token: string | null) => {
-    set(tokenAtom, token);
-    if (token) {
-      // Store token in localStorage
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('token', token);
-      }
-    } else {
-      // Clear token from localStorage
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('token');
-      }
-    }
-  }
-);
-
-export const clearAuthAtom = atom(
-  null,
-  (get, set) => {
-    // Clear authentication state
-    set(userAtom, null);
-    set(tokenAtom, null);
-    set(authErrorAtom, null);
-    set(authLoadingAtom, false);
-    set(loginLoadingAtom, false);
-    set(registerLoadingAtom, false);
-    set(signupEmailAtom, "");
-    
-    // Clear account data
-    set(accountsRawDataAtom, {});
-    set(selectedAccountAtom, null);
-    set(accountsLoadingAtom, false);
-    set(accountsErrorAtom, null);
-    set(accountsLastFetchAtom, null);
-    
-    // Clear global loading states
-    set(globalLoadingAtom, {});
-    
-    // Clear localStorage
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('userData');
-      localStorage.removeItem('token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('selected_account');
-      localStorage.removeItem('signup_email');
-    }
-  }
-);
-
-// Initialize from localStorage
-export const initializeAuthAtom = atom(
-  null,
-  (get, set) => {
-    if (typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('userData');
-      const storedToken = localStorage.getItem('token');
-      
-      if (storedUser && storedToken) {
-        try {
-          const user = JSON.parse(storedUser);
-          set(userAtom, user);
-          set(tokenAtom, storedToken);
-        } catch (error) {
-          console.error('Failed to parse stored user data:', error);
-          set(clearAuthAtom);
-        }
-      }
-      
-      // Mark auth as initialized regardless of whether we found stored data
-      set(authInitializedAtom, true);
-    } else {
-      // On server side, mark as initialized immediately
-      set(authInitializedAtom, true);
-    }
-  }
-);
-
-// ============================================================================
-// UI STATE ATOMS
-// ============================================================================
-
-// Sidebar state (with persistence)
-export const sidebarCollapsedAtom = atomWithStorage<boolean>("sidebar_collapsed", false);
-
-// Active view/page state (with persistence)
-export const activeViewAtom = atomWithStorage<string>("active_view", "dashboard");
-
-// Global loading states for different UI sections
-export const globalLoadingAtom = atom<Record<string, boolean>>({});
-
-// ============================================================================
-// ACCOUNT DATA ATOMS
-// ============================================================================
-
-// Account selection (with persistence)
+// UI State atoms
+export const sidebarCollapsedAtom = atom(false);
+export const activeViewAtom = atom("dashboard");
 export const selectedAccountAtom = atomWithStorage<string | null>("selected_account", null);
 
-// Raw account data from API
+// Account data atoms
 export const accountsRawDataAtom = atom<Record<string, MetaAccount>>({});
-
-// Processed account data
-export const accountsDataAtom = atom<Account[]>((get) => {
-  const rawData = get(accountsRawDataAtom);
-  if (!rawData || Object.keys(rawData).length === 0) return [];
-  
-  return Object.entries(rawData).map(([login, metaAccount]) => {
-    // Calculate win/loss data from API
-    const lostPercent = metaAccount.metaStats?.lostTradesPercent || 0;
-    const winRatio = metaAccount.metaStats && metaAccount.metaStats.trades > 0 
-      ? (100 - lostPercent)  // Real calculation: 100 - lost trades %
-      : 0;
-    
-    const avgLoss = metaAccount.metaStats?.averageLoss || 0;
-    const expectancy = metaAccount.metaStats?.expectancy || 0;
-    const wonTrades = metaAccount.metaStats?.trades ? 
-      (metaAccount.metaStats.trades - (metaAccount.metaStats.lostTrades || 0)) : 0;
-    
-    // Calculate average win using expectancy
-    const averageWin = expectancy > 0 && avgLoss !== 0 
-      ? Math.abs(avgLoss * expectancy)  // Real calculation using expectancy
-      : wonTrades > 0 && metaAccount.metaStats?.profit 
-        ? metaAccount.metaStats.profit / wonTrades  // Fallback calculation
-        : 0;
-
-    return {
-      id: login,
-      login: metaAccount.mtAccount.login,
-      password: metaAccount.mtAccount.password,
-      accountName: metaAccount.mtAccount.accountName,
-      brokerName: metaAccount.mtAccount.brokerName,
-      platform: metaAccount.mtAccount.platform,
-      balance: metaAccount.metaStats?.balance || metaAccount.mtAccount.balance,
-      challengeType: metaAccount.mtAccount.challengeType,
-      status: metaAccount.mtAccount.status,
-      equity: metaAccount.metaStats?.equity || metaAccount.mtAccount.balance,
-      profit: metaAccount.metaStats?.profit || 0,
-      trades: metaAccount.metaStats?.trades || 0,
-      paymentStatus: metaAccount.payment?.status || 'unknown',
-      accountProtectionUsed: metaAccount.payment?.accountProtectionUsed || false,
-      winRatio,
-      averageWin,
-      averageLoss: Math.abs(avgLoss),
-    };
-  });
-});
-
-// Account loading and error states
+export const accountsDataAtom = atom<Account[]>([]);
 export const accountsLoadingAtom = atom(false);
 export const accountsErrorAtom = atom<string | null>(null);
-
-// Cache timestamp for preventing unnecessary API calls
 export const accountsLastFetchAtom = atom<number | null>(null);
-
-// ============================================================================
-// DERIVED ATOMS
-// ============================================================================
-
-// Current selected account
-export const currentAccountAtom = atom<Account | null>((get) => {
-  const accounts = get(accountsDataAtom);
-  const selectedAccountId = get(selectedAccountAtom);
-  
-  if (!selectedAccountId || !accounts.length) return accounts[0] || null;
-  
-  return accounts.find(acc => acc.id === selectedAccountId) || accounts[0] || null;
-});
-
-// Current selected account raw data
-export const currentAccountDataAtom = atom<MetaAccount | null>((get) => {
-  const rawData = get(accountsRawDataAtom);
-  const selectedAccountId = get(selectedAccountAtom);
-  
-  if (!rawData || Object.keys(rawData).length === 0) return null;
-  
-  // If no account is selected, return the first available account
-  if (!selectedAccountId) {
-    const firstKey = Object.keys(rawData)[0];
-    return rawData[firstKey] || null;
-  }
-  
-  return rawData[selectedAccountId] || null;
-});
-
-// ============================================================================
-// PERFORMANCE OPTIMIZATIONS
-// ============================================================================
 
 // Promise cache to prevent multiple simultaneous requests
 let fetchPromise: Promise<void> | null = null;
 
-// ============================================================================
-// ACTIONS
-// ============================================================================
+// Derived atoms
+export const currentAccountAtom = atom((get) => {
+  const accounts = get(accountsDataAtom);
+  const selectedAccountId = get(selectedAccountAtom);
+  return accounts.find(acc => acc.id === selectedAccountId) || accounts[0] || null;
+});
 
-// Fetch accounts with caching and deduplication
+export const currentAccountDataAtom = atom((get) => {
+  const rawData = get(accountsRawDataAtom);
+  const selectedAccountId = get(selectedAccountAtom);
+  return selectedAccountId ? rawData[selectedAccountId] || null : null;
+});
+
+// Actions
 export const fetchAccountsActionAtom = atom(
   null,
   async (get, set, email: string) => {
@@ -278,13 +68,61 @@ export const fetchAccountsActionAtom = atom(
         if (response.success && response.data?.accounts) {
           const rawAccounts = response.data.accounts;
           set(accountsRawDataAtom, rawAccounts);
+          
+          // Transform accounts
+          const transformedAccounts: Account[] = Object.entries(rawAccounts).map(([login, metaAccount]) => {
+            // Calculate win ratio - if lostTradesPercent exists, derive won trades percent
+            const lostPercent = metaAccount.metaStats?.lostTradesPercent || 0;
+            const winRatio = metaAccount.metaStats && metaAccount.metaStats.trades > 0 
+              ? (100 - lostPercent) 
+              : 0;
+            
+            // Calculate metrics from available data
+            const avgLoss = metaAccount.metaStats?.averageLoss || 0;
+            const profitFactor = (metaAccount.metaStats as MetaAccount['metaStats'] & { profitFactor?: number })?.profitFactor || 0;
+            const lostTrades = metaAccount.metaStats?.lostTrades || 0;
+            const totalTrades = metaAccount.metaStats?.trades || 0;
+            const wonTrades = totalTrades - lostTrades;
+            
+            // Estimate average win based on available data
+            const averageWin = profitFactor > 0 && avgLoss !== 0 
+              ? Math.abs(avgLoss * profitFactor)
+              : wonTrades > 0 && metaAccount.metaStats?.profit 
+                ? metaAccount.metaStats.profit / wonTrades
+                : 0;
+            
+            return {
+              id: login,
+              login: metaAccount.mtAccount.login,
+              password: metaAccount.mtAccount.password,
+              accountName: metaAccount.mtAccount.accountName,
+              brokerName: metaAccount.mtAccount.brokerName,
+              platform: metaAccount.mtAccount.platform,
+              balance: metaAccount.metaStats?.balance || metaAccount.mtAccount.balance,
+              challengeType: metaAccount.mtAccount.challengeType,
+              status: metaAccount.mtAccount.status,
+              equity: metaAccount.metaStats?.equity || metaAccount.mtAccount.balance,
+              profit: metaAccount.metaStats?.profit || 0,
+              trades: metaAccount.metaStats?.trades || 0,
+              paymentStatus: metaAccount.payment?.status || 'unknown',
+              accountProtectionUsed: metaAccount.payment?.accountProtectionUsed || false,
+              createdAt: metaAccount.mtAccount.createdAt,
+              updatedAt: metaAccount.mtAccount.updatedAt,
+              startingBalance: metaAccount.analysis?.[0]?.startingBalance || metaAccount.mtAccount.balance,
+              winRatio,
+              averageWin,
+              averageLoss: Math.abs(avgLoss),
+              dailyGrowth: metaAccount.metaStats?.dailyGrowth || [],
+            };
+          });
+          
+          set(accountsDataAtom, transformedAccounts);
           set(accountsLastFetchAtom, now);
           
           // Set default account if none selected
           const selectedAccount = get(selectedAccountAtom);
-          if (!selectedAccount && Object.keys(rawAccounts).length > 0) {
-            const firstAccountId = Object.keys(rawAccounts)[0];
-            set(selectedAccountAtom, firstAccountId);
+          if (!selectedAccount && transformedAccounts.length > 0) {
+            set(selectedAccountAtom, transformedAccounts[0].id);
           }
         } else {
           set(accountsErrorAtom, 'Failed to fetch accounts');
@@ -305,28 +143,56 @@ export const fetchAccountsActionAtom = atom(
   }
 );
 
-// Global loading state management
-export const setGlobalLoadingAtom = atom(
+// Additional atoms for backward compatibility
+export const authInitializedAtom = atom<boolean>(false);
+export const authLoadingAtom = atom<boolean>(false);
+export const authErrorAtom = atom<string | null>(null);
+
+// Action atoms for authentication
+export const setUserAtom = atom(
   null,
-  (get, set, key: string, loading: boolean) => {
-    const current = get(globalLoadingAtom);
-    set(globalLoadingAtom, { ...current, [key]: loading });
+  async (get, set, user: User) => {
+    set(userAtom, user);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 );
 
-// Clear global loading state
-export const clearGlobalLoadingAtom = atom(
+export const setTokenAtom = atom(
   null,
-  (get, set, key: string) => {
-    const current = get(globalLoadingAtom);
-    const { [key]: removed, ...rest } = current;
-    void removed; // Suppress unused variable warning
-    set(globalLoadingAtom, rest);
+  async (get, set, token: string) => {
+    localStorage.setItem('token', token);
   }
 );
 
-// Check if any global loading is active
-export const isAnyGlobalLoadingAtom = atom((get) => {
-  const loading = get(globalLoadingAtom);
-  return Object.values(loading).some(Boolean);
-});
+export const clearAuthAtom = atom(
+  null,
+  async (get, set) => {
+    set(userAtom, null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+);
+
+// Action atom for initializing authentication
+export const initializeAuthAtom = atom(
+  null,
+  async (get, set) => {
+    try {
+      // Check for token in localStorage
+      const token = localStorage.getItem('token');
+      const userData = localStorage.getItem('user');
+      
+      if (token && userData) {
+        const user = JSON.parse(userData);
+        set(userAtom, user);
+      } else {
+        set(userAtom, null);
+      }
+    } catch (error) {
+      console.error('Error initializing auth:', error);
+      set(userAtom, null);
+    } finally {
+      set(authInitializedAtom, true);
+    }
+  }
+);
