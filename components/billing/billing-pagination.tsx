@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ChevronUp } from "lucide-react";
 
 interface BillingPaginationProps {
@@ -20,6 +20,24 @@ export default function BillingPagination({
 }: BillingPaginationProps) {
   const [showPerPageDropdown, setShowPerPageDropdown] = useState(false);
   const perPageOptions = [5, 10, 20, 50];
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowPerPageDropdown(false);
+      }
+    };
+
+    if (showPerPageDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showPerPageDropdown]);
   
   // Generate page numbers for mobile view (show up to 8 pages)
   const generatePageNumbers = (): number[] => {
@@ -111,17 +129,17 @@ export default function BillingPagination({
         
         {/* Items per page dropdown */}
         {onItemsPerPageChange && (
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setShowPerPageDropdown(!showPerPageDropdown)}
-              className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-white/10 text-white text-sm font-creato-display hover:bg-white/20 transition-colors"
+              className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-white/10 text-white text-sm font-creato-display"
             >
               <span>{itemsPerPage} per page</span>
               <ChevronUp className="w-4 h-4" />
             </button>
             
             {showPerPageDropdown && (
-              <div className="absolute right-0 bottom-full mb-1 bg-gray-800 border border-white/10 rounded-lg shadow-lg z-10 min-w-[120px]">
+              <div className="absolute right-0 bottom-full mb-1 bg-[#1A1A1A] border border-white/10 rounded-lg shadow-lg z-10 min-w-[120px]">
                 {perPageOptions.map((option) => (
                   <button
                     key={option}
@@ -129,9 +147,7 @@ export default function BillingPagination({
                       onItemsPerPageChange(option);
                       setShowPerPageDropdown(false);
                     }}
-                    className={`w-full px-3 py-2 text-left text-sm font-creato-display hover:bg-white/10 transition-colors first:rounded-t-lg last:rounded-b-lg ${
-                      itemsPerPage === option ? "bg-white/20 text-white" : "text-white/80"
-                    }`}
+                    className="w-full px-3 py-2 text-left text-sm font-creato-display text-white/80 first:rounded-t-lg last:rounded-b-lg"
                   >
                     {option} per page
                   </button>
