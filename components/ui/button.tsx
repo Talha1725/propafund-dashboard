@@ -62,7 +62,7 @@ function Button({
 
   return (
     <Frame variants={frameVariant ?? (variant === "secondary" ? "gradient" : "white")} className="transition-all duration-300 hover:opacity-80">
-      {variant === "secondary" && <div className="gradient-text sm:text-[18px] text-[16px] font-medium absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap cursor-pointer">{props.children}</div>}
+      {variant === "secondary" && <div className="gradient-text sm:text-[18px] text-[16px] font-medium absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap cursor-pointer pointer-events-none">{props.children}</div>}
       <Comp
         data-slot="button"
         className={cn(buttonVariants({ variant, size, className }))}

@@ -1,4 +1,5 @@
 import Footer from "@/components/common/footer";
+import PromoBanner from "@/components/common/promo-banner";
 
 export default function PublicLayout({
   children,
@@ -6,7 +7,8 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="w-full overflow-hidden">
+      <PromoBanner />
       {children}
       <Footer />
     </div>
