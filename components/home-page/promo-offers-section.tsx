@@ -8,13 +8,50 @@ import { useEffect, useRef, useState } from "react";
 import { PROMO_OFFERS, type PromoOffer } from "@/constants/promos";
 import Glow from "../common/glow";
 import { useRouter } from "next/navigation";
+import { Spinner } from "../ui/spinner";
+import { promo } from "@/lib/api/endpoints/promo";
+import type { PromoCardData } from "@/types/promo";
 
 export default function PromoOffersSection() {
   const router = useRouter();
+  const [promoOffers, setPromoOffers] = useState<PromoOffer[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleGetFundedClick = () => {
-    router.push('/challenges');
+  const handleGetFundedClick = (buttonLink?: string) => {
+    if (buttonLink) {
+      router.push(buttonLink);
+    } else {
+      router.push('/challenges');
+    }
   };
+
+  useEffect(() => {
+    const fetchPromoOffers = async () => {
+      try {
+        const response = await promo.getActivePromoCards();
+        if (response.success && response.data.length > 0) {
+          const staticImages = ["/assets/chest-1.svg", "/assets/chest-2.svg", "/assets/chest-3.svg"];
+          const mappedOffers = response.data.map((card: PromoCardData, index: number) => ({
+            title: card.title,
+            description: card.description,
+            buttonText: card.buttonText,
+            buttonLink: card.buttonLink,
+            image: staticImages[index] || staticImages[0]
+          }));
+          setPromoOffers(mappedOffers);
+        } else {
+          setPromoOffers(PROMO_OFFERS);
+        }
+      } catch (error) {
+        console.error('Error fetching promo offers:', error);
+        setPromoOffers(PROMO_OFFERS);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPromoOffers();
+  }, []);
 
   return (
     <div className="font-creato-display relative">
@@ -22,17 +59,23 @@ export default function PromoOffersSection() {
         <Glow width={2600} height={1800} opacity={0.75} shape="farthest-side" blur={120} />
       </div>
       <Container>
-        <div className="flex flex-col gap-8 lg:gap-15">
-          {PROMO_OFFERS.map((offer, index) => (
-            <PromoOfferRow key={index} offer={offer} index={index} onGetFundedClick={handleGetFundedClick} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <Spinner variant="circle" className="w-8 h-8 text-white" />
+          </div>
+        ) : (
+          <div className="flex flex-col gap-8 lg:gap-15">
+            {promoOffers.map((offer, index) => (
+              <PromoOfferRow key={index} offer={offer} index={index} onGetFundedClick={handleGetFundedClick} />
+            ))}
+          </div>
+        )}
       </Container>
     </div>
   );
 }
 
-function PromoOfferRow({ offer, index, onGetFundedClick }: { offer: PromoOffer; index: number; onGetFundedClick: () => void }) {
+function PromoOfferRow({ offer, index, onGetFundedClick }: { offer: PromoOffer; index: number; onGetFundedClick: (buttonLink?: string) => void }) {
   const textRef = useRef<HTMLDivElement | null>(null);
   const [blockHeight, setBlockHeight] = useState<number>(0);
 
@@ -67,9 +110,9 @@ function PromoOfferRow({ offer, index, onGetFundedClick }: { offer: PromoOffer; 
               <Button 
                 variant="secondary" 
                 className="px-[30px] py-[12px] gap-[15px] max-w-full"
-                onClick={onGetFundedClick}
+                onClick={() => onGetFundedClick(offer.buttonLink)}
               >
-                Get Funded Now
+                {offer.buttonText || "Get Funded Now"}
               </Button>
             </div>
           </div>

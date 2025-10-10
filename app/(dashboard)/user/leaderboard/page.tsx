@@ -49,6 +49,39 @@ export default function LeaderboardPage() {
     return transformTopThreeTraders(apiData || []);
   }, [apiData]);
 
+    if (loading) {
+      return (
+        <div className="h-screen overflow-hidden pb-10 md:pb-0">
+          <DashboardPageContainer fullHeight={true}>
+            <div className="h-full flex items-center justify-center">
+              <Spinner variant="ring" className="h-8 w-8 text-white" />
+            </div>
+          </DashboardPageContainer>
+        </div>
+      );
+    }
+
+    // Show error state
+    if (error) {
+      return (
+        <div className="h-screen overflow-hidden pb-10 md:pb-0">
+          <DashboardPageContainer fullHeight={true}>
+            <div className="h-full flex items-center justify-center">
+              <div className="text-center">
+                <p className="text-red-400 mb-4 text-lg">Failed to load leaderboard data</p>
+                <button 
+                  onClick={refetch}
+                  className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-creato-display"
+                >
+                Retry
+              </button>
+            </div>
+          </div>
+        </DashboardPageContainer>
+      </div>
+    );
+  }
+
   return (
     <DashboardPageContainer>
       <div className="space-y-6">
@@ -85,70 +118,34 @@ export default function LeaderboardPage() {
         </div>
         
         {/* Top 3 Trader Cards */}
-        {loading ? (
-          <div className="flex justify-center items-center h-64 mb-6">
-            <Spinner variant="ring" className="h-8 w-8 text-white" />
-          </div>
-        ) : error ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="text-center">
-              <p className="text-red-400 mb-4">Failed to load leaderboard data</p>
-              <button 
-                onClick={refetch}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-              >
-                Retry
-              </button>
+        <div className="flex flex-col lg:flex-row lg:justify-center lg:items-start items-center w-full min-h-[900px] lg:min-h-0 xl:min-h-[369px] pt-4 lg:pt-0 pb-10 mt-2 mb-6 gap-4 lg:gap-24 xl:gap-8 2xl:gap-14">
+          {topThreeTraders.map((trader, index) => (
+            <div key={trader.name} className={`w-full max-w-[350px] lg:max-w-[280px] xl:max-w-[320px] 2xl:max-w-[350px] lg:flex-1 ${index === 1 ? 'lg:mt-14' : index === 2 ? 'lg:mt-24' : ''}`}>
+              <ProfileCard
+                name={trader.name}
+                location={trader.location}
+                countryCode={trader.countryCode}
+                rank={trader.rank}
+                profitFactor={trader.profitFactor}
+                totalTrades={trader.totalTrades}
+                winRate={trader.winRate}
+                winRateTrend={trader.winRateTrend}
+                monthlyReturn={trader.monthlyReturn}
+                monthlyReturnTrend={trader.monthlyReturnTrend}
+                accountSize={trader.accountSize}
+                cardType={trader.cardType}
+              />
             </div>
-          </div>
-        ) : (
-          <div className="flex flex-col lg:flex-row justify-between mb-6 px-2 gap-2 md:gap-[21px]">
-            {topThreeTraders.map((trader, index) => (
-              <div key={trader.name} className={`flex justify-center md:block mt-0 ${index === 1 ? 'md:mt-14' : index === 2 ? 'md:mt-24' : ''}`}>
-                <ProfileCard
-                  name={trader.name}
-                  location={trader.location}
-                  countryCode={trader.countryCode}
-                  rank={trader.rank}
-                  profitFactor={trader.profitFactor}
-                  totalTrades={trader.totalTrades}
-                  winRate={trader.winRate}
-                  winRateTrend={trader.winRateTrend}
-                  monthlyReturn={trader.monthlyReturn}
-                  monthlyReturnTrend={trader.monthlyReturnTrend}
-                  accountSize={trader.accountSize}
-                  cardType={trader.cardType}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+          ))}
+        </div>
 
         <div className="border-t border-white/10 rounded-t-none">
-          {loading ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="text-white">Loading leaderboard data...</div>
-            </div>
-          ) : error ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="text-center">
-                <p className="text-red-400 mb-4">Failed to load leaderboard data</p>
-                <button 
-                  onClick={refetch}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                >
-                  Retry
-                </button>
-              </div>
-            </div>
-          ) : (
-            <DataTable
-              data={transformedTableData}
-              columns={leaderboardColumns}
-              className="leaderboard-table"
-              responsive={true}
-            />
-          )}
+          <DataTable
+            data={transformedTableData}
+            columns={leaderboardColumns}
+            className="leaderboard-table"
+            responsive={true}
+          />
         </div>
       </div>
     </DashboardPageContainer>
