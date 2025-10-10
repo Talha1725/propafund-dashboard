@@ -2,6 +2,7 @@ export interface PromoOffer {
   title: string;
   description: string;
   buttonText: string;
+  buttonLink?: string;
   image: any;
 }
 
