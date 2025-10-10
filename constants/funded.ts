@@ -26,19 +26,8 @@ export const platformOptions = [
   { label: "MatchTrader", value: "matchtrader" },
 ];
 
-export const summaryDetails = [
-  ["Challenge Type", "Regular"],
-  ["Account Size", "$50,000"],
-  ["Challenge Duration", "Unlimited"],
-  ["Leverage", "1:100"],
-  ["Minimum Trading Days", "1 Day"],
-  ["Max Loss", "8%"],
-  ["Daily Loss", "5%"],
-  ["Weekend / Crypto Trading", "Yes"],
-  ["EAs Enabled", "Yes"],
-  ["Platform", "Platform 4"],
-  ["Order Total", "$279.00"],
-];
+// Summary details are now dynamic and generated based on user selections
+// See hooks/use-funding.ts for dynamic summary generation
 
 export const commonStyles = {
   sectionTitle: "font-romanica font-normal text-[32px] leading-[100%] tracking-[0%] uppercase text-white mb-5",

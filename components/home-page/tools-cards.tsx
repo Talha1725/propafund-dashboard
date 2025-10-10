@@ -5,6 +5,7 @@ import SectionHeader from "../common/section-header";
 import { TOOLS_CARDS } from "@/constants/homepage";
 import { Button } from "../ui/button";
 import ToolCards from "../common/tool-cards";
+import Link from "next/link";
 
 export default function ToolsCardsSection() {
   return (
@@ -33,7 +34,9 @@ export default function ToolsCardsSection() {
           imageWrapperClasses={[TOOLS_CARDS[0].imageWrapperClass, TOOLS_CARDS[1].imageWrapperClass, TOOLS_CARDS[2].imageWrapperClass]}
         />
         <div className="flex justify-center mt-10">
-          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded Now</Button>
+          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">
+            <Link href="/get-funded">Get Funded Now</Link>
+          </Button>
         </div>
       </Container>
     </div>

@@ -75,13 +75,13 @@ export default function Navbar() {
           </li>
         </ul>
         <Button>
-          <Link href="/challenges">Get Funded Now</Link>
+          <Link href="/get-funded">Get Funded Now</Link>
         </Button>
       </div>
 
       <div className="md:hidden flex items-center gap-4">
         <Button>
-          <Link href="/challenges">Get Funded Now</Link>
+          <Link href="/get-funded">Get Funded Now</Link>
         </Button>
         <button
           ref={hamburgerRef}

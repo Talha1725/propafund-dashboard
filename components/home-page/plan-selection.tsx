@@ -8,6 +8,7 @@ import * as React from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import plusColor from "@/public/assets/plus-color.svg";
+import Link from "next/link";
 import moneyIcon from "@/public/assets/money.svg";
 import creditIcon from "@/public/assets/credit.svg";
 import bitcoinIcon from "@/public/assets/bitcoin.svg";
@@ -140,7 +141,9 @@ export default function PlanSelectionSection() {
                 ))}
 
                 <div className="flex justify-center">
-                  <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded</Button>
+                  <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">
+                    <Link href="/get-funded">Get Funded</Link>
+                  </Button>
                 </div>             
               </div>
             </div>

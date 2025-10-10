@@ -10,11 +10,18 @@ import Glow from "@/components/common/glow";
 import * as React from "react";
 import { commonStyles, content } from "@/constants/funded";
 import { challengeTypeOptions, platformOptions } from "@/constants/funded";
-import { summaryDetails } from "@/constants/funded";
 import OptionTabs from "@/components/funded/option-tabs";
+import { useFunding } from "@/hooks/use-funding";
+import { useRouter } from "next/navigation";
+
 export default function GetFundedPage() {
-  const [selectedChallenge, setSelectedChallenge] = React.useState("stage-one");
-  const [selectedPlatform, setSelectedPlatform] = React.useState("platform-5");
+  const { selectedData, summaryData, updateSelection } = useFunding();
+  const router = useRouter();
+
+  const handleCompleteOrder = () => {
+    // Navigate to complete purchase page
+    router.push('/complete-purchase');
+  };
 
   return (
     <>
@@ -38,8 +45,8 @@ export default function GetFundedPage() {
               <OptionTabs
                 label="Challenge Type"
                 options={challengeTypeOptions}
-                selectedValue={selectedChallenge}
-                onValueChange={setSelectedChallenge}
+                selectedValue={selectedData.challengeType}
+                onValueChange={(value) => updateSelection('challengeType', value)}
               />
               
               <div className="pt-[10px]">
@@ -49,25 +56,17 @@ export default function GetFundedPage() {
                       Account Type
                     </label>
                     <div className="pt-[20px]">
-                      <SupportForm
-                        fields={[{
-                          type: "select",
-                          name: "accountType",
-                          label: "",
-                          placeholder: "Select Account Type",
-                          fullWidth: true,
-                          options: [
-                            { label: "Elite ($50,000)", value: "elite-50k" },
-                            { label: "Pro ($100,000)", value: "pro-100k" },
-                            { label: "Master ($200,000)", value: "master-200k" },
-                          ]
-                        }]}
-                        showFrame={false}
-                        showSubmitButton={false}
-                        onSubmit={async (values) => {
-                          console.log("Product form submitted", values);
-                        }}
-                      />
+                      <div className="w-full h-[64px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] border border-white/10 text-white focus-within:border-white/30 focus-within:outline-none rounded-none">
+                        <select
+                          value={selectedData.accountType}
+                          onChange={(e) => updateSelection('accountType', e.target.value)}
+                          className="w-full h-full bg-transparent text-white placeholder:text-white/70 focus:outline-none"
+                        >
+                          <option value="elite-50k">Elite ($50,000)</option>
+                          <option value="pro-100k">Pro ($100,000)</option>
+                          <option value="master-200k">Master ($200,000)</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -77,8 +76,8 @@ export default function GetFundedPage() {
                 <OptionTabs
                   label="Platform"
                   options={platformOptions}
-                  selectedValue={selectedPlatform}
-                  onValueChange={setSelectedPlatform}
+                  selectedValue={selectedData.platform}
+                  onValueChange={(value) => updateSelection('platform', value)}
                 />
               </div>
             </div>
@@ -94,11 +93,24 @@ export default function GetFundedPage() {
               
               <FramedTable
                 headers={["Parameter", "Value"]}
-                rows={summaryDetails}
+                rows={[
+                  ["Challenge Type", summaryData.challengeType],
+                  ["Account Size", summaryData.accountSize],
+                  ["Challenge Duration", summaryData.challengeDuration],
+                  ["Leverage", summaryData.leverage],
+                  ["Minimum Trading Days", summaryData.minimumTradingDays],
+                  ["Max Loss", summaryData.maxLoss],
+                  ["Daily Loss", summaryData.dailyLoss],
+                  ["Weekend / Crypto Trading", summaryData.weekendCryptoTrading],
+                  ["EAs Enabled", summaryData.easEnabled],
+                  ["Platform", summaryData.platform],
+                  ["Order Total", summaryData.orderTotal],
+                ]}
                 showHeaders={false}
                 showButton={true}
                 buttonText={content.button}
                 boldText={true}
+                onButtonClick={handleCompleteOrder}
               />
             </div>
           </div>
