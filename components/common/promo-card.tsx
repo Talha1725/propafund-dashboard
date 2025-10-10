@@ -15,9 +15,6 @@ export default function PromoCard({
   buttonLink,
   tagText,
   timerText,
-  initialDays,
-  initialHours,
-  initialMins,
   seatsLeft,
 }: PromoCardProps) {
   return (
