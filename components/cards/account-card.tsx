@@ -48,12 +48,19 @@ export const AccountCard = memo<AccountCardProps>(({
   const isGradientCard = balance;
 
   const AddNewCard = () => {
+    const handleAddNewAccount = () => {
+      router.push('/challenges');
+    };
+
     return (
-      <div className="w-full flex justify-start">
-        <div className="flex items-center justify-center gap-[10px] bg-[#0B0E1233] border border-white rounded-[10px] h-[41px] px-[42px] w-full text-white">
+      <div className="w-full flex justify-start hover:opacity-70 transition-opacity duration-200">
+        <button 
+          onClick={handleAddNewAccount}
+          className="flex items-center justify-center gap-[10px] bg-[#0B0E1233] border border-white rounded-[10px] h-[41px] px-[42px] w-full text-white"
+        >
           <Image src={plus} alt="plus" width={16} height={16} className="invert" />
           <span className="text-white font-lay-grotesk font-medium text-sm leading-none">Add New Account</span>
-        </div>
+        </button>
       </div>
     );
   };

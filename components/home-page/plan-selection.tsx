@@ -12,9 +12,16 @@ import moneyIcon from "@/public/assets/money.svg";
 import creditIcon from "@/public/assets/credit.svg";
 import bitcoinIcon from "@/public/assets/bitcoin.svg";
 import Glow from "../common/glow";
+import { useRouter } from "next/navigation";
 
 export default function PlanSelectionSection() {
   const [selectedPayment, setSelectedPayment] = React.useState<number>(2);
+  const router = useRouter();
+
+  const handleGetFundedClick = () => {
+    router.push('/challenges');
+  };
+
   return (
     <div className="font-creato-display pt-30">
       <Container>
@@ -140,7 +147,13 @@ export default function PlanSelectionSection() {
                 ))}
 
                 <div className="flex justify-center">
-                  <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded</Button>
+                  <Button 
+                    variant="secondary" 
+                    className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
+                    onClick={handleGetFundedClick}
+                  >
+                    Get Funded
+                  </Button>
                 </div>             
               </div>
             </div>

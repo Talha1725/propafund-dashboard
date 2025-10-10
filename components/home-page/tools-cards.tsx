@@ -5,8 +5,15 @@ import SectionHeader from "../common/section-header";
 import { TOOLS_CARDS } from "@/constants/homepage";
 import { Button } from "../ui/button";
 import ToolCards from "../common/tool-cards";
+import { useRouter } from "next/navigation";
 
 export default function ToolsCardsSection() {
+  const router = useRouter();
+
+  const handleGetFundedClick = () => {
+      router.push('/challenges');
+  };
+
   return (
     <div className="font-creato-display">
       <Container reducedMargin={true}>
@@ -33,7 +40,13 @@ export default function ToolsCardsSection() {
           imageWrapperClasses={[TOOLS_CARDS[0].imageWrapperClass, TOOLS_CARDS[1].imageWrapperClass, TOOLS_CARDS[2].imageWrapperClass]}
         />
         <div className="flex justify-center mt-10">
-          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded Now</Button>
+          <Button 
+            variant="secondary" 
+            className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
+            onClick={handleGetFundedClick}
+          >
+            Get Funded Now
+          </Button>
         </div>
       </Container>
     </div>

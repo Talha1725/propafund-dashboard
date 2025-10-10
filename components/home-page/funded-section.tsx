@@ -5,6 +5,7 @@ import Container from "../common/container";
 import SectionHeader from "../common/section-header";
 import Frame from "../common/frame";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import coins from "@/public/assets/coins.svg";
 import marbleCoin from "@/public/assets/marble-money.svg";
 import paperRoll from "@/public/assets/paper-roll.svg";
@@ -13,6 +14,11 @@ import Glow from "../common/glow";
 
 export default function FundedSection() {
   const [hover, setHover] = useState<string>("card2");
+  const router = useRouter();
+
+  const handleGetFundedClick = () => {
+    router.push('/challenges');
+  };
   return (
     <div className="font-creato-display py-30">
       <Container>
@@ -86,7 +92,13 @@ export default function FundedSection() {
           </Frame>
         </div>
         <div className="flex justify-center mt-15">
-          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded Now</Button>
+          <Button 
+            variant="secondary" 
+            className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
+            onClick={handleGetFundedClick}
+          >
+            Get Funded Now
+          </Button>
         </div>  
         <div className="pointer-events-none absolute inset-x-0 -bottom-30 flex justify-center">
           <Glow width={2000} height={1200} opacity={0.55} shape="farthest-side" blur={100} />

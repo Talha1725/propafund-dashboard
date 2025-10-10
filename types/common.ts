@@ -122,6 +122,7 @@ export interface FramedTableProps {
   buttonText?: string;
   boldText?: boolean;
   specialOrderTotal?: boolean;
+  onButtonClick?: () => void;
 }
 
 export interface ToolCardProps {

@@ -11,11 +11,17 @@ import * as React from "react";
 import Glow from "../common/glow";
 import { Button } from "../ui/button";
 import TestimonialCard from "../common/testimonial-card";
+import { useRouter } from "next/navigation";
 
 
 export default function TestimonialSection() {
   const defaultIndex = 1;
   const [active, setActive] = React.useState<number>(defaultIndex);
+  const router = useRouter();
+
+  const handleGetFundedClick = () => {
+    router.push('/challenges');
+  };
   const logos = [
     { src: trustPilotLogo, alt: "trustpilot-logo" },
     { src: trustAdvisorLogo, alt: "trustadvisor-logo" },
@@ -84,7 +90,13 @@ export default function TestimonialSection() {
               ))}
             </div>
             <div className="flex justify-center mt-10">
-              <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">Get Funded</Button>
+              <Button 
+                variant="secondary" 
+                className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
+                onClick={handleGetFundedClick}
+              >
+                Get Funded
+              </Button>
             </div>
           </div>
       </Container>
