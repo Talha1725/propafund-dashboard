@@ -7,8 +7,15 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { PROMO_OFFERS, type PromoOffer } from "@/constants/promos";
 import Glow from "../common/glow";
+import { useRouter } from "next/navigation";
 
 export default function PromoOffersSection() {
+  const router = useRouter();
+
+  const handleGetFundedClick = () => {
+    router.push('/challenges');
+  };
+
   return (
     <div className="font-creato-display relative">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center z-0">
@@ -17,7 +24,7 @@ export default function PromoOffersSection() {
       <Container>
         <div className="flex flex-col gap-8 lg:gap-15">
           {PROMO_OFFERS.map((offer, index) => (
-            <PromoOfferRow key={index} offer={offer} index={index} />
+            <PromoOfferRow key={index} offer={offer} index={index} onGetFundedClick={handleGetFundedClick} />
           ))}
         </div>
       </Container>
@@ -25,7 +32,7 @@ export default function PromoOffersSection() {
   );
 }
 
-function PromoOfferRow({ offer, index }: { offer: PromoOffer; index: number }) {
+function PromoOfferRow({ offer, index, onGetFundedClick }: { offer: PromoOffer; index: number; onGetFundedClick: () => void }) {
   const textRef = useRef<HTMLDivElement | null>(null);
   const [blockHeight, setBlockHeight] = useState<number>(0);
 
@@ -57,7 +64,13 @@ function PromoOfferRow({ offer, index }: { offer: PromoOffer; index: number }) {
               {offer.description}
             </p>
             <div className="flex justify-left">
-              <Button variant="secondary" className="px-[30px] py-[12px] gap-[15px] max-w-full">Get Funded Now</Button>
+              <Button 
+                variant="secondary" 
+                className="px-[30px] py-[12px] gap-[15px] max-w-full"
+                onClick={onGetFundedClick}
+              >
+                Get Funded Now
+              </Button>
             </div>
           </div>
         </Frame>

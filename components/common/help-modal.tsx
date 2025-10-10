@@ -99,7 +99,7 @@ const ContactCard = memo(() => (
         <p 
           className="font-creato-display font-medium text-[16px] leading-[100%] tracking-[-1%] text-center"
         >
-          Our team is ready to help. Write to <span className="font-creato-display font-bold text-[16px] leading-[100%] tracking-[-1%] text-center underline">support@fxutopia.com</span> and we&apos;ll respond as soon as possible.
+          Our team is ready to help. Write to <span className="font-creato-display font-bold text-[16px] leading-[100%] tracking-[-1%] text-center underline">support@propafund.com</span> and we&apos;ll respond as soon as possible.
         </p>
         <button 
           className="font-creato-display font-medium text-[14px] leading-[100%] tracking-[0%] text-black bg-white border border-[#00000029] rounded-lg hover:bg-white/90 flex items-center justify-center whitespace-nowrap"

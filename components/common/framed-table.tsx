@@ -3,10 +3,9 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import Frame from "./frame";
-import { Button } from "@/components/ui/button";
 import { FramedTableProps } from "@/types/common";
 
-export default function FramedTable({ headers, rows, className = "", showHeaders = true, showButton = false, buttonText = "Complete Order", boldText = false, specialOrderTotal = false }: FramedTableProps) {
+export default function FramedTable({ headers, rows, className = "", showHeaders = true, showButton = false, buttonText = "Complete Order", boldText = false, specialOrderTotal = false, onButtonClick }: FramedTableProps) {
   const columnCount = headers?.length || (rows.length > 0 ? rows[0].length : 0);
   
   return (
@@ -61,9 +60,13 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
           
           {showButton && (
             <div className="px-6 py-4 flex justify-center">
-              <Button variant="secondary" className="w-full h-[45px] px-[30px] py-[12px] gap-[15px]">
+              <button 
+                className="w-full h-[45px] px-[30px] py-[12px] gap-[15px] bg-white text-black font-creato-display font-medium text-sm leading-none tracking-normal rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                onClick={onButtonClick}
+                type="button"
+              >
                 {buttonText}
-              </Button>
+              </button>
             </div>
           )}
         </div>

@@ -7,12 +7,12 @@ export const generateInvoicePDF = (payment: PaymentHistoryItem) => {
   // 1. Company Header
   doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
-  doc.text('FX UTOPIA', 20, 30);
+  doc.text('PROPA FUND', 20, 30);
   
   doc.setFontSize(12);
   doc.setFont('helvetica', 'normal');
   doc.text('Trading Challenge Provider', 20, 40);
-  doc.text('Email: support@fxutopia.com', 20, 50);
+  doc.text('Email: support@propafund.com', 20, 50);
   doc.text('Phone: +1 (555) 123-4567', 20, 60);
   
   // 2. Invoice Details
@@ -108,11 +108,11 @@ export const generateInvoicePDF = (payment: PaymentHistoryItem) => {
   const footerY = totalY + 30;
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
-  doc.text('Thank you for choosing FX UTOPIA for your trading challenge needs.', 20, footerY);
-  doc.text('For support, please contact us at support@fxutopia.com', 20, footerY + 10);
+  doc.text('Thank you for choosing PROPA FUND for your trading challenge needs.', 20, footerY);
+  doc.text('For support, please contact us at support@propafund.com', 20, footerY + 10);
   doc.text('This invoice was generated automatically on ' + new Date().toLocaleString(), 20, footerY + 20);
   
   // 9. Download
-  const fileName = `fx-utopia-invoice-${payment.trackId}-${new Date().toISOString().split('T')[0]}.pdf`;
+  const fileName = `propafund-invoice-${payment.trackId}-${new Date().toISOString().split('T')[0]}.pdf`;
   doc.save(fileName);
 };

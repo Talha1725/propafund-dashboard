@@ -25,9 +25,7 @@ export default function SettingsTabs({ activeTab, onTabChange }: SettingsTabsPro
 
   const tabs = [
     { id: "personal-information", label: "Personal Information" },
-    { id: "account-information", label: "Account Information" },
     { id: "security", label: "Security" },
-    { id: "notifications", label: "Notifications" },
   ];
 
   return (

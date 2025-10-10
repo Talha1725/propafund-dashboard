@@ -1,10 +1,8 @@
 "use client";
 
-import AccountInformationSection from "@/components/setting-components/account-information";
 import PersonalInformationSection from "@/components/setting-components/personal-information-section";
 import SecuritySection from "@/components/setting-components/security-section";
 import SettingsTabs from "@/components/setting-components/setting-tabs";
-import NotificationSection from "@/components/setting-components/notification-section";
 import DashboardPageContainer from "@/components/common/dashboard-page-container";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
@@ -21,9 +19,7 @@ function SettingsContent() {
       tabFromParams &&
       [
         "personal-information",
-        "account-information",
         "security",
-        "notifications",
       ].includes(tabFromParams)
     ) {
       setActiveTab(tabFromParams);
@@ -43,14 +39,8 @@ function SettingsContent() {
         {activeTab === "personal-information" && (
           <PersonalInformationSection />
         )}
-        {activeTab === "account-information" && (
-          <AccountInformationSection />
-        )}
         {activeTab === "security" && (
           <SecuritySection />
-        )}
-        {activeTab === "notifications" && (
-          <NotificationSection />
         )}
       </div>
     </DashboardPageContainer>

@@ -1,10 +1,5 @@
 import { z } from "zod";
 
-// Profile Picture Schema
-export const profilePictureSchema = z.object({
-  profileImage: z.string().optional(),
-});
-
 // Account Information Schema
 export const accountInformationSchema = z.object({
   username: z
@@ -19,11 +14,9 @@ export const accountInformationSchema = z.object({
 
 // Combined Account Information Schema
 export const accountInformationFormSchema = z.object({
-  profile: profilePictureSchema,
   account: accountInformationSchema,
 });
 
 // Type definitions
 export type AccountInformationFormData = z.infer<typeof accountInformationFormSchema>;
-export type ProfilePictureData = z.infer<typeof profilePictureSchema>;
 export type AccountInformationData = z.infer<typeof accountInformationSchema>;

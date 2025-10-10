@@ -19,7 +19,7 @@ export default function ChallengesPage() {
         isHomepage={false}
       />
       <div className="font-creato-display" id="challenges">
-          <MasterOlympusSection/>
+          <MasterOlympusSection redirectTo="/get-funded"/>
           <MarketShieldSection className="-py-30"/>
           <OracleSection className="-py-30"/>
           <div className="relative">

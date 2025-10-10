@@ -84,6 +84,7 @@ export interface AccountCardProps extends AccountCredentials {
   daysTraded: number;
   balance?: boolean | number;
   isAddNewCard?: boolean;
+  status?: string;
 }
 
 export interface CardContainerProps {
@@ -121,6 +122,7 @@ export interface FramedTableProps {
   buttonText?: string;
   boldText?: boolean;
   specialOrderTotal?: boolean;
+  onButtonClick?: () => void;
 }
 
 export interface ToolCardProps {

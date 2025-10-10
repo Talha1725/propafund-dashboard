@@ -20,6 +20,7 @@ export const AccountCard = memo<AccountCardProps>(({
   daysTraded,
   balance = false,
   isAddNewCard = false,
+  status,
   ...credentials
 }) => {
   const [isClicked] = useState(false);
@@ -47,12 +48,19 @@ export const AccountCard = memo<AccountCardProps>(({
   const isGradientCard = balance;
 
   const AddNewCard = () => {
+    const handleAddNewAccount = () => {
+      router.push('/challenges');
+    };
+
     return (
-      <div className="w-full flex justify-start">
-        <div className="flex items-center justify-center gap-[10px] bg-[#0B0E1233] border border-white rounded-[10px] h-[41px] px-[42px] w-full text-white">
+      <div className="w-full flex justify-start hover:opacity-70 transition-opacity duration-200">
+        <button 
+          onClick={handleAddNewAccount}
+          className="flex items-center justify-center gap-[10px] bg-[#0B0E1233] border border-white rounded-[10px] h-[41px] px-[42px] w-full text-white"
+        >
           <Image src={plus} alt="plus" width={16} height={16} className="invert" />
           <span className="text-white font-lay-grotesk font-medium text-sm leading-none">Add New Account</span>
-        </div>
+        </button>
       </div>
     );
   };
@@ -64,6 +72,11 @@ export const AccountCard = memo<AccountCardProps>(({
         <span className={`${isGradientCard ? "text-[#0B0E12]" : "text-white"} font-lay-grotesk font-medium text-lg leading-none tracking-tight text-center`}>
           {accountId}
         </span>
+        {status === 'failed' && (
+          <span className={`${isGradientCard ? "text-red-600" : "text-red-400"} font-lay-grotesk font-medium text-sm leading-none tracking-tight ml-2`}>
+            Failed
+          </span>
+        )}
       </div>
       <button className={`${isGradientCard ? "bg-[#0B0E121A] text-[#0B0E12]" : "text-white bg-instant-funding"} font-lay-grotesk font-medium text-sm leading-[136%] tracking-[-2%] rounded px-3.5 py-1 h-[27px] whitespace-nowrap`}>
         {phase}
