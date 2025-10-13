@@ -31,21 +31,25 @@ export function buildZodSchema(fields: FieldConfig[]) {
   return z.object(shape);
 }
 
+interface SupportFormProps {
+  fields: FieldConfig[];
+  onSubmit: (values: Record<string, string>) => Promise<void> | void;
+  showFrame?: boolean;
+  showSubmitButton?: boolean;
+  initialValues?: Record<string, string>;
+}
+
 export default function SupportForm({
   fields,
   onSubmit,
   showFrame = true,
   showSubmitButton = true,
-}: {
-  fields: FieldConfig[];
-  onSubmit: (values: Record<string, string>) => Promise<void> | void;
-  showFrame?: boolean;
-  showSubmitButton?: boolean;
-}) {
+  initialValues,
+}: SupportFormProps) {
   const schema = buildZodSchema(fields);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: Object.fromEntries(fields.map((f) => [f.name, ""])) as Record<string, string>,
+    defaultValues: initialValues || Object.fromEntries(fields.map((f) => [f.name, ""])) as Record<string, string>,
     mode: "onTouched",
   });
 
@@ -84,7 +88,12 @@ export default function SupportForm({
                             className="w-full min-h-[120px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] border border-white/10 text-white placeholder:text-white/70 placeholder:font-creato-display placeholder:font-medium placeholder:text-[18px] placeholder:leading-[100%] placeholder:tracking-[-5%] focus:border-white/30 focus:outline-none resize-none rounded-none"
                           />
                         ) : (
-                          <Select onValueChange={field.onChange} value={field.value as string}>
+                          <Select onValueChange={(value) => {
+                            field.onChange(value);
+                            // Call onSubmit immediately when select value changes
+                            const updatedValues = { ...form.getValues(), [f.name]: value };
+                            onSubmit(updatedValues as Record<string, string>);
+                          }} value={field.value as string}>
                             <SelectTrigger className="w-full h-[64px] !h-[64px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] !bg-gradient-to-r !from-white/[0.05] !to-white/[0.02] border border-white/10 !border-white/10 text-white focus:border-white/30 !focus:border-white/30 focus:outline-none data-[state=open]:bg-gradient-to-r data-[state=open]:from-white/[0.05] data-[state=open]:to-white/[0.02] data-[state=open]:border-white/30 !data-[state=open]:border-white/30 rounded-none !rounded-none">
                               <SelectValue 
                                 placeholder={f.placeholder ?? "Select"} 

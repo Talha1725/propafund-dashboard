@@ -10,13 +10,18 @@ import Glow from "@/components/common/glow";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { commonStyles, content } from "@/constants/funded";
-import { challengeTypeOptions, platformOptions } from "@/constants/funded";
-import { summaryDetails } from "@/constants/funded";
+import { challengeTypeOptions, platformOptions, getSummaryDetails } from "@/constants/funded";
 import OptionTabs from "@/components/funded/option-tabs";
 export default function GetFundedPage() {
   const [selectedChallenge, setSelectedChallenge] = React.useState("stage-one");
   const [selectedPlatform, setSelectedPlatform] = React.useState("platform-5");
+  const [selectedAccountType, setSelectedAccountType] = React.useState("elite-50k");
   const router = useRouter();
+
+  // Generate dynamic summary based on current selections
+  const dynamicSummaryDetails = React.useMemo(() => {
+    return getSummaryDetails(selectedChallenge, selectedAccountType, selectedPlatform);
+  }, [selectedChallenge, selectedAccountType, selectedPlatform]);
 
   const handleCompleteOrderClick = () => {
     router.push('/complete-purchase');
@@ -70,8 +75,11 @@ export default function GetFundedPage() {
                         }]}
                         showFrame={false}
                         showSubmitButton={false}
+                        {...({ initialValues: { accountType: selectedAccountType } } as any)}
                         onSubmit={async (values) => {
-                          console.log("Product form submitted", values);
+                          if (values.accountType) {
+                            setSelectedAccountType(values.accountType);
+                          }
                         }}
                       />
                     </div>
@@ -100,7 +108,7 @@ export default function GetFundedPage() {
               
               <FramedTable
                 headers={["Parameter", "Value"]}
-                rows={summaryDetails}
+                rows={dynamicSummaryDetails}
                 showHeaders={false}
                 showButton={true}
                 buttonText={content.button}
