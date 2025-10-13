@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Youtube, Instagram, Twitter, MessageCircle } from "lucide-react";
 import { FOOTER_SOCIALS, type FooterSocial } from "./footer";
-import { type FieldConfig } from "@/components/support/support-form";
+import { type FieldConfig } from "@/types/forms";
 
 export const iconMap: Record<FooterSocial["icon"], React.ComponentType<{ width?: number; height?: number; className?: string }>> = {
   youtube: Youtube,

@@ -35,7 +35,7 @@ export default function SupportPage() {
             <SupportForm
               fields={supportFields}
               onSubmit={async (values) => {
-                console.log("Support form submitted", values);
+                // Handle support form submission
               }}
             />
             <div className="mt-15">

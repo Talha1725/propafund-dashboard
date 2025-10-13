@@ -1,4 +1,4 @@
-import { type FieldConfig } from "@/components/support/support-form";
+import { type FieldConfig } from "@/types/forms";
 
 export const productFields: FieldConfig[] = [
   { 

@@ -1,5 +1,6 @@
 "use client";
 
+import {useEffect} from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,10 +11,7 @@ import { Textarea } from "../ui/textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Button } from "../ui/button";
 
-export type FieldConfig =
-  | { type: "text" | "email"; name: string; label: string; placeholder?: string; fullWidth?: boolean }
-  | { type: "textarea"; name: string; label: string; placeholder?: string; rows?: number; fullWidth?: boolean }
-  | { type: "select"; name: string; label: string; placeholder?: string; options: { label: string; value: string }[]; fullWidth?: boolean };
+import type { FieldConfig } from "@/types/forms";
 
 export function buildZodSchema(fields: FieldConfig[]) {
   const shape: Record<string, z.ZodTypeAny> = {};
@@ -52,6 +50,15 @@ export default function SupportForm({
     defaultValues: initialValues || Object.fromEntries(fields.map((f) => [f.name, ""])) as Record<string, string>,
     mode: "onTouched",
   });
+
+  // Update form values when initialValues change
+  useEffect(() => {
+    if (initialValues) {
+      Object.entries(initialValues).forEach(([key, value]) => {
+        form.setValue(key as keyof z.infer<typeof schema>, value);
+      });
+    }
+  }, [initialValues, form]);
 
   const formContent = (
     <div className={showFrame ? "gradient-primary p-6 text-white" : "text-white"}>
