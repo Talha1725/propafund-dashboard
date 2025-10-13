@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Glow from "@/components/common/glow";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { userAtom, initializeAuthAtom, authInitializedAtom } from "@/lib/store/atoms";
@@ -22,7 +22,7 @@ import { paymentApi } from "@/lib/api/endpoints/payment";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-export default function PurchasePage() {
+function PurchasePageContent() {
   const [selectedPayment, setSelectedPayment] = useState("crypto");
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -138,7 +138,7 @@ export default function PurchasePage() {
           selectedPaymentMethod: 'crypto'
         };
 
-        const paymentData = await (createPayment as any)(checkoutState, formData as any, 'crypto', cryptoDiscount.percentage);
+        const paymentData = await createPayment(checkoutState, formData, 'crypto', cryptoDiscount.percentage);
         
         if (paymentData && paymentData.oxapay) {
           localStorage.setItem('trackId', paymentData.payment.trackId);
@@ -193,7 +193,7 @@ export default function PurchasePage() {
                 fields={purchaseFields}
                 showFrame={false}
                 showSubmitButton={false}
-                {...({ initialValues } as any)}
+                initialValues={initialValues}
                 onSubmit={async (values) => {
                   setFormData(values);
                 }}
@@ -301,5 +301,13 @@ export default function PurchasePage() {
         </Container>
       </div>
     </>
+  );
+}
+
+export default function PurchasePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PurchasePageContent />
+    </Suspense>
   );
 }

@@ -81,7 +81,7 @@ export default function GetFundedPage() {
                         }]}
                         showFrame={false}
                         showSubmitButton={false}
-                        {...({ initialValues: { accountType: selectedAccountType } } as any)}
+                        initialValues={{ accountType: selectedAccountType }}
                         onSubmit={async (values) => {
                           if (values.accountType) {
                             setSelectedAccountType(values.accountType);
