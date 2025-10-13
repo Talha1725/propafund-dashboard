@@ -24,7 +24,13 @@ export default function GetFundedPage() {
   }, [selectedChallenge, selectedAccountType, selectedPlatform]);
 
   const handleCompleteOrderClick = () => {
-    router.push('/complete-purchase');
+    // Pass challenge data as URL parameters
+    const params = new URLSearchParams({
+      challengeType: selectedChallenge,
+      accountType: selectedAccountType,
+      platform: selectedPlatform
+    });
+    router.push(`/complete-purchase?${params.toString()}`);
   };
 
   return (

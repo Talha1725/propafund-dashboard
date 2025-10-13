@@ -11,10 +11,54 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Glow from "@/components/common/glow";
 import * as React from "react";
-import { purchaseFields, orderDetails } from "@/constants/purchase";
+import { useSearchParams } from "next/navigation";
+import { useAtom } from "jotai";
+import { userAtom, initializeAuthAtom, authInitializedAtom } from "@/lib/store/atoms";
+import { purchaseFields } from "@/constants/purchase";
+import { getSummaryDetails } from "@/constants/funded";
 
 export default function PurchasePage() {
   const [selectedPayment, setSelectedPayment] = React.useState("crypto");
+  const searchParams = useSearchParams();
+  const [user] = useAtom(userAtom);
+  const [, initializeAuth] = useAtom(initializeAuthAtom);
+  const [authInitialized] = useAtom(authInitializedAtom);
+
+  const challengeType = searchParams.get('challengeType') || 'stage-one';
+  const accountType = searchParams.get('accountType') || 'elite-50k';
+  const platform = searchParams.get('platform') || 'platform-5';
+
+  const dynamicOrderDetails = React.useMemo(() => {
+    return getSummaryDetails(challengeType, accountType, platform);
+  }, [challengeType, accountType, platform]);
+
+  // Generate initial values for the form based on available user data
+  const initialValues = React.useMemo(() => {
+    if (!user) {
+      return {};
+    }
+    
+    const values: Record<string, string> = {};
+    
+    if (user.email) {
+      values.email = user.email;
+    }
+    
+    if (user.fullName) {
+      const nameParts = user.fullName.trim().split(' ');
+      values.firstName = nameParts[0] || '';
+      values.lastName = nameParts.slice(1).join(' ') || '';
+    }
+    
+    return values;
+  }, [user]);
+
+  // Initialize authentication on component mount
+  React.useEffect(() => {
+    if (!authInitialized) {
+      initializeAuth();
+    }
+  }, [authInitialized, initializeAuth]);
 
   return (
     <>
@@ -38,13 +82,22 @@ export default function PurchasePage() {
             <div>
               <h2 className="font-romanica font-normal text-[22px] leading-[1] tracking-[0] uppercase text-white mb-6">
                 Billing Details
+                {!authInitialized ? (
+                  <span className="text-white/50 text-[14px] ml-2">(Loading user data...)</span>
+                ) : user ? (
+                  <span className="text-white/50 text-[14px] ml-2">(Email & name auto-filled from your account)</span>
+                ) : (
+                  <span className="text-white/50 text-[14px] ml-2">(Please log in to auto-fill email & name)</span>
+                )}
               </h2>
               <SupportForm
+                key={user?.id || 'no-user'} // Force re-render when user changes
                 fields={purchaseFields}
                 showFrame={false}
                 showSubmitButton={false}
+                {...({ initialValues } as any)}
                 onSubmit={async (values) => {
-                  console.log("Purchase form submitted", values);
+                  // Handle form submission
                 }}
               />
             </div>
@@ -60,7 +113,7 @@ export default function PurchasePage() {
               
               <FramedTable
                 headers={["Parameter", "Value"]}
-                rows={orderDetails}
+                rows={dynamicOrderDetails}
                 showHeaders={false}
               />
 
