@@ -35,6 +35,7 @@ interface SupportFormProps {
   showFrame?: boolean;
   showSubmitButton?: boolean;
   initialValues?: Record<string, string>;
+  onFieldChange?: (fieldName: string, value: string) => void;
 }
 
 export default function SupportForm({
@@ -43,6 +44,7 @@ export default function SupportForm({
   showFrame = true,
   showSubmitButton = true,
   initialValues,
+  onFieldChange,
 }: SupportFormProps) {
   const schema = buildZodSchema(fields);
   const form = useForm<z.infer<typeof schema>>({
@@ -84,6 +86,10 @@ export default function SupportForm({
                             placeholder={f.placeholder}
                             {...field}
                             value={field.value as string}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              onFieldChange?.(f.name, e.target.value);
+                            }}
                             className="w-full h-[64px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] border border-white/10 text-white placeholder:text-white/70 placeholder:font-creato-display placeholder:font-medium placeholder:text-[18px] placeholder:leading-[100%] placeholder:tracking-[-5%] focus:border-white/30 focus:outline-none rounded-none"
                           />
                         ) : f.type === "textarea" ? (
@@ -92,11 +98,16 @@ export default function SupportForm({
                             placeholder={f.placeholder}
                             {...field}
                             value={field.value as string}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              onFieldChange?.(f.name, e.target.value);
+                            }}
                             className="w-full min-h-[120px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] border border-white/10 text-white placeholder:text-white/70 placeholder:font-creato-display placeholder:font-medium placeholder:text-[18px] placeholder:leading-[100%] placeholder:tracking-[-5%] focus:border-white/30 focus:outline-none resize-none rounded-none"
                           />
                         ) : (
                           <Select onValueChange={(value) => {
                             field.onChange(value);
+                            onFieldChange?.(f.name, value);
                             // Call onSubmit immediately when select value changes
                             const updatedValues = { ...form.getValues(), [f.name]: value };
                             onSubmit(updatedValues as Record<string, string>);

@@ -42,5 +42,11 @@ export const paymentApi = {
     
     const response = await apiClient.get(`/payment/v2/history?${queryParams}`);
     return response.data;
+  },
+
+  // Get active discount info for crypto payments
+  getActiveDiscountInfo: async () => {
+    const response = await apiClient.get('/public/payment-discount-settings');
+    return response.data;
   }
 };

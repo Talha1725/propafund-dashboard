@@ -127,3 +127,47 @@ export interface PaymentInfoResponse {
   };
   message: string;
 }
+
+// OxaPay specific types
+export interface OxaPayPaymentData {
+  track_id: string;
+  payment_url: string;
+  payment_page: string;
+}
+
+export interface PaymentMethod {
+  id: string;
+  name: string;
+  originalPrice?: string;
+  discountedPrice?: string;
+  icon: string;
+  isPopular?: boolean;
+  popularText?: string;
+}
+
+export interface CheckoutState {
+  selectedFunding: string;
+  selectedAccountSize: string;
+  selectedPlatform: string;
+  selectedPaymentMethod: string;
+}
+
+export interface BillingFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  streetAddress: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  phone: string;
+}
+
+export interface PaymentState {
+  loading: boolean;
+  error: string | null;
+  payment: CreatePaymentResponse['data'] | null;
+  paymentStatus: PaymentStatusResponse['data'] | null;
+  processingStatus: 'idle' | 'creating' | 'waiting' | 'processing' | 'completed' | 'failed';
+}
