@@ -14,6 +14,8 @@ import Link from "next/link";
 import { useAtom } from "jotai";
 import { authLoadingAtom, authErrorAtom } from "@/lib/store/atoms";
 
+export const dynamic = "force-dynamic";
+
 export default function ForgotPasswordPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
