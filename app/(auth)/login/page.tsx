@@ -17,6 +17,10 @@ import checkmarkIcon from "@/public/assets/checkmark.svg";
 import { toast } from "sonner";
 import Link from "next/link";
 
+
+export const dynamic = "force-dynamic";
+
+
 export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
