@@ -11,14 +11,11 @@ import marbleCoin from "@/public/assets/marble-money.svg";
 import paperRoll from "@/public/assets/paper-roll.svg";
 import { Button } from "../ui/button";
 import Glow from "../common/glow";
+import Link from "next/link";
 
 export default function FundedSection() {
   const [hover, setHover] = useState<string>("card2");
-  const router = useRouter();
-
-  const handleGetFundedClick = () => {
-    router.push('/challenges');
-  };
+  
   return (
     <div className="font-creato-display py-30">
       <Container>
@@ -92,12 +89,8 @@ export default function FundedSection() {
           </Frame>
         </div>
         <div className="flex justify-center mt-15">
-          <Button 
-            variant="secondary" 
-            className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
-            onClick={handleGetFundedClick}
-          >
-            Get Funded Now
+          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">
+            <Link href="/get-funded">Get Funded Now</Link>
           </Button>
         </div>  
         <div className="pointer-events-none absolute inset-x-0 -bottom-30 flex justify-center">

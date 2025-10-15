@@ -6,15 +6,10 @@ import FramedTable from "../common/framed-table";
 import PriceBar from "../common/price-bar";
 import { Button } from "../ui/button";
 import Glow from "../common/glow";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-export default function MasterOlympusSection({ redirectTo = '/challenges' }: { redirectTo?: string }) {
-  const router = useRouter();
-
-  const handleGetFundedClick = () => {
-    router.push(redirectTo);
-  };
-
+export default function MasterOlympusSection() {
+  
   return (
     <div className="font-creato-display py-30">
       <Container>
@@ -46,12 +41,8 @@ export default function MasterOlympusSection({ redirectTo = '/challenges' }: { r
           />
         </div>
         <div className="flex justify-center mt-15">
-          <Button 
-            variant="secondary" 
-            className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
-            onClick={handleGetFundedClick}
-          >
-            Get Funded Now
+          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">
+            <Link href="/get-funded">Get Funded Now</Link>
           </Button>
         </div>  
         <div className="pointer-events-none absolute inset-x-0 bottom-35 flex justify-center -z-10">

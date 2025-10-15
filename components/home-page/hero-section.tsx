@@ -13,7 +13,7 @@ export default function HeroSection({
   subtitle = "Get funded up to $500,000 and conquer the markets like a modern-day Spartan.",
   showButton = true,
   buttonText = "Get Funded Now",
-  buttonLink = "/challenges",
+  buttonLink = "/get-funded",
   isHomepage = true
 }: HeroSectionProps) {
   return (

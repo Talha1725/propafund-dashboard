@@ -7,21 +7,17 @@ import trustPilotLogo from "@/public/assets/trustpilot.svg";
 import trustAdvisorLogo from "@/public/assets/trust-advisor.svg";
 import savingTradersLogo from "@/public/assets/saving-traders.svg";
 import { TESTIMONIALS } from "@/constants/homepage";
-import * as React from "react";
+import {useState} from "react";
 import Glow from "../common/glow";
 import { Button } from "../ui/button";
 import TestimonialCard from "../common/testimonial-card";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 export default function TestimonialSection() {
   const defaultIndex = 1;
-  const [active, setActive] = React.useState<number>(defaultIndex);
-  const router = useRouter();
+  const [active, setActive] = useState<number>(defaultIndex);
 
-  const handleGetFundedClick = () => {
-    router.push('/challenges');
-  };
   const logos = [
     { src: trustPilotLogo, alt: "trustpilot-logo" },
     { src: trustAdvisorLogo, alt: "trustadvisor-logo" },
@@ -90,12 +86,8 @@ export default function TestimonialSection() {
               ))}
             </div>
             <div className="flex justify-center mt-10">
-              <Button 
-                variant="secondary" 
-                className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
-                onClick={handleGetFundedClick}
-              >
-                Get Funded
+              <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">
+                <Link href="/get-funded">Get Funded</Link>
               </Button>
             </div>
           </div>

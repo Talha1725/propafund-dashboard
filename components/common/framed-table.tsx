@@ -60,13 +60,13 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
           
           {showButton && (
             <div className="px-6 py-4 flex justify-center">
-              <button 
-                className="w-full h-[45px] px-[30px] py-[12px] gap-[15px] bg-white text-black font-creato-display font-medium text-sm leading-none tracking-normal rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+              <Button 
+                variant="secondary" 
+                className="w-full h-[45px] px-[30px] py-[12px] gap-[15px]"
                 onClick={onButtonClick}
-                type="button"
               >
                 {buttonText}
-              </button>
+              </Button>
             </div>
           )}
         </div>

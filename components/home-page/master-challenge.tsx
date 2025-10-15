@@ -7,14 +7,9 @@ import SectionHeader from "../common/section-header";
 import Frame from "../common/frame";
 import { Button } from "../ui/button";
 import Glow from "../common/glow";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function MasterChallengeSection() {
-  const router = useRouter();
-
-  const handleGetFundedClick = () => {
-    router.push('/challenges');
-  };
 
   return (
     <div className="font-creato-display">
@@ -57,12 +52,8 @@ export default function MasterChallengeSection() {
           /> */}
         </div>
         <div className="flex justify-center mt-15">
-          <Button 
-            variant="secondary" 
-            className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]"
-            onClick={handleGetFundedClick}
-          >
-            Get Funded Now
+          <Button variant="secondary" className="w-[181px] h-[45px] px-[30px] py-[12px] gap-[15px]">
+            <Link href="/get-funded">Get Funded Now</Link>
           </Button>
         </div>  
         <div className="pointer-events-none absolute inset-x-0 bottom-80 flex justify-center -z-10">

@@ -4,6 +4,7 @@ import Container from "../common/container";
 import Frame from "../common/frame";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PROMO_OFFERS, type PromoOffer } from "@/constants/promos";
 import Glow from "../common/glow";
@@ -107,12 +108,8 @@ function PromoOfferRow({ offer, index, onGetFundedClick }: { offer: PromoOffer; 
               {offer.description}
             </p>
             <div className="flex justify-left">
-              <Button 
-                variant="secondary" 
-                className="px-[30px] py-[12px] gap-[15px] max-w-full"
-                onClick={() => onGetFundedClick(offer.buttonLink)}
-              >
-                {offer.buttonText || "Get Funded Now"}
+              <Button variant="secondary" className="px-[30px] py-[12px] gap-[15px] max-w-full">
+                <Link href="/get-funded">Get Funded Now</Link>
               </Button>
             </div>
           </div>
