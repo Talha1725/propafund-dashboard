@@ -15,8 +15,6 @@ import OptionTabs from "@/components/funded/option-tabs";
 import { useRouter } from "next/navigation";
 
 export default function GetFundedPage() {
-
-  const handleCompleteOrder = () => {
   const [selectedChallenge, setSelectedChallenge] = useState("stage-one");
   const [selectedPlatform, setSelectedPlatform] = useState("platform-5");
   const router = useRouter();

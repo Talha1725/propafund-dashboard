@@ -64,8 +64,9 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
                 variant="secondary" 
                 className="w-full h-[45px] px-[30px] py-[12px] gap-[15px]"
                 onClick={onButtonClick}
+              >
                 {buttonText}
-              </button>
+              </Button>
             </div>
           )}
         </div>
