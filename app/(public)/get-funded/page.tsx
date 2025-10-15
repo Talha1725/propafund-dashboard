@@ -7,19 +7,21 @@ import SectionHeader from "@/components/common/section-header";
 import SupportForm from "@/components/support/support-form";
 import FramedTable from "@/components/common/framed-table";
 import Glow from "@/components/common/glow";
-import * as React from "react";
+import {useState} from "react";
+import { useRouter } from "next/navigation";
 import { commonStyles, content } from "@/constants/funded";
 import { challengeTypeOptions, platformOptions } from "@/constants/funded";
 import OptionTabs from "@/components/funded/option-tabs";
-import { useFunding } from "@/hooks/use-funding";
 import { useRouter } from "next/navigation";
 
 export default function GetFundedPage() {
-  const { selectedData, summaryData, updateSelection } = useFunding();
-  const router = useRouter();
 
   const handleCompleteOrder = () => {
-    // Navigate to complete purchase page
+  const [selectedChallenge, setSelectedChallenge] = useState("stage-one");
+  const [selectedPlatform, setSelectedPlatform] = useState("platform-5");
+  const router = useRouter();
+
+  const handleCompleteOrderClick = () => {
     router.push('/complete-purchase');
   };
 
@@ -110,7 +112,7 @@ export default function GetFundedPage() {
                 showButton={true}
                 buttonText={content.button}
                 boldText={true}
-                onButtonClick={handleCompleteOrder}
+                onButtonClick={handleCompleteOrderClick}
               />
             </div>
           </div>

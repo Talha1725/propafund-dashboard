@@ -11,6 +11,8 @@ import {
   PasswordChangeData,
 } from "@/lib/schemas/security";
 import PasswordStrengthIndicator from "@/components/setting-components/password-strength-indicator";
+import { profile } from "@/lib/api/endpoints/profile";
+import { toast } from "sonner";
 
 export default function ChangePasswordSection() {
   const {
@@ -18,6 +20,7 @@ export default function ChangePasswordSection() {
     handleSubmit,
     formState: { errors, isSubmitting },
     watch,
+    reset,
   } = useForm<PasswordChangeData>({
     resolver: zodResolver(passwordChangeSchema),
     defaultValues: {
@@ -31,11 +34,20 @@ export default function ChangePasswordSection() {
 
   const onSubmit = async (data: PasswordChangeData) => {
     try {
-      console.log("Security data:", data);
-      // Here you would typically send the data to your API
-      // await updateSecuritySettings(data);
+      const response = await profile.changePassword({
+        currentPassword: data.currentPassword,
+        newPassword: data.newPassword,
+      });
+      
+      if (response.success) {
+        toast.success("Password changed successfully");
+        reset(); // Clear the form
+      } else {
+        toast.error(response.message || "Failed to change password");
+      }
     } catch (error) {
-      console.error("Error updating security settings:", error);
+      console.error("Error changing password:", error);
+      toast.error("Failed to change password. Please try again.");
     }
   };
 

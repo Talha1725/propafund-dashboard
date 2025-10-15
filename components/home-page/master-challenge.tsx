@@ -10,6 +10,7 @@ import Glow from "../common/glow";
 import Link from "next/link";
 
 export default function MasterChallengeSection() {
+
   return (
     <div className="font-creato-display">
       <Container>

@@ -8,6 +8,7 @@ import ToolCards from "../common/tool-cards";
 import Link from "next/link";
 
 export default function ToolsCardsSection() {
+
   return (
     <div className="font-creato-display">
       <Container reducedMargin={true}>

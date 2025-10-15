@@ -54,5 +54,29 @@ export const auth = {
   me: async () => {
     const response = await apiClient.get('/auth/me');
     return response.data;
+  },
+
+  // 2FA setup
+  setup2FA: async (method: 'email' | 'authenticator') => {
+    const response = await apiClient.post('/auth/setup-2fa', { method });
+    return response.data;
+  },
+
+  // Verify 2FA code
+  verify2FA: async (code: string, method: 'email' | 'authenticator') => {
+    const response = await apiClient.post('/auth/verify-2fa', { code, method });
+    return response.data;
+  },
+
+  // Disable 2FA
+  disable2FA: async () => {
+    const response = await apiClient.post('/auth/disable-2fa');
+    return response.data;
+  },
+
+  // Get 2FA status
+  get2FAStatus: async () => {
+    const response = await apiClient.get('/auth/2fa-status');
+    return response.data;
   }
 };

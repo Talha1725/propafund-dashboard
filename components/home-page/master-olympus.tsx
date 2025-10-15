@@ -9,6 +9,7 @@ import Glow from "../common/glow";
 import Link from "next/link";
 
 export default function MasterOlympusSection() {
+  
   return (
     <div className="font-creato-display py-30">
       <Container>

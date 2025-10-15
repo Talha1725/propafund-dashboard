@@ -7,7 +7,7 @@ import trustPilotLogo from "@/public/assets/trustpilot.svg";
 import trustAdvisorLogo from "@/public/assets/trust-advisor.svg";
 import savingTradersLogo from "@/public/assets/saving-traders.svg";
 import { TESTIMONIALS } from "@/constants/homepage";
-import * as React from "react";
+import {useState} from "react";
 import Glow from "../common/glow";
 import { Button } from "../ui/button";
 import TestimonialCard from "../common/testimonial-card";
@@ -16,7 +16,8 @@ import Link from "next/link";
 
 export default function TestimonialSection() {
   const defaultIndex = 1;
-  const [active, setActive] = React.useState<number>(defaultIndex);
+  const [active, setActive] = useState<number>(defaultIndex);
+
   const logos = [
     { src: trustPilotLogo, alt: "trustpilot-logo" },
     { src: trustAdvisorLogo, alt: "trustadvisor-logo" },

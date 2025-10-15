@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+// Profile Picture Schema
+export const profilePictureSchema = z.object({
+  profileImage: z.string().optional(),
+});
+
 // Personal Information Schema
 export const personalInformationSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -30,6 +35,7 @@ export const contactInformationSchema = z.object({
 
 // Combined Schema
 export const personalInformationFormSchema = z.object({
+  profile: profilePictureSchema,
   personal: personalInformationSchema,
   contact: contactInformationSchema,
 });
@@ -38,3 +44,4 @@ export const personalInformationFormSchema = z.object({
 export type PersonalInformationFormData = z.infer<typeof personalInformationFormSchema>;
 export type PersonalInformationData = z.infer<typeof personalInformationSchema>;
 export type ContactInformationData = z.infer<typeof contactInformationSchema>;
+export type ProfilePictureData = z.infer<typeof profilePictureSchema>;

@@ -5,6 +5,7 @@ import Container from "../common/container";
 import SectionHeader from "../common/section-header";
 import Frame from "../common/frame";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import coins from "@/public/assets/coins.svg";
 import marbleCoin from "@/public/assets/marble-money.svg";
 import paperRoll from "@/public/assets/paper-roll.svg";
@@ -14,6 +15,7 @@ import Link from "next/link";
 
 export default function FundedSection() {
   const [hover, setHover] = useState<string>("card2");
+  
   return (
     <div className="font-creato-display py-30">
       <Container>

@@ -14,55 +14,39 @@ import {
   import { useForm } from "react-hook-form";
   import { zodResolver } from "@hookform/resolvers/zod";
   import { accountInformationFormSchema, AccountInformationFormData } from "@/lib/schemas/account-information";
-  import ProfilePicture from "@/components/setting-components/profile-picture";
   
   export default function AccountInformationSection() {
-    const {
-      register,
-      handleSubmit,
-      formState: { errors, isSubmitting },
-      setValue,
-    } = useForm<AccountInformationFormData>({
-      resolver: zodResolver(accountInformationFormSchema),
-      defaultValues: {
-        profile: {
-          profileImage: "",
-        },
-        account: {
-          username: "",
-          country: "",
-          timeZone: "",
-        },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+  } = useForm<AccountInformationFormData>({
+    resolver: zodResolver(accountInformationFormSchema),
+    defaultValues: {
+      account: {
+        username: "",
+        country: "",
+        timeZone: "",
       },
-    });
+    },
+  });
   
-    const onSubmit = async (data: AccountInformationFormData) => {
-      try {
-        console.log("Form data:", data);
-        // Here you would typically send the data to your API
-        // await updateAccountInformation(data);
-      } catch (error) {
-        console.error("Error updating account information:", error);
-      }
-    };
-
-    const handleImageChange = (imageUrl: string) => {
-      setValue("profile.profileImage", imageUrl);
-    };
+  const onSubmit = async (data: AccountInformationFormData) => {
+    try {
+      console.log("Form data:", data);
+      // Here you would typically send the data to your API
+      // await updateAccountInformation(data);
+    } catch (error) {
+      console.error("Error updating account information:", error);
+    }
+  };
   
     return (
       <div className="flex-1">
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Profile Picture Section */}
-          <ComponentContainer>
-            <div className="settings-heading text-white text-lg font-normal">Profile Picture</div>
-            <div className="mt-3 sm:mt-4">
-              <ProfilePicture onImageChange={handleImageChange} />
-            </div>
-          </ComponentContainer>
-
           {/* Account Information Section */}
-          <ComponentContainer className="mt-5">
+          <ComponentContainer>
             <div className="settings-heading text-white text-lg font-normal">Account Information</div>
             <div className="mt-4">
               <div className="grid sm:grid-cols-2 gap-4">

@@ -59,7 +59,7 @@ export default function SidebarProfile() {
               </Avatar>
               <div className="flex flex-col items-start">
                 <span className="text-sm font-medium text-white font-lay-grotesk">
-                  {user?.fullName || "User"}
+                  {user?.userName || "User"}
                 </span>
                 <span className="text-xs text-gray-400 font-lay-grotesk">
                   {user?.email || ""}

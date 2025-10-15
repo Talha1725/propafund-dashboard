@@ -84,6 +84,7 @@ export interface AccountCardProps extends AccountCredentials {
   daysTraded: number;
   balance?: boolean | number;
   isAddNewCard?: boolean;
+  status?: string;
 }
 
 export interface CardContainerProps {

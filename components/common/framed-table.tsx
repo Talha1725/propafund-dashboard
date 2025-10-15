@@ -3,7 +3,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import Frame from "./frame";
-import { Button } from "@/components/ui/button";
 import { FramedTableProps } from "@/types/common";
 
 export default function FramedTable({ headers, rows, className = "", showHeaders = true, showButton = false, buttonText = "Complete Order", boldText = false, specialOrderTotal = false, onButtonClick }: FramedTableProps) {
@@ -65,9 +64,8 @@ export default function FramedTable({ headers, rows, className = "", showHeaders
                 variant="secondary" 
                 className="w-full h-[45px] px-[30px] py-[12px] gap-[15px]"
                 onClick={onButtonClick}
-              >
                 {buttonText}
-              </Button>
+              </button>
             </div>
           )}
         </div>
