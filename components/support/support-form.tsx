@@ -1,5 +1,6 @@
 "use client";
 
+import {useEffect} from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,10 +11,7 @@ import { Textarea } from "../ui/textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Button } from "../ui/button";
 
-export type FieldConfig =
-  | { type: "text" | "email"; name: string; label: string; placeholder?: string; fullWidth?: boolean }
-  | { type: "textarea"; name: string; label: string; placeholder?: string; rows?: number; fullWidth?: boolean }
-  | { type: "select"; name: string; label: string; placeholder?: string; options: { label: string; value: string }[]; fullWidth?: boolean };
+import type { FieldConfig } from "@/types/forms";
 
 export function buildZodSchema(fields: FieldConfig[]) {
   const shape: Record<string, z.ZodTypeAny> = {};
@@ -31,23 +29,38 @@ export function buildZodSchema(fields: FieldConfig[]) {
   return z.object(shape);
 }
 
+interface SupportFormProps {
+  fields: FieldConfig[];
+  onSubmit: (values: Record<string, string>) => Promise<void> | void;
+  showFrame?: boolean;
+  showSubmitButton?: boolean;
+  initialValues?: Record<string, string>;
+  onFieldChange?: (fieldName: string, value: string) => void;
+}
+
 export default function SupportForm({
   fields,
   onSubmit,
   showFrame = true,
   showSubmitButton = true,
-}: {
-  fields: FieldConfig[];
-  onSubmit: (values: Record<string, string>) => Promise<void> | void;
-  showFrame?: boolean;
-  showSubmitButton?: boolean;
-}) {
+  initialValues,
+  onFieldChange,
+}: SupportFormProps) {
   const schema = buildZodSchema(fields);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: Object.fromEntries(fields.map((f) => [f.name, ""])) as Record<string, string>,
+    defaultValues: initialValues || Object.fromEntries(fields.map((f) => [f.name, ""])) as Record<string, string>,
     mode: "onTouched",
   });
+
+  // Update form values when initialValues change
+  useEffect(() => {
+    if (initialValues) {
+      Object.entries(initialValues).forEach(([key, value]) => {
+        form.setValue(key as keyof z.infer<typeof schema>, value);
+      });
+    }
+  }, [initialValues, form]);
 
   const formContent = (
     <div className={showFrame ? "gradient-primary p-6 text-white" : "text-white"}>
@@ -73,6 +86,10 @@ export default function SupportForm({
                             placeholder={f.placeholder}
                             {...field}
                             value={field.value as string}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              onFieldChange?.(f.name, e.target.value);
+                            }}
                             className="w-full h-[64px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] border border-white/10 text-white placeholder:text-white/70 placeholder:font-creato-display placeholder:font-medium placeholder:text-[18px] placeholder:leading-[100%] placeholder:tracking-[-5%] focus:border-white/30 focus:outline-none rounded-none"
                           />
                         ) : f.type === "textarea" ? (
@@ -81,10 +98,20 @@ export default function SupportForm({
                             placeholder={f.placeholder}
                             {...field}
                             value={field.value as string}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              onFieldChange?.(f.name, e.target.value);
+                            }}
                             className="w-full min-h-[120px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] border border-white/10 text-white placeholder:text-white/70 placeholder:font-creato-display placeholder:font-medium placeholder:text-[18px] placeholder:leading-[100%] placeholder:tracking-[-5%] focus:border-white/30 focus:outline-none resize-none rounded-none"
                           />
                         ) : (
-                          <Select onValueChange={field.onChange} value={field.value as string}>
+                          <Select onValueChange={(value) => {
+                            field.onChange(value);
+                            onFieldChange?.(f.name, value);
+                            // Call onSubmit immediately when select value changes
+                            const updatedValues = { ...form.getValues(), [f.name]: value };
+                            onSubmit(updatedValues as Record<string, string>);
+                          }} value={field.value as string}>
                             <SelectTrigger className="w-full h-[64px] !h-[64px] px-5 py-5 !font-creato-display !font-medium !text-[18px] !leading-[100%] !tracking-[-5%] bg-gradient-to-r from-white/[0.05] to-white/[0.02] !bg-gradient-to-r !from-white/[0.05] !to-white/[0.02] border border-white/10 !border-white/10 text-white focus:border-white/30 !focus:border-white/30 focus:outline-none data-[state=open]:bg-gradient-to-r data-[state=open]:from-white/[0.05] data-[state=open]:to-white/[0.02] data-[state=open]:border-white/30 !data-[state=open]:border-white/30 rounded-none !rounded-none">
                               <SelectValue 
                                 placeholder={f.placeholder ?? "Select"} 

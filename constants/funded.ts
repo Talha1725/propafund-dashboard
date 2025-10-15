@@ -1,4 +1,4 @@
-import { type FieldConfig } from "@/components/support/support-form";
+import { type FieldConfig } from "@/types/forms";
 
 export const productFields: FieldConfig[] = [
   { 
@@ -26,6 +26,131 @@ export const platformOptions = [
   { label: "MatchTrader", value: "matchtrader" },
 ];
 
+// Challenge-specific data structure
+export const challengeData = {
+  "stage-one": {
+    challengeType: "Stage One",
+    duration: "30 Days",
+    maxLoss: "8%",
+    dailyLoss: "5%",
+    minTradingDays: "5 Days",
+    leverage: "1:100",
+    weekendTrading: "Yes",
+    cryptoTrading: "Yes",
+    easEnabled: "Yes",
+    basePrice: 279,
+    description: "Complete the challenge in 30 days to get funded",
+    features: ["30-day challenge", "8% max loss", "5 minimum trading days", "Full platform access"]
+  },
+  "funded": {
+    challengeType: "Funded",
+    duration: "Unlimited",
+    maxLoss: "10%",
+    dailyLoss: "5%",
+    minTradingDays: "1 Day",
+    leverage: "1:100",
+    weekendTrading: "Yes",
+    cryptoTrading: "Yes",
+    easEnabled: "Yes",
+    basePrice: 399,
+    description: "Get instant access to funded trading account",
+    features: ["Instant funding", "10% max loss", "1 minimum trading day", "Full platform access"]
+  }
+};
+
+// Account type pricing multipliers
+export const accountTypeMultipliers = {
+  "elite-50k": 1.0,
+  "pro-100k": 1.8,
+  "master-200k": 3.2
+};
+
+// Platform data
+export const platformData = {
+  "platform-5": "Platform 5",
+  "traderlocker": "TraderLocker",
+  "matchtrader": "MatchTrader"
+};
+
+// Payment methods with dynamic pricing
+export const getPaymentMethods = (challengeType: string, accountType: string, discountPercentage: number = 20) => {
+  const basePrice = calculatePrice(challengeType, accountType);
+  const discountMultiplier = 1 - (discountPercentage / 100);
+  const cryptoPrice = Math.ceil(basePrice * discountMultiplier);
+
+  return [
+    {
+      id: "crypto",
+      name: `Crypto payment (${discountPercentage}% off)`,
+      originalPrice: formatPrice(basePrice),
+      discountedPrice: formatPrice(cryptoPrice),
+      icon: "/images/crypto-icon.svg",
+      isPopular: true,
+      popularText: "Most traders choose this payment method"
+    },
+    {
+      id: "card",
+      name: "Credit/Debit Card",
+      price: formatPrice(basePrice),
+      icon: "/images/card-icon.svg",
+      isPopular: false
+    },
+    {
+      id: "bank",
+      name: "Bank Transfer",
+      price: formatPrice(basePrice),
+      icon: "/images/bank-icon.svg",
+      isPopular: false
+    }
+  ];
+};
+
+// Price calculation function
+export const calculatePrice = (challengeType: string, accountType: string) => {
+  const challenge = challengeData[challengeType as keyof typeof challengeData];
+  const multiplier = accountTypeMultipliers[accountType as keyof typeof accountTypeMultipliers] || 1.0;
+  return Math.round(challenge.basePrice * multiplier);
+};
+
+// Price formatting function
+export const formatPrice = (price: number) => {
+  return `$${price.toFixed(2)}`;
+};
+
+// Function to generate dynamic summary details
+export const getSummaryDetails = (challengeType: string, accountType: string, platform: string) => {
+  const challenge = challengeData[challengeType as keyof typeof challengeData];
+  const accountSize = accountType === "elite-50k" ? "$50,000" : 
+                     accountType === "pro-100k" ? "$100,000" : 
+                     accountType === "master-200k" ? "$200,000" : "$50,000";
+  
+  const totalPrice = calculatePrice(challengeType, accountType);
+  const platformName = platformData[platform as keyof typeof platformData] || "Platform 5";
+  const paymentMethods = getPaymentMethods(challengeType, accountType);
+
+  return [
+    ["Challenge Type", challenge.challengeType],
+    ["Account Size", accountSize],
+    ["Challenge Duration", challenge.duration],
+    ["Leverage", challenge.leverage],
+    ["Minimum Trading Days", challenge.minTradingDays],
+    ["Max Loss", challenge.maxLoss],
+    ["Daily Loss", challenge.dailyLoss],
+    ["Weekend / Crypto Trading", challenge.weekendTrading],
+    ["EAs Enabled", challenge.easEnabled],
+    ["Platform", platformName],
+    ["Base Price", formatPrice(totalPrice)],
+    ["Crypto Price (20% off)", formatPrice(Math.ceil(totalPrice * 0.8))],
+    ["Order Total", formatPrice(totalPrice)],
+  ];
+};
+
+// Function to get challenge details for display
+export const getChallengeDetails = (challengeType: string) => {
+  return challengeData[challengeType as keyof typeof challengeData];
+};
+
+// Keep the old static export for backward compatibility (can be removed later)
 export const summaryDetails = [
   ["Challenge Type", "Regular"],
   ["Account Size", "$50,000"],

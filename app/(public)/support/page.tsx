@@ -34,8 +34,8 @@ export default function SupportPage() {
           <div className="mt-10 grid grid-cols-1 gap-10">
             <SupportForm
               fields={supportFields}
-              onSubmit={async (values) => {
-                console.log("Support form submitted", values);
+              onSubmit={async () => {
+                // Handle support form submission
               }}
             />
             <div className="mt-15">
