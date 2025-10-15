@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import { commonStyles, content } from "@/constants/funded";
 import { challengeTypeOptions, platformOptions } from "@/constants/funded";
 import OptionTabs from "@/components/funded/option-tabs";
-import { useRouter } from "next/navigation";
 
 export default function GetFundedPage() {
   const [selectedChallenge, setSelectedChallenge] = useState("stage-one");
