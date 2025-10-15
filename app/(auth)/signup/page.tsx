@@ -15,6 +15,8 @@ import { handleApiError } from "@/lib/utils/apiUtils";
 import { setUserAtom, setTokenAtom, signupEmailAtom } from "@/lib/store/atoms";
 import { toast } from "sonner";
 
+export const dynamic = "force-dynamic";
+
 export default function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
