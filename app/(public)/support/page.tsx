@@ -9,6 +9,8 @@ import TestimonialCard from "@/components/common/testimonial-card";
 import Glow from "@/components/common/glow";
 import * as React from "react";
 import { supportFields, supportInfo } from "@/constants/support";
+import { createSupportTicket } from "@/lib/api/endpoints/support";
+import { toast } from "sonner";
 
 export default function SupportPage() {
   const defaultIndex = 1;
@@ -34,8 +36,20 @@ export default function SupportPage() {
           <div className="mt-10 grid grid-cols-1 gap-10">
             <SupportForm
               fields={supportFields}
-              onSubmit={async () => {
-                // Handle support form submission
+              onSubmit={async (values) => {
+                try {
+                  await createSupportTicket({
+                    fullName: `${values.firstName} ${values.lastName}`,
+                    email: values.email,
+                    subject: values.subject,
+                    message: values.message,
+                  });
+                  
+                  toast.success("Your message has been sent successfully! We'll get back to you soon.");
+                } catch (error) {
+                  console.error("Error submitting support ticket:", error);
+                  toast.error("Failed to send message. Please try again.");
+                }
               }}
             />
             <div className="mt-15">
