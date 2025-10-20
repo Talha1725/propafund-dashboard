@@ -34,5 +34,6 @@ export const supportFields: FieldConfig[] = [
   { type: "text", name: "firstName", label: "First Name", placeholder: "First Name" },
   { type: "text", name: "lastName", label: "Last Name", placeholder: "Last Name" },
   { type: "email", name: "email", label: "Email Address", placeholder: "Email Address" },
+  { type: "text", name: "subject", label: "Subject", placeholder: "Subject" },
   { type: "textarea", name: "message", label: "Message", placeholder: "Message", rows: 6 },
 ];
