@@ -1,27 +1,5 @@
 import apiClient from '../client';
-
-export interface CreateSupportTicketRequest {
-  fullName: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-export interface CreateSupportTicketResponse {
-  success: boolean;
-  message: string;
-  data?: {
-    id: number;
-    fullName: string;
-    email: string;
-    subject: string;
-    message: string;
-    status: string;
-    priority: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
+import type { CreateSupportTicketRequest, CreateSupportTicketResponse } from '@/types/support';
 
 /**
  * Create a new support ticket
