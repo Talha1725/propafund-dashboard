@@ -19,6 +19,7 @@ import {
   IconCertificate,
   IconSettings,
   IconHelp,
+  IconKYC,
 } from "./icon";
 import { usePathname, useRouter } from "next/navigation";
 import SidebarProfile from "./sidebar-profile";
@@ -68,6 +69,11 @@ const items = [
     icon: <IconCertificate active={false} />,
   },
   {
+    title: "KYC Verification",
+    url: "/user/kyc",
+    icon: <IconKYC active={false} />,
+  },
+  {
     title: "Settings",
     url: "/user/settings",
     icon: <IconSettings active={false} />,
@@ -113,12 +119,14 @@ export function AppSidebar() {
                     isActive={
                       pathname === item.url ||
                       (item.url === "/user/challenges" &&
-                        pathname.startsWith("/user/challenges/"))
+                        pathname.startsWith("/user/challenges/")) ||
+                      (item.url === "/user/kyc" && pathname === "/user/kyc")
                     }
                     className={`text-white opacity-50 h-10 hover:opacity-100 rounded-sm px-3 py-2 hover:bg-transparent hover:text-white cursor-pointer active:bg-transparent active:text-white font-creato-display ${
                       pathname === item.url ||
                       (item.url === "/user/challenges" &&
-                        pathname.startsWith("/user/challenges/"))
+                        pathname.startsWith("/user/challenges/")) ||
+                      (item.url === "/user/kyc" && pathname === "/user/kyc")
                         ? "bg-gradient-to-b from-white to-blue opacity-100 text-black hover:text-black"
                         : ""
                     }`}
@@ -133,7 +141,8 @@ export function AppSidebar() {
                             active:
                               pathname === item.url ||
                               (item.url === "/user/challenges" &&
-                                pathname.startsWith("/user/challenges/")),
+                                pathname.startsWith("/user/challenges/")) ||
+                              (item.url === "/user/kyc" && pathname === "/user/kyc"),
                           })}
                       <span className="text-sm font-creato-display mt-[1px]">
                         {item.title}
