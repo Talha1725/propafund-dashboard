@@ -9,6 +9,8 @@ import { Navbar } from "@/components/common/dashboard_navbar";
 import { isAuthenticatedAtom, authInitializedAtom } from '@/lib/store/atoms';
 import PageHeadings from "@/components/common/page-headings";
 import { Spinner } from "@/components/ui/spinner";
+import KYCBanner from "@/components/common/kyc-banner";
+import KYCProtectedRoute from "@/components/auth/kyc-protected-route";
 
 export default function DashboardLayout({
   children,
@@ -54,7 +56,12 @@ export default function DashboardLayout({
           <main className="flex-1 xl:border border-l-0 xl:my-3 border-white/10 xl:mr-3 xl:rounded-r-[20px]">
             <Navbar />
             <PageHeadings />
-            {children}
+            <KYCProtectedRoute>
+              <div className="px-4 xl:px-6">
+                <KYCBanner className="mb-4" />
+              </div>
+              {children}
+            </KYCProtectedRoute>
           </main>
         </SidebarInset>
       </SidebarProvider>
